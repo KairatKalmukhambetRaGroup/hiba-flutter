@@ -116,10 +116,59 @@ class AppTheme {
     fontSize: 16,
   );
 
+  static const TextStyle bodyBlue700_14 = TextStyle(
+    color: AppColors.mainBlue,
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+  );
+  static const TextStyle bodyBlue600_14 = TextStyle(
+    color: AppColors.mainBlue,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  );
+  static const TextStyle bodyBlue500_14 = TextStyle(
+    color: AppColors.mainBlue,
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+  );
+  static const TextStyle bodyBlue500_16 = TextStyle(
+    color: AppColors.mainBlue,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+  );
+
+  static const TextStyle headingBlack600_14 = TextStyle(
+    color: AppColors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  );
+
   static const TextStyle bodyBlack400_14 = TextStyle(
     color: AppColors.black,
     fontWeight: FontWeight.w400,
     fontSize: 14,
+  );
+  static const TextStyle headingBlack600_16 = TextStyle(
+    color: AppColors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
+
+  static const TextStyle bodyBlack500_11 = TextStyle(
+    color: AppColors.black,
+    fontWeight: FontWeight.w500,
+    fontSize: 11,
+  );
+
+  static const TextStyle bodyDarkgrey500_11 = TextStyle(
+    color: AppColors.darkGrey,
+    fontWeight: FontWeight.w500,
+    fontSize: 11,
+  );
+  static const TextStyle bodyDarkgrey500_16 = TextStyle(
+    color: AppColors.darkGrey,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
   );
 
   static const TextStyle titleLarge = TextStyle(
@@ -132,5 +181,22 @@ class AppTheme {
   static const TextStyle bodySmall = TextStyle(
     color: Colors.grey,
     letterSpacing: 0.5,
+  );
+
+  static const TextStyle headingOrange500_16 = TextStyle(
+    color: AppColors.orange,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+  );
+
+  static const TextStyle bodyRed500_16 = TextStyle(
+    color: AppColors.red,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+  );
+  static const TextStyle bodyGrey500_16 = TextStyle(
+    color: AppColors.grey,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
   );
 }

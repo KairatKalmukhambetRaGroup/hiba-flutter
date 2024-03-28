@@ -7,6 +7,7 @@ import 'package:hiba/values/app_constants.dart';
 import 'package:hiba/values/app_regex.dart';
 import 'package:hiba/values/app_strings.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -78,8 +79,8 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future<void> handleSubmit() async {
-    int status = await registerUser(
+  Future<void> handleSubmit(AuthState authState) async {
+    int status = await authState.registerUser(
       usernameController.text,
       phoneNumberController.text,
       passwordController.text,
@@ -96,6 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthState authState = Provider.of<AuthState>(context);
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.zero,
@@ -233,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return FilledButton(
                         onPressed: isValid
                             ? () {
-                                handleSubmit();
+                                handleSubmit(authState);
                               }
                             : null,
                         child: const Text(AppStrings.register),

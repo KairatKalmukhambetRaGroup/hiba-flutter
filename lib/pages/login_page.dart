@@ -17,36 +17,31 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
   late final TextEditingController phoneNumberController;
   late final TextEditingController passwordController;
-
+  String initialCountry = 'KZ';
   PhoneNumber phoneNumber = PhoneNumber(isoCode: 'KZ');
 
   void initializeControllers() {
     phoneNumberController = TextEditingController()
       ..addListener(controllerListener);
-    passwordController = TextEditingController()
-      ..addListener(controllerListener);
   }
 
   void disposeControllers() {
     phoneNumberController.dispose();
-    passwordController.dispose();
   }
 
   void controllerListener() {
     final phoneNumber = phoneNumberController.text;
-    final password = passwordController.text;
 
-    if (phoneNumber.isEmpty && password.isEmpty) return;
+    if (phoneNumber.isEmpty) return;
 
-    if (AppRegex.phoneNumberRegex.hasMatch(phoneNumber) &&
-        AppRegex.passwordRegex.hasMatch(password)) {
+    if (AppRegex.phoneNumberRegex.hasMatch(phoneNumber)) {
       fieldValidNotifier.value = true;
     } else {
       fieldValidNotifier.value = false;
@@ -96,17 +91,17 @@ class _LoginPageState extends State<LoginPage> {
                     InternationalPhoneNumberInput(
                       onInputChanged: (PhoneNumber number) {
                         // print('${phoneNumber} - $number');
-                        // setState(() {
-                        //   phoneNumber = number;
-                        // });
+                        if (phoneNumber.phoneNumber != number.phoneNumber) {
+                          setState(() {
+                            phoneNumber = number;
+                          });
+                        }
                         _formKey.currentState?.validate();
                       },
-                      onInputValidated: (bool value) {
-                        // print(value);
-                      },
                       selectorConfig: const SelectorConfig(
-                          selectorType: PhoneInputSelectorType.DROPDOWN,
-                          setSelectorButtonAsPrefixIcon: true),
+                        selectorType: PhoneInputSelectorType.DROPDOWN,
+                        setSelectorButtonAsPrefixIcon: true,
+                      ),
                       ignoreBlank: false,
                       autoValidateMode: AutovalidateMode.disabled,
                       selectorTextStyle: AppTheme.bodyBlack400_14,
@@ -116,19 +111,17 @@ class _LoginPageState extends State<LoginPage> {
                       formatInput: true,
                       keyboardType: TextInputType.phone,
                       inputBorder: InputBorder.none,
-                      onSaved: (PhoneNumber number) {
-                        // print('Saved: $number');
-                      },
-                      validator: (value) {
-                        // print(phoneNumber.phoneNumber);
-                        // print(value);
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterPhoneNumber
-                            // : AppConstants.passwordRegex.hasMatch(value)
-                            // ? null
-                            // : AppStrings.invalidPhoneNumber;
-                            : null;
-                      },
+
+                      // validator: (value) {
+                      //   print(phoneNumber.phoneNumber);
+                      //   print(value);
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhoneNumber
+                      //       // : AppConstants.passwordRegex.hasMatch(value)
+                      //       // ? null
+                      //       // : AppStrings.invalidPhoneNumber;
+                      //       : null;
+                      // },
                     ),
                     // AppTextFormField(
                     //   controller: phoneNumberController,
@@ -162,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
                             // );
                             // phoneNumberController.clear();
                             // passwordController.clear();
-                            Navigator.of(_scaffoldKey.currentContext!)
-                                .pushNamed(CodeVerificationPage.routeName);
+                            Navigator.of(_scaffoldKey.currentContext!).pushNamed(
+                                '${CodeVerificationPage.routeName}/${phoneNumber.phoneNumber}');
                             // }
                           },
                           style: ButtonStyle(
@@ -177,11 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Ink(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(colors: [
-                                Color(0xff00C007),
-                                Color(0xff00DB29),
-                                Color(0xff00E637),
-                              ]),
+                              color: AppColors.mainBlue,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Container(

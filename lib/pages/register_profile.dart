@@ -1,21 +1,26 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/utils/api/auth.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 class RegisterProfile extends StatefulWidget {
   static const routeName = '/register-profile';
-  const RegisterProfile({super.key});
+  const RegisterProfile({super.key, required this.phone});
+  final String phone;
 
   @override
   State<StatefulWidget> createState() => _RegisterProfileState();
 }
 
-class _RegisterProfileState extends State<StatefulWidget> {
+class _RegisterProfileState extends State<RegisterProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // ignore: unused_field
@@ -28,10 +33,21 @@ class _RegisterProfileState extends State<StatefulWidget> {
   File? _imageFile;
   final picker = ImagePicker();
 
+  String _phone = '';
+
+  void _initPhone() async {
+    if (widget.phone != null) {
+      setState(() {
+        _phone = widget.phone ?? '';
+      });
+    }
+  }
+
   @override
   void initState() {
     _checkPermissions();
     super.initState();
+    _initPhone();
   }
 
   @override
@@ -79,56 +95,88 @@ class _RegisterProfileState extends State<StatefulWidget> {
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
+            child: ListView(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        getImage(ImageSource.camera);
-                      },
-                      icon: const Icon(Icons.camera),
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
                     ),
-                  ],
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: ListTile(
-                    tileColor: AppColors.grey,
-                    title: const Text(
-                      'Убрать фото',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.red,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _imageFile = null;
-                      });
-                      Navigator.pop(context);
-                    },
+                    side: BorderSide.none,
                   ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: const Icon(Icons.camera_alt),
+                  onTap: () async {
+                    await getImage(ImageSource.camera);
+                    Navigator.pop(context);
+                  },
+                ),
+                const Divider(height: 1, color: AppColors.grey),
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                    side: BorderSide.none,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: const Text(
+                    'Открыть галерею',
+                    textAlign: TextAlign.center,
+                    style: AppTheme.headingBlack500_16,
+                  ),
+                  onTap: () async {
+                    await getImage(ImageSource.gallery);
+                    Navigator.pop(context);
+                  },
+                ),
+                const Divider(height: 1, color: AppColors.grey),
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
+                    side: BorderSide.none,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: Text(
+                    'Убрать фото',
+                    textAlign: TextAlign.center,
+                    style: _imageFile != null
+                        ? AppTheme.bodyRed500_16
+                        : AppTheme.bodyGrey500_16,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _imageFile = null;
+                    });
+                    Navigator.pop(context);
+                  },
                 ),
                 const SizedBox(height: 8),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: ListTile(
-                    tileColor: AppColors.grey,
-                    title: const Text(
-                      'Отменить',
-                      textAlign: TextAlign.center,
-                      style: AppTheme.headingBlack500_16,
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    side: BorderSide.none,
                   ),
-                )
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: const Text(
+                    'Отменить',
+                    textAlign: TextAlign.center,
+                    style: AppTheme.bodyBlue500_16,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ],
             ),
           ),
@@ -139,6 +187,7 @@ class _RegisterProfileState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    AuthState authState = Provider.of<AuthState>(context);
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       key: _scaffoldKey,
@@ -203,6 +252,32 @@ class _RegisterProfileState extends State<StatefulWidget> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: ListTile(
+        contentPadding: const EdgeInsets.all(16),
+        title: TextButton(
+          onPressed: () async {
+            print(_usernameController.text);
+            print(_phone);
+            print(_imageFile?.path);
+            int status = await authState.completeRegistration(
+                _phone, _usernameController.text, _imageFile!);
+            if (status == 200) {
+              Navigator.of(context).pushNamed('/');
+            }
+          },
+          style: ButtonStyle(
+            backgroundColor:
+                const MaterialStatePropertyAll<Color>(AppColors.mainBlue),
+            shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+            minimumSize: const MaterialStatePropertyAll(Size.fromHeight(48)),
+          ),
+          child: const Text(
+            'Продолжить',
+            style: AppTheme.headingWhite500_16,
           ),
         ),
       ),

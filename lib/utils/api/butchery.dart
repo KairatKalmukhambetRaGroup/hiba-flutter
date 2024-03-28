@@ -1,24 +1,73 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:flutter/services.dart';
 import 'package:hiba/entities/butchery.dart';
+import 'package:hiba/utils/api/auth.dart';
+import 'package:http/http.dart' as http;
 
 const butcheriesPath = 'assets/butcheries.json';
 
-Future<String> getButcheries() async {
-  return await rootBundle.loadString(butcheriesPath).then((file) => file);
+// _butcheries = List<Map<String, dynamic>>.from(json.decode(jsonString));
+
+Future<List<Map<String, dynamic>>?> getButcheries() async {
+  String apiUrl = '${dotenv.get('API_URL')}/butcheries/getAllButcheries';
+
+  // return await rootBundle.loadString(butcheriesPath).then((file) => file);
+
+  try {
+    final String? authToken = await AuthState.getAuthToken();
+    if (authToken == null) {
+      // Token is not available, handle accordingly
+      return null;
+    }
+
+    final http.Response response = await http.get(
+      Uri.parse(apiUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $authToken',
+      },
+    );
+    if (response.statusCode == 200) {
+      final decodedBody = utf8.decode(response.bodyBytes);
+      final responseData =
+          List<Map<String, dynamic>>.from(json.decode(decodedBody));
+      return responseData;
+    }
+    return null;
+  } catch (e) {
+    print('Error: $e');
+    return null;
+  }
 }
 
 Future<Butchery?> getButcheryById(String? id) async {
   if (id == null) return null;
-  String jsonString =
-      await rootBundle.loadString(butcheriesPath).then((file) => file);
-  List<Map<String, dynamic>> arr =
-      List<Map<String, dynamic>>.from(json.decode(jsonString));
 
-  for (var element in arr) {
-    Butchery el = Butchery.fromJson(element);
-    if (el.id == int.parse(id)) return el;
+  String apiUrl = '${dotenv.get('API_URL')}/butcheries/getOneButchery/$id';
+
+  try {
+    final String? authToken = await AuthState.getAuthToken();
+    if (authToken == null) {
+      // Token is not available, handle accordingly
+      return null;
+    }
+
+    final http.Response response = await http.get(
+      Uri.parse(apiUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $authToken',
+      },
+    );
+    if (response.statusCode == 200) {
+      final decodedBody = utf8.decode(response.bodyBytes);
+      final responseData = Map<String, dynamic>.from(json.decode(decodedBody));
+      return Butchery.fromJson(responseData);
+    }
+    return null;
+  } catch (e) {
+    print('Error: $e');
+    return null;
   }
-  return null;
 }

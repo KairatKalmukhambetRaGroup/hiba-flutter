@@ -2,15 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hiba/pages/register_profile.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:hiba/utils/api/auth.dart';
 
 class CodeVerificationPage extends StatefulWidget {
   static const routeName = '/code-verification';
-  const CodeVerificationPage({super.key});
+  const CodeVerificationPage({super.key, this.phone});
+  final String? phone;
 
   @override
   State<StatefulWidget> createState() => _CodeVerificationPageState();
@@ -18,7 +21,7 @@ class CodeVerificationPage extends StatefulWidget {
 
 class _CodeVerificationPageState extends State<CodeVerificationPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final ValueNotifier<bool> codeNotifier = ValueNotifier(true);
 
   late final TextEditingController codeController;
@@ -27,6 +30,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   bool _sendCodeAgain = false;
 
   int _countdown = 60;
+  String _phone = '';
 
   void controllerListener() {
     final code = codeController.text;
@@ -48,6 +52,15 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   void initState() {
     codeController = TextEditingController()..addListener(controllerListener);
     super.initState();
+    initPhone();
+  }
+
+  initPhone() async {
+    if (widget.phone != null) {
+      setState(() {
+        _phone = widget.phone ?? '';
+      });
+    }
   }
 
   @override
@@ -60,8 +73,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   _launchTelegram() async {
     // const String telegramBotUsername = 'RAGroup_Wave_bot';
     // final String dataToSend = 'Hello';
-
-    const String url = 'https://t.me/batko221';
+    String url = 'https://t.me/HiibaBot?start=$_phone';
 
     try {
       if (!await launchUrl(Uri.parse(url),
@@ -99,6 +111,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   @override
   Widget build(BuildContext context) {
     String time = formatTime(_countdown);
+    AuthState authState = Provider.of<AuthState>(context);
 
     const defaultPinTheme = PinTheme(
       width: 48,
@@ -136,129 +149,164 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           child: _codeSend
-              ? Column(
-                  children: [
-                    const Text(
-                      'Сообщение с кодом подтверждения отправлен на  +7 (777) 258 58 58',
-                      textAlign: TextAlign.center,
-                      style: AppTheme.headingBlack400_16,
-                    ),
-                    const SizedBox(height: 40),
-                    Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Pinput(
-                        controller: codeController,
-                        androidSmsAutofillMethod:
-                            AndroidSmsAutofillMethod.smsUserConsentApi,
-                        listenForMultipleSmsOnAndroid: true,
-                        defaultPinTheme: defaultPinTheme,
-                        separatorBuilder: (i) => const SizedBox(width: 12),
-                        validator: (value) {
-                          if (value != '5555') {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.transparent,
-                                elevation: 0,
-                                behavior: SnackBarBehavior.floating,
-                                content: Container(
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.red,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  padding: const EdgeInsets.all(12),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                        padding: EdgeInsets.zero,
-                                        onPressed: () {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                        },
-                                        iconSize: 16,
-                                        icon: SvgPicture.asset(
-                                          'assets/svg/error-x.svg',
-                                          width: 16,
-                                          height: 16,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const Text(
-                                        'Неверный код. Попробуйте еще раз',
-                                        style: AppTheme.bodyWhite500_14,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+              ? Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Сообщение с кодом подтверждения отправлен на  $_phone',
+                        textAlign: TextAlign.center,
+                        style: AppTheme.headingBlack400_16,
+                      ),
+                      const SizedBox(height: 40),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Pinput(
+                          controller: codeController,
+                          androidSmsAutofillMethod:
+                              AndroidSmsAutofillMethod.smsUserConsentApi,
+                          listenForMultipleSmsOnAndroid: true,
+                          defaultPinTheme: defaultPinTheme,
+                          separatorBuilder: (i) => const SizedBox(width: 12),
+                          pinputAutovalidateMode:
+                              PinputAutovalidateMode.onSubmit,
+                          validator: (value) {
+                            // int status =
+                            //     await AuthAPI.confirmCode(_phone, value!);
+
+                            // error
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //     backgroundColor: Colors.transparent,
+                            //     elevation: 0,
+                            //     behavior: SnackBarBehavior.floating,
+                            //     content: Container(
+                            //       decoration: const BoxDecoration(
+                            //         color: AppColors.red,
+                            //         borderRadius:
+                            //             BorderRadius.all(Radius.circular(8)),
+                            //       ),
+                            //       padding: const EdgeInsets.all(12),
+                            //       child: Row(
+                            //         crossAxisAlignment:
+                            //             CrossAxisAlignment.center,
+                            //         children: [
+                            //           IconButton(
+                            //             padding: EdgeInsets.zero,
+                            //             onPressed: () {
+                            //               ScaffoldMessenger.of(context)
+                            //                   .hideCurrentSnackBar();
+                            //             },
+                            //             iconSize: 16,
+                            //             icon: SvgPicture.asset(
+                            //               'assets/svg/error-x.svg',
+                            //               width: 16,
+                            //               height: 16,
+                            //             ),
+                            //           ),
+                            //           const SizedBox(width: 8),
+                            //           const Text(
+                            //             'Неверный код. Попробуйте еще раз',
+                            //             style: AppTheme.bodyWhite500_14,
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // );
+                            // Navigator.of(context)
+                            //     .pushNamed(RegisterProfile.routeName);
+                            // formKey.currentState!.validate();
+                            return null;
+                          },
+                          hapticFeedbackType: HapticFeedbackType.lightImpact,
+                          onCompleted: (pin) async {
+                            print(_phone);
+
+                            String phone = _phone.split('+')[1];
+                            int status =
+                                await authState.confirmCode(phone, pin);
+                            print(status);
+                            if (status == 201) {
+                              Navigator.of(context).pushNamed('/');
+                            } else if (status == 200) {
+                              Navigator.of(context)
+                                  .pushNamed('/register-profile/${phone}');
+                            }
+                          },
+                          submittedPinTheme: defaultPinTheme.copyWith(
+                            decoration: defaultPinTheme.decoration!.copyWith(
+                              border: const Border(
+                                bottom:
+                                    BorderSide(color: AppColors.grey, width: 2),
                               ),
-                            );
-                          } else {
-                            Navigator.of(context)
-                                .pushNamed(RegisterProfile.routeName);
-                          }
-                          return null;
-                        },
-                        submittedPinTheme: defaultPinTheme.copyWith(
-                          decoration: defaultPinTheme.decoration!.copyWith(
-                            border: const Border(
-                              bottom:
-                                  BorderSide(color: AppColors.grey, width: 2),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 48),
-                    _sendCodeAgain
-                        ? TextButton(
-                            onPressed: _sendCodeAgain
-                                ? () {
-                                    setState(() {
-                                      _codeSend = true;
-                                      _sendCodeAgain = false;
-                                      _countdown = 60;
-                                      _startCountdown();
-                                    });
-                                  }
-                                : null,
-                            child: const Text(
-                              'Отправить повторно',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: AppColors.mainBlue,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            ))
-                        : Column(
-                            children: [
-                              const Text(
+                      const SizedBox(height: 48),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                                '/register-profile/${_phone.split('+')[1]}');
+                          },
+                          child: const Text(
+                            'Отправить повторно',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: AppColors.mainBlue,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      _sendCodeAgain
+                          ? TextButton(
+                              onPressed: _sendCodeAgain
+                                  ? () {
+                                      setState(() {
+                                        _codeSend = true;
+                                        _sendCodeAgain = false;
+                                        _countdown = 60;
+                                        _startCountdown();
+                                      });
+                                    }
+                                  : null,
+                              child: const Text(
                                 'Отправить повторно',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: AppColors.darkGrey,
+                                    color: AppColors.mainBlue,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                time,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    color: AppColors.darkGrey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
-                  ],
+                              ))
+                          : Column(
+                              children: [
+                                const Text(
+                                  'Отправить повторно',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: AppColors.darkGrey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  time,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color: AppColors.darkGrey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
+                    ],
+                  ),
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Выберите способ отправки кода на ваш номер телефона +7 (777) 285 58 58',
+                    Text(
+                      'Выберите способ отправки кода на ваш номер телефона $_phone',
                       textAlign: TextAlign.center,
                       style: AppTheme.headingBlack400_16,
                     ),
@@ -279,7 +327,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                             _codeSend = true;
                             _startCountdown();
                           });
-                          // _launchTelegram();
+                          _launchTelegram();
                         },
                         label: Ink(
                           child: const Text(

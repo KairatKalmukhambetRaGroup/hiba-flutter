@@ -4,7 +4,12 @@ import 'package:hiba/pages/butchery_page.dart';
 import 'package:hiba/pages/code_verification_page.dart';
 import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/login_page.dart';
-import 'package:hiba/pages/profile_page.dart';
+import 'package:hiba/pages/profile/addresses_page.dart';
+import 'package:hiba/pages/profile/new_address_page.dart';
+import 'package:hiba/pages/profile/notification_page.dart';
+import 'package:hiba/pages/profile/orders_page.dart';
+import 'package:hiba/pages/profile/profile_page.dart';
+import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/pages/register_profile.dart';
 import 'package:hiba/pages/search_page.dart';
 
@@ -18,12 +23,19 @@ class FluroRoutes {
   );
   static final Handler _codeVerificationHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-      return const CodeVerificationPage();
+      if (params.containsKey('phone')) {
+        return CodeVerificationPage(phone: params['phone'][0]);
+      }
+      return null;
+      // return const CodeVerificationPage();
     },
   );
   static final Handler _registerProfileHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-      return const RegisterProfile();
+      if (params.containsKey('phone')) {
+        return RegisterProfile(phone: params['phone'][0]);
+      }
+      return const RegisterProfile(phone: '');
     },
   );
 
@@ -32,6 +44,16 @@ class FluroRoutes {
       return const HomePage();
     },
   );
+
+  static final Handler _addressesHandler = Handler(
+      handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+    return const AddressesPage();
+  });
+
+  static final Handler _newAddresshandler = Handler(
+      handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+    return const NewAddressPage();
+  });
 
   static final Handler _searchPageHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
@@ -42,6 +64,26 @@ class FluroRoutes {
   static final Handler _profilePageHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
       return const ProfilePage();
+    },
+  );
+
+  static final Handler _userInfoPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      return const UserInfoPage();
+    },
+  );
+
+  static final Handler _ordersPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      // if (params.containsKey('id')) {
+      //   return ButcheryPage(id: params['id'][0]);
+      // }
+      return const OrdersPage();
+    },
+  );
+  static final Handler _notificationsPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      return const NotificationsPage();
     },
   );
 
@@ -66,12 +108,12 @@ class FluroRoutes {
       transitionType: TransitionType.cupertino,
     );
     router.define(
-      CodeVerificationPage.routeName,
+      '${CodeVerificationPage.routeName}/:phone',
       handler: _codeVerificationHandler,
       transitionType: TransitionType.cupertino,
     );
     router.define(
-      RegisterProfile.routeName,
+      '${RegisterProfile.routeName}/:phone',
       handler: _registerProfileHandler,
       transitionType: TransitionType.cupertino,
     );
@@ -83,6 +125,31 @@ class FluroRoutes {
     router.define(
       ProfilePage.routeName,
       handler: _profilePageHandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      UserInfoPage.routeName,
+      handler: _userInfoPageHandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      OrdersPage.routeName,
+      handler: _ordersPageHandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      AddressesPage.routeName,
+      handler: _addressesHandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      NewAddressPage.routeName,
+      handler: _newAddresshandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      NotificationsPage.routeName,
+      handler: _notificationsPageHandler,
       transitionType: TransitionType.cupertino,
     );
     router.define(
