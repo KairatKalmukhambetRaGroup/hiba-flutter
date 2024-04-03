@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:hiba/pages/butchery_page.dart';
 import 'package:hiba/pages/code_verification_page.dart';
+import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/login_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
@@ -12,6 +13,7 @@ import 'package:hiba/pages/profile/profile_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/pages/register_profile.dart';
 import 'package:hiba/pages/search_page.dart';
+import 'package:hiba/pages/support_chat_page.dart';
 
 class FluroRoutes {
   static FluroRouter router = FluroRouter();
@@ -96,7 +98,29 @@ class FluroRoutes {
     },
   );
 
+  static final Handler _contactUsPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      return const ContactUsPage();
+    },
+  );
+
+  static final Handler _supportChatPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      return const SupportChatPage();
+    },
+  );
+
   static void setupRouter() {
+    router.define(
+      SupportChatPage.routeName,
+      handler: _supportChatPageHandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      ContactUsPage.routeName,
+      handler: _contactUsPageHandler,
+      transitionType: TransitionType.cupertino,
+    );
     router.define(
       HomePage.routeName,
       handler: _homeHandler,

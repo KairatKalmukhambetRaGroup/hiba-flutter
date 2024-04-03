@@ -17,6 +17,7 @@ class AppTextFormField extends StatelessWidget {
     this.onEditingComplete,
     this.autofocus,
     this.focusNode,
+    this.onFieldSubmitted,
   });
 
   final void Function(String)? onChanged;
@@ -31,6 +32,7 @@ class AppTextFormField extends StatelessWidget {
   final bool? autofocus;
   final FocusNode? focusNode;
   final void Function()? onEditingComplete;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class AppTextFormField extends StatelessWidget {
       obscureText: obscureText ?? false,
       obscuringCharacter: '*',
       onEditingComplete: onEditingComplete,
+      onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: AppColors.grey),

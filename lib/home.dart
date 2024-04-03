@@ -1,9 +1,12 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/basket_page.dart';
 import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
+import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/values/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,6 +25,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final shoppingBasket = Provider.of<ShoppingBasket>(context, listen: false);
+
+    bool isBasketEmpty() => shoppingBasket.items.isEmpty;
+
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -39,25 +46,27 @@ class _HomeState extends State<Home> {
             selectedIcon: SvgPicture.asset('assets/svg/home-outline-active.svg',
                 width: 24),
             icon: SvgPicture.asset('assets/svg/home-outline.svg', width: 24),
-            label: 'Главная',
+            label: AppLocalizations.of(context)!.navbarHome,
           ),
           // NavigationDestination(
           //   selectedIcon:
           //       SvgPicture.asset('assets/svg/charity-active.svg', width: 24),
           //   icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
-          //   label: 'Блог',
+          //   label: AppLocalizations.of(context)!.navbarBlog,
           // ),
           NavigationDestination(
             selectedIcon:
-                SvgPicture.asset('assets/svg/Cart-active.svg', width: 24),
-            icon: SvgPicture.asset('assets/svg/Cart.svg', width: 24),
-            label: 'Корзина',
+                SvgPicture.asset('assets/svg/cart-active.svg', width: 24),
+            icon: isBasketEmpty()
+                ? SvgPicture.asset('assets/svg/cart.svg', width: 24)
+                : SvgPicture.asset('assets/svg/cart-full.svg', width: 24),
+            label: AppLocalizations.of(context)!.navbarBasket,
           ),
           NavigationDestination(
             selectedIcon:
                 SvgPicture.asset('assets/svg/account-active.svg', width: 24),
             icon: SvgPicture.asset('assets/svg/account.svg', width: 24),
-            label: 'Профиль',
+            label: AppLocalizations.of(context)!.navbarProfile,
           ),
         ],
       ),

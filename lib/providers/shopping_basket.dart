@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hiba/entities/menu_item.dart';
 
 class ShoppingBasket extends ChangeNotifier {
-  List<MenuItem> _items = [];
+  final List<MenuItem> _items = [];
 
   List<MenuItem> get items => _items;
 

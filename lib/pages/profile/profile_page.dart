@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/user.dart';
+import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
 import 'package:hiba/pages/profile/notification_page.dart';
 import 'package:hiba/pages/profile/orders_page.dart';
@@ -179,7 +180,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   'assets/svg/chevron-right-grey.svg',
                   width: 24,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(ContactUsPage.routeName);
+                },
               ),
               ListTile(
                 shape: const BorderDirectional(

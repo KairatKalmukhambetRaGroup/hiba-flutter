@@ -1,0 +1,32 @@
+{
+    "@@locale": "ru",
+    "homeHeading": "С HIBA легко заказать домой свежее постное мясо и делать благие дела",
+    "@homeHeading": {
+        "description": "Initial welcome message"
+    },
+    "homeButtonDonation": "На благотворительность",
+    "@homeButtonDonation": {
+        "description": "Takes user to products for donation"
+    },
+    "homeButtonSelf": "Для себя или близких",
+    "@homeButtonSelf": {
+        "description": "Takes user to products for selfuse"
+    },
+
+    "navbarHome": "Главная",
+    "@navbarHome": {
+        "description": "navbar button, takes user to home page"
+    },
+    "navbarBlog": "Блог",
+    "@navbarBlog": {
+        "description": "navbar button, takes user to blog page"
+    },
+    "navbarBasket": "Корзина",
+    "@navbarBasket": {
+        "description": "navbar button, takes user to basket page"
+    },
+    "navbarProfile": "Профиль",
+    "@navbarProfile": {
+        "description": "navbar button, takes user to profile page"
+    }
+}
