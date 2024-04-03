@@ -199,8 +199,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 title: const Text('Выйти', style: AppTheme.bodyBlack500_14),
                 onTap: () async {
-                  // authState.logout();
-                  Navigator.of(context).pushNamed('/');
+                  authState.logout();
+                  // Navigator.of(context).pushNamed('/');
                 },
               ),
             ],

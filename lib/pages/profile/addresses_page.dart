@@ -17,6 +17,8 @@ class AddressesPage extends StatefulWidget {
 class _AddressesPageState extends State<AddressesPage> {
   List<Address> _addresses = [];
 
+  bool _loading = true;
+
   @override
   void initState() {
     loadAddresses();
@@ -24,12 +26,18 @@ class _AddressesPageState extends State<AddressesPage> {
   }
 
   Future<void> loadAddresses() async {
+    setState(() {
+      _loading = true;
+    });
     final data = await getAddresses();
     if (data != null) {
       setState(() {
         _addresses = data;
       });
     }
+    setState(() {
+      _loading = false;
+    });
   }
 
   void refresh() async {
@@ -52,16 +60,20 @@ class _AddressesPageState extends State<AddressesPage> {
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 8.0),
-        child: _addresses.isEmpty
+        child: _loading
             ? const Center(child: CircularProgressIndicator())
-            : ListView.separated(
-                itemBuilder: (context, index) {
-                  return AddressTile(address: _addresses[index]);
-                },
-                itemCount: _addresses.length,
-                separatorBuilder: (context, index) =>
-                    const Divider(height: 1, color: AppColors.grey),
-              ),
+            : _addresses.isEmpty
+                ? const Center(
+                    child: Text('Нет данных', style: AppTheme.bodyBlue500_16),
+                  )
+                : ListView.separated(
+                    itemBuilder: (context, index) {
+                      return AddressTile(address: _addresses[index]);
+                    },
+                    itemCount: _addresses.length,
+                    separatorBuilder: (context, index) =>
+                        const Divider(height: 1, color: AppColors.grey),
+                  ),
       ),
       bottomNavigationBar: ListTile(
         contentPadding: const EdgeInsets.all(16),
@@ -96,19 +108,40 @@ class AddressTile extends StatelessWidget {
   final Address address;
   const AddressTile({super.key, required this.address});
 
+  Widget getIconByType(String name) {
+    switch (name) {
+      case 'home':
+        return SvgPicture.asset(
+          'assets/svg/address-home-filled.svg',
+          width: 36,
+        );
+      case 'work':
+        return SvgPicture.asset(
+          'assets/svg/address-work-filled.svg',
+          width: 36,
+        );
+      default:
+        return SvgPicture.asset(
+          'assets/svg/address-other-filled.svg',
+          width: 36,
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: SvgPicture.asset(
-        'assets/svg/address-home-filled.svg',
-        width: 36,
-      ),
+      leading: getIconByType(address.name),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            address.toString(),
+            address.name == 'work'
+                ? 'Работа'
+                : address.name == 'home'
+                    ? 'Дом'
+                    : address.name,
             style: AppTheme.bodyBlack500_14,
           ),
           const SizedBox(height: 4),

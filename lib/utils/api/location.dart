@@ -5,7 +5,6 @@ import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/location.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
 
 Future<int> addAddress(Address address) async {
   String apiUrl = '${dotenv.get('API_URL')}/address/addMyNewAddress';

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/app_text_form_field.dart';
@@ -8,6 +9,7 @@ import 'package:hiba/entities/location.dart';
 import 'package:hiba/utils/api/location.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:pinput/pinput.dart';
 
 class NewAddressPage extends StatefulWidget {
   static const routeName = '/new-adress';
@@ -17,11 +19,15 @@ class NewAddressPage extends StatefulWidget {
   State<StatefulWidget> createState() => _NewAddressPage();
 }
 
+enum AddressType { other, home, work }
+
 class _NewAddressPage extends State<NewAddressPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   City? _selectedCityId;
   List<City> _cities = [];
+
+  AddressType _addressType = AddressType.other;
 
   late final TextEditingController cityController;
   late final TextEditingController addressController;
@@ -217,95 +223,143 @@ class _NewAddressPage extends State<NewAddressPage> {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              // onTap: () {},
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border:
-                                    Border.all(width: 1, color: AppColors.grey),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/svg/address-home-outline.svg',
-                                      width: 24,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    const Text(
-                                      'Дом',
-                                      style: AppTheme.bodyDarkgrey500_11,
-                                    ),
-                                  ],
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  addressNameController.setText('home');
+                                  _addressType = AddressType.home;
+                                });
+                              },
+                              child: Container(
+                                // onTap: () {},
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: _addressType == AddressType.home
+                                        ? AppColors.mainBlue
+                                        : AppColors.grey,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                        _addressType == AddressType.home
+                                            ? 'assets/svg/address-home-outline-active.svg'
+                                            : 'assets/svg/address-home-outline.svg',
+                                        width: 24,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Дом',
+                                        style: _addressType == AddressType.home
+                                            ? AppTheme.bodyBlue500_11
+                                            : AppTheme.bodyDarkgrey500_11,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
-                            child: Container(
-                              // onTap: () {},
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border:
-                                    Border.all(width: 1, color: AppColors.grey),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/svg/address-briefcase-outline.svg',
-                                      width: 24,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    const Text(
-                                      'Работа',
-                                      style: AppTheme.bodyDarkgrey500_11,
-                                    ),
-                                  ],
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  addressNameController.setText('work');
+                                  _addressType = AddressType.work;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: _addressType == AddressType.work
+                                        ? AppColors.mainBlue
+                                        : AppColors.grey,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                        _addressType == AddressType.work
+                                            ? 'assets/svg/address-briefcase-outline-active.svg'
+                                            : 'assets/svg/address-briefcase-outline.svg',
+                                        width: 24,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Работа',
+                                        style: _addressType == AddressType.work
+                                            ? AppTheme.bodyBlue500_11
+                                            : AppTheme.bodyDarkgrey500_11,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
-                            child: Container(
-                              // onTap: () {},
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border:
-                                    Border.all(width: 1, color: AppColors.grey),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/svg/address-location-outline.svg',
-                                      width: 24,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    const Text(
-                                      'Другое',
-                                      style: AppTheme.bodyDarkgrey500_11,
-                                    ),
-                                  ],
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _addressType = AddressType.other;
+                                  addressNameController.setText('');
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: _addressType == AddressType.other
+                                        ? AppColors.mainBlue
+                                        : AppColors.grey,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                        _addressType == AddressType.other
+                                            ? 'assets/svg/address-location-outline-active.svg'
+                                            : 'assets/svg/address-location-outline.svg',
+                                        width: 24,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Другое',
+                                        style: _addressType == AddressType.other
+                                            ? AppTheme.bodyBlue500_11
+                                            : AppTheme.bodyDarkgrey500_11,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                       const SizedBox(height: 16),
-                      Expanded(
-                        child: AppTextFormField(
-                          keyboardType: TextInputType.text,
-                          controller: addressNameController,
-                          placeholder: 'Название адреса',
-                        ),
-                      ),
+                      _addressType == AddressType.other
+                          ? Expanded(
+                              child: AppTextFormField(
+                                keyboardType: TextInputType.text,
+                                controller: addressNameController,
+                                placeholder: 'Название адреса',
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),

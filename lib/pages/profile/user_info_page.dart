@@ -4,6 +4,7 @@ import 'package:hiba/utils/api/auth.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -61,6 +62,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
   Widget build(BuildContext context) {
     AuthState authState = Provider.of<AuthState>(context);
     User? user = authState.user;
+    nameController.setText(user!.name);
+    phoneController.setText(user.phone);
 
     return Scaffold(
       backgroundColor: AppColors.white,

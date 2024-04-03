@@ -36,11 +36,9 @@ class _RegisterProfileState extends State<RegisterProfile> {
   String _phone = '';
 
   void _initPhone() async {
-    if (widget.phone != null) {
-      setState(() {
-        _phone = widget.phone ?? '';
-      });
-    }
+    setState(() {
+      _phone = widget.phone;
+    });
   }
 
   @override

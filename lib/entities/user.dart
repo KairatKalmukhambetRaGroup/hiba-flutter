@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 class User {
   final int id;
   final String name;
