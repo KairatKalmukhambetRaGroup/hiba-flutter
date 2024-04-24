@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/code_verification_page.dart';
@@ -27,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   String initialCountry = 'KZ';
   PhoneNumber phoneNumber = PhoneNumber(isoCode: 'KZ');
 
-  void initializeControllers() {
+  Future<void> initializeControllers() async {
     phoneNumberController = TextEditingController()
       ..addListener(controllerListener);
   }

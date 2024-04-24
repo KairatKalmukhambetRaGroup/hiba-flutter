@@ -28,5 +28,18 @@
     "navbarProfile": "Профиль",
     "@navbarProfile": {
         "description": "navbar button, takes user to profile page"
+    },
+
+    "sheep": "Баран",
+    "@sheep": {
+        "description": "category name for sheep"
+    },
+    "horse": "Лошадь",
+    "@horse": {
+        "description": "category name for horse"
+    },
+    "cow": "Корова",
+    "@cow": {
+        "description": "category name for cow"
     }
 }

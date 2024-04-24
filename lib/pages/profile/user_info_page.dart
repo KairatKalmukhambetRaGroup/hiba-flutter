@@ -1,9 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/user.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +28,14 @@ class _UserInfoPageState extends State<UserInfoPage> {
   late final TextEditingController phoneController;
   String initialCountry = 'KZ';
   PhoneNumber phoneNumber = PhoneNumber(isoCode: 'KZ');
+
+  // ignore: unused_field
+  late PermissionStatus _cameraPermissionStatus;
+  // ignore: unused_field
+  late PermissionStatus _galleryPermissionStatus;
+
+  File? _imageFile;
+  final picker = ImagePicker();
 
   void initControllers() {
     nameController = TextEditingController()..addListener(controllerListener);
@@ -48,6 +62,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   @override
   void initState() {
+    _checkPermissions();
     initControllers();
     super.initState();
   }
@@ -58,9 +73,138 @@ class _UserInfoPageState extends State<UserInfoPage> {
     super.dispose();
   }
 
+  Future<void> _checkPermissions() async {
+    final cameraPermissionStatus = await Permission.camera.status;
+    final galleryPermissionStatus = await Permission.photos.status;
+
+    setState(() {
+      _cameraPermissionStatus = cameraPermissionStatus;
+      _galleryPermissionStatus = galleryPermissionStatus;
+    });
+  }
+
+  // ignore: unused_element
+  Future<void> _requestPermissions() async {
+    final cameraPermissionStatus = await Permission.camera.request();
+    final galleryPermissionStatus = await Permission.photos.request();
+
+    setState(() {
+      _cameraPermissionStatus = cameraPermissionStatus;
+      _galleryPermissionStatus = galleryPermissionStatus;
+    });
+  }
+
+  Future getImage(ImageSource source) async {
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _showImagePicker() {
+    showModalBottomSheet<void>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: ListView(
+              children: [
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
+                    side: BorderSide.none,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: const Icon(Icons.camera_alt),
+                  onTap: () async {
+                    await getImage(ImageSource.camera);
+                    Navigator.pop(context);
+                  },
+                ),
+                const Divider(height: 1, color: AppColors.grey),
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                    side: BorderSide.none,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: const Text(
+                    'Открыть галерею',
+                    textAlign: TextAlign.center,
+                    style: AppTheme.headingBlack500_16,
+                  ),
+                  onTap: () async {
+                    await getImage(ImageSource.gallery);
+                    Navigator.pop(context);
+                  },
+                ),
+                const Divider(height: 1, color: AppColors.grey),
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
+                    side: BorderSide.none,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: Text(
+                    'Убрать фото',
+                    textAlign: TextAlign.center,
+                    style: _imageFile != null
+                        ? AppTheme.bodyRed500_16
+                        : AppTheme.bodyGrey500_16,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _imageFile = null;
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+                const SizedBox(height: 8),
+                ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    side: BorderSide.none,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  tileColor: AppColors.bgLight,
+                  // contentPadding: const EdgeInsets.all(16),
+                  title: const Text(
+                    'Отменить',
+                    textAlign: TextAlign.center,
+                    style: AppTheme.bodyBlue500_16,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthState authState = Provider.of<AuthState>(context);
+    AuthState authState = Provider.of<AuthState>(context, listen: false);
     User? user = authState.user;
     nameController.setText(user!.name);
     phoneController.setText(user.phone);
@@ -84,31 +228,63 @@ class _UserInfoPageState extends State<UserInfoPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.grey, // Border color
-                      width: 1.0, // Border width
+                Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.grey, // Border color
+                          width: 1.0, // Border width
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundColor: AppColors.white,
+                        backgroundImage: _imageFile != null
+                            ? FileImage(_imageFile!)
+                            : user.avatar != null
+                                ? MemoryImage(base64Decode(user.avatar!))
+                                : const AssetImage('assets/images/avatar.png')
+                                    as ImageProvider,
+                      ),
                     ),
-                  ),
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundColor: AppColors.white,
-                    child: Image.asset(
-                      'assets/images/avatar.png',
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
+                    Positioned(
+                      width: 40,
+                      height: 40,
+                      right: 0,
+                      bottom: 0,
+                      child: IconButton(
+                        onPressed: () {
+                          // _requestPermissions();
+                          // if (_cameraPermissionStatus !=
+                          //         PermissionStatus.denied &&
+                          //     _galleryPermissionStatus !=
+                          //         PermissionStatus.denied) {
+                          _showImagePicker();
+                          // }
+                        },
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(AppColors.white),
+                        ),
+                        icon: SvgPicture.asset(
+                          'assets/svg/camera.svg',
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 const SizedBox(height: 32),
-                const Text(
-                  'Введите Имя и Фамилию',
-                  style: AppTheme.bodyBlack500_14,
+                const Row(
+                  children: [
+                    Text(
+                      'Введите Имя и Фамилию',
+                      style: AppTheme.bodyBlack500_14,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 TextFormField(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "98361440646",
+    "project_id": "hiba-ccd46",
+    "storage_bucket": "hiba-ccd46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98361440646:android:f4f1acab426681a5229407",
+        "android_client_info": {
+          "package_name": "com.example.hiba"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3TT-zK2blZf1wLLtcqz1KWs1KAZqodCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

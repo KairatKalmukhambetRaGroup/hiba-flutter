@@ -1,3 +1,6 @@
+import 'dart:collection';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
@@ -31,6 +34,21 @@ class _ButcherPageState extends State<ButcheryPage> {
   void initState() {
     super.initState();
     getData();
+  }
+
+  Map categories = {};
+
+  getCategoryTranslations(String key) {
+    switch (key) {
+      case 'sheep':
+        return AppLocalizations.of(context)!.sheep;
+      case 'cow':
+        return AppLocalizations.of(context)!.cow;
+      case 'horse':
+        return AppLocalizations.of(context)!.horse;
+      default:
+        return '';
+    }
   }
 
   getData() async {
@@ -248,7 +266,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                             backgroundColor: AppColors.white,
                             collapsedBackgroundColor: AppColors.white,
                             title: Text(
-                              '${category.name}',
+                              getCategoryTranslations(category.name),
                               style: AppTheme.headingBlue600_16,
                             ),
                             children: List.generate(
