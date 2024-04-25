@@ -25,12 +25,10 @@ class ContactUsPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              SizedBox(
-                height: 120,
-                child: SvgPicture.asset(
-                  '/assets/svg/contact-us-bg.svg',
-                  width: 120,
-                ),
+              const SizedBox(height: 64),
+              SvgPicture.asset(
+                'assets/svg/contact-us-bg.svg',
+                width: 120,
               ),
               const SizedBox(height: 25),
               const Text(

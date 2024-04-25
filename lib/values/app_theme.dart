@@ -94,6 +94,18 @@ class AppTheme {
     fontSize: 14,
   );
 
+  static const TextStyle bodyWhite600_11 = TextStyle(
+    color: AppColors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: 11,
+  );
+
+  static const TextStyle bodyWhite600_16 = TextStyle(
+    color: AppColors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
+
   static const TextStyle bodyBlack600_28 = TextStyle(
     color: AppColors.black,
     fontWeight: FontWeight.w600,

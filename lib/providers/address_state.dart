@@ -10,9 +10,26 @@ class AddressState extends ChangeNotifier {
 
   Address? get currentAddress => _currentAddress;
 
-  List<Address>? _addresses;
+  List<Address> _addresses = [];
 
-  List<Address>? get addresses => _addresses;
+  List<Address> get addresses => _addresses;
+
+  void setCurrentAddressById(int id) {
+    _currentAddress = _addresses.firstWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  void setCurrentAddress(Address address) {
+    _currentAddress = address;
+    notifyListeners();
+  }
+
+  void setAddresses(List<Address> data) {
+    _addresses = data;
+    _currentAddress = _addresses[0];
+    print(_currentAddress);
+    notifyListeners();
+  }
 
   Future<void> addAddress() async {}
   Future<Address?> getCurrentAddress() async {
@@ -28,7 +45,7 @@ class AddressState extends ChangeNotifier {
   }
 
   Future<List<Address>?> getAddresses() async {
-    if (_addresses != null) return _addresses;
+    if (_addresses.isNotEmpty) return _addresses;
 
     String? addressesString = await storage.read(key: 'addresses');
     if (addressesString == null) return null;

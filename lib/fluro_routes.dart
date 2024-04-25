@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:hiba/pages/butchery_page.dart';
+import 'package:hiba/pages/butchery/butchery_page.dart';
 import 'package:hiba/pages/code_verification_page.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/home_page.dart';
@@ -12,7 +12,7 @@ import 'package:hiba/pages/profile/orders_page.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/pages/register_profile.dart';
-import 'package:hiba/pages/search_page.dart';
+import 'package:hiba/pages/butchery/search_page.dart';
 import 'package:hiba/pages/support_chat_page.dart';
 
 class FluroRoutes {
@@ -59,7 +59,10 @@ class FluroRoutes {
 
   static final Handler _searchPageHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-      return const SearchPage();
+      if (params.containsKey('charity')) {
+        return const SearchPage(charity: true);
+      }
+      return const SearchPage(charity: false);
     },
   );
 
@@ -92,9 +95,13 @@ class FluroRoutes {
   static final Handler _butcheryPageHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
       if (params.containsKey('id')) {
-        return ButcheryPage(id: params['id'][0]);
+        print(params['charity']);
+        final isCharity = params['charity']?[0]?.toLowerCase() == 'true';
+        return ButcheryPage(
+          id: params['id'][0],
+          charity: isCharity,
+        );
       }
-      return const ButcheryPage();
     },
   );
 
@@ -142,6 +149,11 @@ class FluroRoutes {
       transitionType: TransitionType.cupertino,
     );
     router.define(
+      '${SearchPage.routeName}/:charity',
+      handler: _searchPageHandler,
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
       SearchPage.routeName,
       handler: _searchPageHandler,
       transitionType: TransitionType.cupertino,
@@ -174,11 +186,6 @@ class FluroRoutes {
     router.define(
       NotificationsPage.routeName,
       handler: _notificationsPageHandler,
-      transitionType: TransitionType.cupertino,
-    );
-    router.define(
-      ButcheryPage.routeName,
-      handler: _butcheryPageHandler,
       transitionType: TransitionType.cupertino,
     );
     router.define(

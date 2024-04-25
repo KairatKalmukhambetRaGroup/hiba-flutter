@@ -70,7 +70,6 @@ Future<List<Address>?> getAddresses() async {
 
       List<Address> list = List.empty(growable: true);
       for (var el in responseData) {
-        print(el);
         Address c = Address.fromJson(el);
         list.add(c);
       }

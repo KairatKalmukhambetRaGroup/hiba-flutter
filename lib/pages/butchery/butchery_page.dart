@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/entities/menu_item.dart';
+import 'package:hiba/pages/butchery/menu_item_tile.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/api/butchery.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -15,8 +16,9 @@ import 'package:provider/provider.dart';
 class ButcheryPage extends StatefulWidget {
   static const routeName = '/butchery';
 
-  const ButcheryPage({super.key, this.id});
-  final String? id;
+  const ButcheryPage({super.key, required this.id, required this.charity});
+  final String id;
+  final bool charity;
 
   @override
   State<StatefulWidget> createState() => _ButcherPageState();
@@ -28,12 +30,16 @@ class _ButcherPageState extends State<ButcheryPage> {
   String title = '';
   late String errorMessage = '';
 
-  Butchery? butchery;
+  late Butchery butchery;
+  bool charity = false;
 
   @override
   void initState() {
     super.initState();
     getData();
+    setState(() {
+      charity = widget.charity;
+    });
   }
 
   Map categories = {};
@@ -57,7 +63,7 @@ class _ButcherPageState extends State<ButcheryPage> {
     });
     try {
       if (widget.id == null) throw Error();
-      butchery = await getButcheryById(widget.id);
+      butchery = (await getButcheryById(widget.id))!;
       // print(butchery!.categories);
       if (butchery == null) throw Error();
       setState(() {
@@ -272,7 +278,10 @@ class _ButcherPageState extends State<ButcheryPage> {
                             children: List.generate(
                                 category.menuItems.length,
                                 (j) => MenuItemTile(
-                                    menuItem: category.menuItems[j])),
+                                      menuItem: category.menuItems[j],
+                                      butchery: butchery,
+                                      charity: charity,
+                                    )),
                           );
                         },
                       ),
@@ -346,90 +355,6 @@ class _ButcherPageState extends State<ButcheryPage> {
                     // )
                   ],
                 ),
-    );
-  }
-}
-
-class MenuItemTile extends StatelessWidget {
-  final MenuItem menuItem;
-  const MenuItemTile({super.key, required this.menuItem});
-
-  @override
-  Widget build(BuildContext context) {
-    final shoppingBasket = Provider.of<ShoppingBasket>(context, listen: false);
-    return ListTile(
-      tileColor: AppColors.white,
-      title: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            'assets/images/meat.png',
-            width: 80,
-            height: 56,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      menuItem.name,
-                      style: AppTheme.bodyBlack500_14,
-                    ),
-                    Text(
-                      '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
-                      style: AppTheme.bodyBlue700_14,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Реберная часть',
-                  style: AppTheme.bodyDarkgrey500_11,
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton.outlined(
-                      splashRadius: 4,
-                      onPressed: () {
-                        shoppingBasket.removeItem(menuItem.id);
-                      },
-                      icon: const Icon(Icons.remove),
-                      iconSize: 24,
-                    ),
-                    SizedBox(
-                      width: 76,
-                      child: Text(
-                        menuItem.isWholeAnimal
-                            ? '${menuItem.quantity} гл'
-                            : '${menuItem.quantity} кг',
-                        style: AppTheme.bodyBlack500_14,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    IconButton.outlined(
-                      splashRadius: 4,
-                      onPressed: () {
-                        shoppingBasket.addItem(menuItem);
-                      },
-                      icon: const Icon(Icons.add),
-                      iconSize: 24,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }

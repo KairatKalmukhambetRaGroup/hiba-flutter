@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hiba/fluro_routes.dart';
 import 'package:hiba/home.dart';
 import 'package:hiba/pages/login_page.dart';
+import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/providers/chat_provider.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/helpers/navigation_helper.dart';
@@ -26,14 +27,13 @@ void main() async {
 
   FluroRoutes.setupRouter();
 
-  
-
   await dotenv.load(fileName: '.env');
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AuthState()),
       ChangeNotifierProvider(create: (_) => ShoppingBasket()),
       ChangeNotifierProvider(create: (_) => ChatProvider()),
+      ChangeNotifierProvider(create: (_) => AddressState()),
     ],
     child: const MyApp(),
   ));

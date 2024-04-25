@@ -82,6 +82,7 @@ class _NewAddressPage extends State<NewAddressPage> {
     if (_selectedCityId != null) {
       try {
         Address address = Address(
+          id: 0,
           name: addressNameController.text,
           address: addressController.text,
           building: houseController.text,

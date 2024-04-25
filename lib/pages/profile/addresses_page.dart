@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/pages/profile/new_address_page.dart';
+import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/utils/api/location.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:provider/provider.dart';
 
 class AddressesPage extends StatefulWidget {
   static const routeName = '/addresses';
@@ -30,6 +32,7 @@ class _AddressesPageState extends State<AddressesPage> {
       _loading = true;
     });
     final data = await getAddresses();
+
     if (data != null) {
       setState(() {
         _addresses = data;
@@ -46,6 +49,11 @@ class _AddressesPageState extends State<AddressesPage> {
 
   @override
   Widget build(BuildContext context) {
+    AddressState addressState =
+        Provider.of<AddressState>(context, listen: true);
+    if (addressState.addresses.isEmpty && _addresses.isNotEmpty) {
+      addressState.setAddresses(_addresses);
+    }
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -108,31 +116,11 @@ class AddressTile extends StatelessWidget {
   final Address address;
   const AddressTile({super.key, required this.address});
 
-  Widget getIconByType(String name) {
-    switch (name) {
-      case 'home':
-        return SvgPicture.asset(
-          'assets/svg/address-home-filled.svg',
-          width: 36,
-        );
-      case 'work':
-        return SvgPicture.asset(
-          'assets/svg/address-work-filled.svg',
-          width: 36,
-        );
-      default:
-        return SvgPicture.asset(
-          'assets/svg/address-other-filled.svg',
-          width: 36,
-        );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: getIconByType(address.name),
+      leading: Address.getIconByType(address.name),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

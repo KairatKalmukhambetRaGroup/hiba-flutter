@@ -84,12 +84,7 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () async {
-                      final notificationSettings = await FirebaseMessaging
-                          .instance
-                          .requestPermission(provisional: true);
-                      final fcmToken =
-                          await FirebaseMessaging.instance.getToken();
-                      print(fcmToken);
+                      Navigator.of(context).pushNamed('/search/charity');
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery_small.dart';
-import 'package:hiba/pages/butchery_page.dart';
+import 'package:hiba/pages/butchery/butchery_page.dart';
 import 'package:hiba/utils/api/butchery.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -9,7 +9,8 @@ import 'package:hiba/values/app_theme.dart';
 class SearchPage extends StatefulWidget {
   static const routeName = '/search';
 
-  const SearchPage({super.key});
+  const SearchPage({super.key, required this.charity});
+  final bool charity;
 
   @override
   State<StatefulWidget> createState() => _SearchPageState();
@@ -17,11 +18,15 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   List<Map<String, dynamic>> _butcheries = [];
+  bool isCharity = false;
 
   @override
   void initState() {
     super.initState();
     loadJsonData();
+    setState(() {
+      isCharity = widget.charity;
+    });
   }
 
   Future<void> loadJsonData() async {
@@ -56,7 +61,10 @@ class _SearchPageState extends State<SearchPage> {
             : ListView.separated(
                 itemBuilder: (context, index) {
                   final butchery = ButcherySmall.fromJson(_butcheries[index]);
-                  return ButcheryTile(butchery: butchery);
+                  return ButcheryTile(
+                    butchery: butchery,
+                    isCharity: isCharity,
+                  );
                 },
                 itemCount: _butcheries.length,
                 separatorBuilder: (context, index) =>
@@ -89,8 +97,10 @@ class CategoryTile extends StatelessWidget {
 }
 
 class ButcheryTile extends StatelessWidget {
-  const ButcheryTile({super.key, required this.butchery});
+  const ButcheryTile(
+      {super.key, required this.butchery, required this.isCharity});
   final ButcherySmall butchery;
+  final bool isCharity;
 
   @override
   Widget build(BuildContext context) {
@@ -109,86 +119,10 @@ class ButcheryTile extends StatelessWidget {
         width: 24,
       ),
       onTap: () => {
-        Navigator.of(context)
-            .pushNamed('${ButcheryPage.routeName}/${butchery.id}')
+        // print(isCharity)
+        Navigator.of(context).pushNamed(
+            '${ButcheryPage.routeName}/${butchery.id}?charity=$isCharity')
       },
     );
   }
 }
-
-// class SearchPage extends StatefulWidget {
-//   static const routeName = '/search';
-
-//   const SearchPage({super.key});
-
-//   @override
-//   State<StatefulWidget> createState() => _SearchPageState();
-// }
-
-// class _SearchPageState extends State<SearchPage> {
-//   List<Map<String, dynamic>> _butcheries = [];
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     loadJsonData();
-//   }
-
-//   Future<void> loadJsonData() async {
-//     final String jsonString = await getButcheries();
-//     setState(() {
-//       _butcheries = List<Map<String, dynamic>>.from(json.decode(jsonString));
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         automaticallyImplyLeading: false,
-//         title: Padding(
-//           padding: const EdgeInsets.symmetric(vertical: 8.0),
-//           child: SearchAnchor(
-//             builder: (context, controller) {
-//               return SearchBar(
-//                 controller: controller,
-//                 padding: const MaterialStatePropertyAll<EdgeInsets>(
-//                     EdgeInsets.symmetric(horizontal: 16.0)),
-//                 onTap: () {
-//                   controller.openView();
-//                 },
-//                 leading: const Icon(Icons.search),
-//               );
-//             },
-//             suggestionsBuilder: (context, controller) {
-//               return List<ListTile>.generate(5, (index) {
-//                 final String item = 'item $index';
-//                 return ListTile(
-//                   title: Text(item),
-//                   onTap: () {
-//                     setState(() {
-//                       controller.closeView(item);
-//                     });
-//                   },
-//                 );
-//               });
-//             },
-//           ),
-//         ),
-//       ),
-//       body: Container(
-//         padding: const EdgeInsets.all(8.0),
-//         child: _butcheries.isEmpty
-//             ? const Text('Loading')
-//             : ListView.separated(
-//                 itemBuilder: (context, index) {
-//                   final butchery = Butchery.fromJson(_butcheries[index]);
-//                   return ButcheryCard(butchery: butchery);
-//                 },
-//                 separatorBuilder: (context, index) => const Divider(),
-//                 itemCount: _butcheries.length,
-//               ),
-//       ),
-//     );
-//   }
-// }

@@ -116,7 +116,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
                           }
                         },
                         icon: SvgPicture.asset(
-                          '/assets/svg/send.svg',
+                          'assets/svg/send.svg',
                           width: 32,
                         ),
                       )

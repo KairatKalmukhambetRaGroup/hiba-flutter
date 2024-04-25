@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/location.dart';
 
 class Address {
-  final int? id;
+  final int id;
   final String name;
   final String address;
   final String building;
@@ -11,7 +13,7 @@ class Address {
   final City city;
 
   const Address({
-    this.id,
+    required this.id,
     required this.name,
     required this.address,
     required this.building,
@@ -35,7 +37,7 @@ class Address {
   Map<String, String> toJson() {
     Map<String, String> json = {};
 
-    if (id != null) json['id'] = id.toString();
+    json['id'] = id.toString();
     json['name'] = name;
     json['address'] = address;
     json['building'] = building;
@@ -53,4 +55,24 @@ class Address {
   }
 
   String get info => 'г.$city, улица $address, дом $building, $apartment';
+
+  static Widget getIconByType(String name) {
+    switch (name) {
+      case 'home':
+        return SvgPicture.asset(
+          'assets/svg/address-home-filled.svg',
+          width: 36,
+        );
+      case 'work':
+        return SvgPicture.asset(
+          'assets/svg/address-work-filled.svg',
+          width: 36,
+        );
+      default:
+        return SvgPicture.asset(
+          'assets/svg/address-other-filled.svg',
+          width: 36,
+        );
+    }
+  }
 }

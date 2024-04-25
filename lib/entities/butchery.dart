@@ -28,7 +28,7 @@ class Butchery {
       latitude: json["latitude"],
       longitude: json["longitude"],
       city: City.fromJson(json['city']),
-      categories: (json["categories"] as List)
+      categories: (json["categories"] as List<Map<String, dynamic>>)
           .map((el) => ButcheryCategory.fromJson(el))
           .toList(),
     );
