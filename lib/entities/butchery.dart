@@ -8,30 +8,33 @@ class Butchery {
   final double latitude;
   final double longitude;
   final City city;
-  final List<ButcheryCategory> categories;
+  late List<ButcheryCategory> categories;
 
-  const Butchery({
+  Butchery({
     required this.id,
     required this.name,
     required this.address,
     required this.latitude,
     required this.longitude,
     required this.city,
-    required this.categories,
   });
 
   factory Butchery.fromJson(Map<String, dynamic> json) {
-    return Butchery(
+    Butchery butchery = Butchery(
       id: json["id"],
       name: json["name"],
       address: json["address"],
       latitude: json["latitude"],
       longitude: json["longitude"],
       city: City.fromJson(json['city']),
-      categories: (json["categories"] as List<Map<String, dynamic>>)
-          .map((el) => ButcheryCategory.fromJson(el))
-          .toList(),
     );
+    if (json["categories"] != null) {
+      butchery.categories = (json["categories"] as List)
+          .map((el) => ButcheryCategory.fromJson(el))
+          .toList();
+    }
+
+    return butchery;
   }
 
   @override

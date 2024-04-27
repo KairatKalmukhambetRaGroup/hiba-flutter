@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/entities/menu_item.dart';
-import 'package:hiba/pages/butchery/menu_item_tile.dart';
+import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/api/butchery.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -62,12 +62,9 @@ class _ButcherPageState extends State<ButcheryPage> {
       isLoading = true;
     });
     try {
-      if (widget.id == null) throw Error();
       butchery = (await getButcheryById(widget.id))!;
-      // print(butchery!.categories);
-      if (butchery == null) throw Error();
       setState(() {
-        title = butchery!.name;
+        title = butchery.name;
       });
     } catch (e) {
       print('$e');

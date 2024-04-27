@@ -48,8 +48,8 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: AppColors.white,
         shape:
             const Border(bottom: BorderSide(color: AppColors.grey, width: 1)),
-        title: const Text(
-          'Для себя и близких',
+        title: Text(
+          isCharity ? 'На благотворительность' : 'Для себя и близких',
           style: AppTheme.headingBlack600_16,
         ),
         centerTitle: true,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/butchery/butchery_page.dart';
-import 'package:hiba/pages/butchery/menu_item_tile.dart';
+import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/pages/order_confirm_page.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/values/app_colors.dart';

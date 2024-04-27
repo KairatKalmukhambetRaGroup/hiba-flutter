@@ -37,14 +37,20 @@ class _OrdersPageState extends State<OrdersPage> {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       appBar: AppBar(
-        title: const Text('Мои заказы'),
+        backgroundColor: AppColors.white,
+        title: const Text(
+          'Мои заказы',
+          style: AppTheme.headingBlack600_16,
+        ),
+        shape:
+            const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
+        centerTitle: true,
       ),
       body: SafeArea(
-          child: _orders.length > 0
-              ? Column(
-                  children: _orders
-                      .map((order) => OrderCard(title: order.id.toString()))
-                      .toList(),
+          child: _orders.isNotEmpty
+              ? ListView(
+                  children:
+                      _orders.map((order) => OrderCard(order: order)).toList(),
                 )
               : Center(
                   child: Column(
@@ -52,7 +58,7 @@ class _OrdersPageState extends State<OrdersPage> {
                     children: [
                       const SizedBox(height: 64),
                       SvgPicture.asset(
-                        'assets/svg/shopping-cart-lg.svg',
+                        'assets/svg/orders-bg.svg',
                         width: 120,
                       ),
                       const SizedBox(height: 16),

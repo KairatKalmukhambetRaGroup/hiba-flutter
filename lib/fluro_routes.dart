@@ -8,7 +8,7 @@ import 'package:hiba/pages/login_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
 import 'package:hiba/pages/profile/new_address_page.dart';
 import 'package:hiba/pages/profile/notification_page.dart';
-import 'package:hiba/pages/profile/orders_page.dart';
+import 'package:hiba/pages/orders/orders_page.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/pages/register_profile.dart';

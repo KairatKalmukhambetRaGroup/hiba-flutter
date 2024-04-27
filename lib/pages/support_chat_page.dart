@@ -97,7 +97,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
                             ),
                             fillColor: AppColors.bgLight,
                             hintText: 'Сообщение',
-                            hintStyle: AppTheme.bodyDarkGrrey500_14,
+                            hintStyle: AppTheme.bodyDarkGrey500_14,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 8),

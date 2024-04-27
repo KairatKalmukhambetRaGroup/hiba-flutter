@@ -6,7 +6,7 @@ import 'package:hiba/entities/user.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
 import 'package:hiba/pages/profile/notification_page.dart';
-import 'package:hiba/pages/profile/orders_page.dart';
+import 'package:hiba/pages/orders/orders_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
