@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/code_verification_page.dart';

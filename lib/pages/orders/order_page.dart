@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/components/order_menu_item_tile.dart';
 import 'package:hiba/entities/order.dart';
-import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 

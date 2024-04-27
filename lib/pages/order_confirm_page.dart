@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/app_text_form_field.dart';
 import 'package:hiba/components/order_menu_item_tile.dart';
 import 'package:hiba/entities/address.dart';
@@ -10,7 +8,6 @@ import 'package:hiba/utils/api/orders.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:intl/intl.dart';
-import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
 class OrderConfirmPage extends StatefulWidget {
@@ -273,7 +270,9 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                     // ADDRESS TILE
                     Consumer<AddressState>(
                         builder: (context, addressState, child) {
-                      Address? address = addressState.addresses[0];
+                      Address? address = addressState.addresses.isEmpty
+                          ? null
+                          : addressState.addresses[0];
                       if (address != null) {
                         _order.setAddress(address);
                       }

@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/app_text_form_field.dart';
@@ -62,13 +61,13 @@ class _NewAddressPage extends State<NewAddressPage> {
   }
 
   void controllerListener() {
-    final city = cityController.text;
-    final address = addressController.text;
-    final building = houseController.text;
-    final apartment = apartmentController.text;
-    final entrance = entranceController.text;
-    final floor = floorController.text;
-    final name = addressNameController.text;
+    // final city = cityController.text;
+    // final address = addressController.text;
+    // final building = houseController.text;
+    // final apartment = apartmentController.text;
+    // final entrance = entranceController.text;
+    // final floor = floorController.text;
+    // final name = addressNameController.text;
   }
 
   void printFormInputs() async {

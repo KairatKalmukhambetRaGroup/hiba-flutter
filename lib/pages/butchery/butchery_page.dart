@@ -1,17 +1,12 @@
-import 'dart:collection';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
-import 'package:hiba/entities/menu_item.dart';
 import 'package:hiba/components/menu_item_tile.dart';
-import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/api/butchery.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
-import 'package:provider/provider.dart';
 
 class ButcheryPage extends StatefulWidget {
   static const routeName = '/butchery';
@@ -112,7 +107,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                         ListTile(
                           tileColor: AppColors.white,
                           title: Text(
-                            butchery!.name,
+                            butchery.name,
                             style: AppTheme.headingBlue600_16,
                           ),
                         ),
@@ -162,7 +157,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                         ListTile(
                           tileColor: AppColors.white,
                           title: Text(
-                            butchery!.address,
+                            butchery.address,
                             style: AppTheme.bodyBlack500_14,
                           ),
                           leading: SvgPicture.asset(
@@ -261,10 +256,10 @@ class _ButcherPageState extends State<ButcheryPage> {
                     const SizedBox(height: 16),
                     Column(
                       children: List.generate(
-                        butchery!.categories.length,
+                        butchery.categories.length,
                         (index) {
                           ButcheryCategory category =
-                              butchery!.categories[index];
+                              butchery.categories[index];
                           return ExpansionTile(
                             backgroundColor: AppColors.white,
                             collapsedBackgroundColor: AppColors.white,

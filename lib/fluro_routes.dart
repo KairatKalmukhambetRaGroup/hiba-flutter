@@ -95,13 +95,13 @@ class FluroRoutes {
   static final Handler _butcheryPageHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
       if (params.containsKey('id')) {
-        print(params['charity']);
         final isCharity = params['charity']?[0]?.toLowerCase() == 'true';
         return ButcheryPage(
           id: params['id'][0],
           charity: isCharity,
         );
       }
+      return const HomePage();
     },
   );
 

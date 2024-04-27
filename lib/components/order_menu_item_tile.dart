@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/menu_item.dart';
-import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
-import 'package:provider/provider.dart';
 
 class OrderMenuItemTile extends StatelessWidget {
   final MenuItem menuItem;

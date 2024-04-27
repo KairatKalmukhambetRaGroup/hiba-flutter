@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/menu_item.dart';
-import 'package:collection/collection.dart';
 import 'package:hiba/entities/order.dart';
 
 class ShoppingBasket extends ChangeNotifier {
