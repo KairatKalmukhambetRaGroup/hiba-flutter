@@ -103,9 +103,10 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
   }
 
   List<DateTime> getFutureDates() {
-    final today = DateTime.now().toUtc();
+    final now = DateTime.now().toUtc();
+    DateTime todayUTC = DateTime.utc(now.year, now.month, now.day);
     final futureDates = List<DateTime>.generate(3, (index) {
-      return today.add(Duration(days: index + 2));
+      return todayUTC.add(Duration(days: index + 2));
     });
     return futureDates;
   }
@@ -451,7 +452,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
             minimumSize: const MaterialStatePropertyAll(Size.fromHeight(48)),
           ),
           child: const Text(
-            'Сохранить',
+            'Продолжить',
             style: AppTheme.headingWhite500_16,
           ),
         ),
