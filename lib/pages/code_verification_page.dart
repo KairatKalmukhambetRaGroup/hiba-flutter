@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:pinput/pinput.dart';
@@ -131,19 +132,9 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        leading: IconButton(
-          icon: SvgPicture.asset('assets/svg/chevron-left.svg'),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
-        title: const Text(
-          'Подтверждение',
-          style: AppTheme.headingBlack400_16,
-        ),
+      appBar: CustomAppBar(
+        context: context,
+        titleText: 'Подтверждение',
       ),
       body: Center(
         child: Padding(

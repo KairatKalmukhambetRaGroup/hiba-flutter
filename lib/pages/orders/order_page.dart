@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/order_menu_item_tile.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -12,16 +13,9 @@ class OrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Заказ №${order.id}',
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
-        shape:
-            const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
+      appBar: CustomAppBar(
+        titleText: 'Заказ №${order.id}',
+        context: context,
       ),
       body: ListView(
         children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 
@@ -10,15 +11,9 @@ class ContactUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        shape:
-            const Border(bottom: BorderSide(color: AppColors.grey, width: 1)),
-        title: const Text(
-          'Связаться с нами',
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Связаться с нами',
+        context: context,
       ),
       body: Center(
         child: Padding(

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/app_text_form_field.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/location.dart';
 import 'package:hiba/utils/api/location.dart';
@@ -127,15 +128,9 @@ class _NewAddressPage extends State<NewAddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: const Text(
-          'Новый адрес',
-          style: AppTheme.headingBlack600_16,
-        ),
-        shape:
-            const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Новый адрес',
+        context: context,
       ),
       body: SafeArea(
         child: _selectedCityId == null

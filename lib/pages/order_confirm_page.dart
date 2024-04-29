@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/components/app_text_form_field.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/order_menu_item_tile.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/order.dart';
@@ -116,14 +117,9 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.bgLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        automaticallyImplyLeading: true,
-        title: const Text(
-          'Оформление заказа',
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Оформление заказа',
+        context: context,
       ),
       body: Form(
         child: ListView(

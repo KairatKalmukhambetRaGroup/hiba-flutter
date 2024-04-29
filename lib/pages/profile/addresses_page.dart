@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/pages/profile/new_address_page.dart';
 import 'package:hiba/providers/address_state.dart';
@@ -56,15 +57,9 @@ class _AddressesPageState extends State<AddressesPage> {
     }
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: const Text(
-          'Мои адреса',
-          style: AppTheme.headingBlack600_16,
-        ),
-        shape:
-            const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Мои адреса',
+        context: context,
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 8.0),

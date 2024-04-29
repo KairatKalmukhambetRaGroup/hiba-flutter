@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -189,13 +190,9 @@ class _RegisterProfileState extends State<RegisterProfile> {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       key: _scaffoldKey,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: const Text(
-          'Профиль',
-          style: AppTheme.headingBlack500_16,
-        ),
+      appBar: CustomAppBar(
+        titleText: 'Профиль',
+        context: context,
       ),
       body: Center(
         child: Padding(

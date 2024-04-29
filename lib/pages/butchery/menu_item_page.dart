@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/menu_item.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -18,15 +19,9 @@ class _MenuItemPageState extends State<MenuItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        shape:
-            const Border(bottom: BorderSide(color: AppColors.grey, width: 1)),
-        title: Text(
-          widget.menuItem.name,
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: widget.menuItem.name,
+        context: context,
       ),
     );
   }

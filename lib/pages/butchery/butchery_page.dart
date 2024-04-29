@@ -1,6 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/components/menu_item_tile.dart';
@@ -76,15 +77,9 @@ class _ButcherPageState extends State<ButcheryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        shape:
-            const Border(bottom: BorderSide(color: AppColors.grey, width: 1)),
-        title: Text(
-          title,
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: title,
+        context: context,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/order_card.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/utils/api/orders.dart';
@@ -36,15 +37,9 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: const Text(
-          'Мои заказы',
-          style: AppTheme.headingBlack600_16,
-        ),
-        shape:
-            const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Мои заказы',
+        context: context,
       ),
       body: SafeArea(
           child: _orders.isNotEmpty

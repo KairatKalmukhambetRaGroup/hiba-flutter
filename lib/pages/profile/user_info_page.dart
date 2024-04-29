@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hiba/utils/api/auth.dart';
@@ -211,15 +212,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: const Text(
-          'Мои данные',
-          style: AppTheme.headingBlack600_16,
-        ),
-        shape:
-            const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Мои данные',
+        context: context,
       ),
       body: SafeArea(
         child: Form(

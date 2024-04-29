@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/pages/order_confirm_page.dart';
 import 'package:hiba/providers/shopping_basket.dart';
@@ -22,18 +23,9 @@ class _BasketPageState extends State<BasketPage> {
 
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        // leading: SvgPicture.asset(
-        //   'assets/svg/chevron-left.svg',
-        //   width: 24,
-        // ),
-        automaticallyImplyLeading: true,
-        title: const Text(
-          'Корзина',
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Корзина',
+        context: context,
       ),
       body: shoppingBasket.orders.isEmpty
           ? Center(

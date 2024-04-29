@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 
@@ -15,12 +16,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Уведомления',
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Уведомления',
+        context: context,
       ),
       body: const Column(
         children: [

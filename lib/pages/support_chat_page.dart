@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/chat_message.dart';
 import 'package:hiba/providers/chat_provider.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -40,15 +41,9 @@ class _SupportChatPageState extends State<SupportChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        shape:
-            const Border(bottom: BorderSide(color: AppColors.grey, width: 1)),
-        title: const Text(
-          'Hiba чат',
-          style: AppTheme.headingBlack600_16,
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        titleText: 'Hiba чат',
+        context: context,
       ),
       body: Consumer<ChatProvider>(
         builder: (context, chatProvider, child) {
