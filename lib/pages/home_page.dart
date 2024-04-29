@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/show_addresses.dart';
+import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/utils/api/location.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/';
@@ -13,6 +16,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // AuthState authState = Provider.of<AuthState>(context);
     // User? user = authState.user;
+
+    AddressState addressState =
+        Provider.of<AddressState>(context, listen: false);
+
+    // if (addressState.currentAddress == null) {
+    //   addressState.openHomeAddresses();
+    // }
 
     return Scaffold(
       backgroundColor: AppColors.bgLight,
@@ -29,8 +39,10 @@ class HomePage extends StatelessWidget {
                     width: 24,
                   ),
                   const SizedBox(width: 4),
-                  const Text(
-                    'Алматы',
+                  Text(
+                    addressState.currentAddress == null
+                        ? 'Выберите адрес'
+                        : addressState.currentAddress!.city.name,
                     style: AppTheme.bodyBlack500_14,
                   ),
                 ],
@@ -39,8 +51,16 @@ class HomePage extends StatelessWidget {
                 'assets/svg/chevron-right-grey.svg',
                 width: 24,
               ),
-              onTap: () async {
-                await getCities();
+              onTap: () {
+                showModalBottomSheet(
+                  isDismissible: true,
+                  backgroundColor: Colors.transparent,
+                  // isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return const ShowAddresses();
+                  },
+                );
               },
             ),
             Padding(
@@ -115,14 +135,13 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-
 
 // ListView(
 //           padding: EdgeInsets.zero,
