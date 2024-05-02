@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/promotion_carousel.dart';
 import 'package:hiba/components/show_addresses.dart';
 import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/utils/api/location.dart';
@@ -63,32 +64,7 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  CarouselSlider(
-                    options: CarouselOptions(height: 200.0),
-                    items: [1, 2, 3, 4, 5].map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration:
-                                  const BoxDecoration(color: Colors.amber),
-                              child: Text(
-                                'Slide $i',
-                                style: const TextStyle(fontSize: 16.0),
-                              ));
-                        },
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-            ),
+            const PromotionCarousel(),
             ListTile(
               contentPadding: const EdgeInsets.all(16),
               tileColor: AppColors.white,
