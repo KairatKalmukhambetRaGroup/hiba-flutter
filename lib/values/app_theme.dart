@@ -138,6 +138,13 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     fontSize: 14,
   );
+
+  static const TextStyle headingBlue700_16 = TextStyle(
+    color: AppColors.mainBlue,
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+  );
+
   static const TextStyle bodyBlue600_14 = TextStyle(
     color: AppColors.mainBlue,
     fontWeight: FontWeight.w600,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/menu_item.dart';
+import 'package:hiba/pages/butchery/menu_item_page.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -55,6 +56,18 @@ class MenuItemTile extends StatelessWidget {
           ),
         ),
         child: ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MenuItemPage(
+                  menuItem: menuItem,
+                  butchery: butchery,
+                  charity: charity,
+                ),
+              ),
+            );
+          },
           tileColor: AppColors.white,
           title: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
