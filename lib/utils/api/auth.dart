@@ -7,16 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthState extends ChangeNotifier {
   static const storage = FlutterSecureStorage();
   User? _user;
-
   User? get user => _user;
+
+  bool _isLoggedIn = false;
+  bool get isLoggedIn => _isLoggedIn;
 
   Future<void> storeAuthData(String token, dynamic userData) async {
     await storage.write(key: 'authToken', value: token);
     await storage.write(key: 'user', value: json.encode(userData));
+    _isLoggedIn = true;
   }
 
   static Future<String?> getAuthToken() async {
@@ -26,9 +30,25 @@ class AuthState extends ChangeNotifier {
 
   Future<User?> getUserData() async {
     String? userDataString = await storage.read(key: 'user');
-    if (userDataString == null) return null;
+    print('user string: $userDataString');
+    if (userDataString == null) {
+      logout();
+      return null;
+    }
+    String? token = await storage.read(key: 'authToken');
+
+    if (token == null) {
+      logout();
+      return null;
+    }
+    bool isTokenExpired = JwtDecoder.isExpired(token);
+    if (isTokenExpired) {
+      logout();
+      return null;
+    }
     Map<String, dynamic> data = json.decode(userDataString);
     _user = User.fromJson(data);
+    _isLoggedIn = true;
     notifyListeners();
     return _user;
   }
@@ -39,6 +59,7 @@ class AuthState extends ChangeNotifier {
     _user = null;
     await storage.delete(key: 'authToken');
     await storage.delete(key: 'user');
+    _isLoggedIn = false;
     notifyListeners();
   }
 

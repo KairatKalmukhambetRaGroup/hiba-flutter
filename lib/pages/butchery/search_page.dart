@@ -30,6 +30,11 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Future<void> loadJsonData() async {
     final data = await getButcheries();
     if (data != null) {

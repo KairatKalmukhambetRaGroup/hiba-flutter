@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:fluro/fluro.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
+import 'package:hiba/entities/user.dart';
 import 'package:hiba/fluro_routes.dart';
 import 'package:hiba/home.dart';
 import 'package:hiba/pages/login_page.dart';
@@ -67,14 +69,7 @@ class MyApp extends StatelessWidget {
         Locale('kk'),
       ],
       theme: AppTheme.themeData,
-      // home: const LoginPage(),
-      home: Consumer<AuthState>(
-        builder: (context, authState, _) {
-          authState.getUserData();
-          return authState.user == null ? const LoginPage() : const Home();
-        },
-      ),
-      // initialRoute: '/',
+      home: const Home(),
       scaffoldMessengerKey: SnackbarHelper.key,
       navigatorKey: NavigationHelper.key,
       onGenerateRoute: FluroRoutes.router.generator,
