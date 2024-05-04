@@ -12,6 +12,7 @@ import 'package:hiba/home.dart';
 import 'package:hiba/pages/login_page.dart';
 import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/providers/chat_provider.dart';
+import 'package:hiba/providers/navigation_bar_state.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/helpers/navigation_helper.dart';
 import 'package:hiba/utils/helpers/snackbar_helper.dart';
@@ -41,6 +42,7 @@ void main() async {
   await dotenv.load(fileName: '.env');
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_) => NavigationBarState()),
       ChangeNotifierProvider(create: (_) => AuthState()),
       ChangeNotifierProvider(create: (_) => ShoppingBasket()),
       ChangeNotifierProvider(create: (_) => ChatProvider()),

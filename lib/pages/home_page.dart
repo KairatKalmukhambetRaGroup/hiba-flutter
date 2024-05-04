@@ -116,32 +116,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-// ListView(
-//           padding: EdgeInsets.zero,
-//           children: [
-//             SizedBox(
-//               height: 200,
-//               child: ListView(
-//                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-//                 scrollDirection: Axis.horizontal,
-//                 children: const [
-//                   ButcheryCardSmall(title: 'Card 1'),
-//                   ButcheryCardSmall(title: 'Card 2'),
-//                   ButcheryCardSmall(title: 'Card 3'),
-//                   ButcheryCardSmall(title: 'Card 4'),
-//                 ],
-//               ),
-//             ),
-//             TextButton(
-//                 onPressed: () async {
-//                   await getUser();
-//                 },
-//                 child: const Text('Print user')),
-//             TextButton(
-//                 onPressed: () {
-//                   Navigator.of(context).pushNamed('/login');
-//                 },
-//                 child: const Text('login'))
-//           ],
-//         ),

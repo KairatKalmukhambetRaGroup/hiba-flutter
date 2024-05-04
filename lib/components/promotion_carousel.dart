@@ -26,16 +26,24 @@ class _PromotionCarouselState extends State<PromotionCarousel> {
     loadPromotions();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Future<void> loadPromotions() async {
+    if (!mounted) return;
     setState(() {
       _loading = true;
     });
     final data = await getPromotions();
     if (data != null) {
+      if (!mounted) return;
       setState(() {
         _promotions = data;
       });
     }
+    if (!mounted) return;
     setState(() {
       _loading = false;
     });

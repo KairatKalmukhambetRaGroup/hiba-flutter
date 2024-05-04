@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
+import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/butchery_small.dart';
 import 'package:hiba/pages/butchery/butchery_page.dart';
 import 'package:hiba/utils/api/butchery.dart';
@@ -48,7 +49,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
       backgroundColor: AppColors.bgLight,
       appBar: CustomAppBar(
         titleText: isCharity ? 'На благотворительность' : 'Для себя и близких',
