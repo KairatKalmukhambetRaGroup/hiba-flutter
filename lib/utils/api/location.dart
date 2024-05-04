@@ -61,8 +61,8 @@ Future<List<Address>?> getAddresses() async {
         'Authorization': 'Bearer $authToken',
       },
     );
-
     if (response.statusCode == 200) {
+      print(response.body);
       final decodedBody = utf8.decode(response.bodyBytes);
       // print(decodedBody);
       final responseData =

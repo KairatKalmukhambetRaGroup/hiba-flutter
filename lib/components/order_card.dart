@@ -71,13 +71,14 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                order.address!.info,
-                style: AppTheme.bodyBlack500_11,
+            if (order.address != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  order.address!.info,
+                  style: AppTheme.bodyBlack500_11,
+                ),
               ),
-            ),
             const SizedBox(height: 16),
             const Divider(height: 1, color: AppColors.grey),
             Padding(

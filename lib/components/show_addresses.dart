@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/pages/profile/new_address_page.dart';
 import 'package:hiba/providers/address_state.dart';
+import 'package:hiba/utils/api/location.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +19,34 @@ class _ShowAddressesState extends State<ShowAddresses> {
   final _sheet = GlobalKey();
   final _controller = DraggableScrollableController();
 
+  List<Address> _addresses = [];
+  bool _loading = true;
+
   @override
   void initState() {
     super.initState();
+    loadAddresses();
     _controller.addListener(_onChanged);
+  }
+
+  Future<void> loadAddresses() async {
+    setState(() {
+      _loading = true;
+    });
+    final data = await getAddresses();
+
+    if (data != null) {
+      setState(() {
+        _addresses = data;
+      });
+    }
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  void refresh() async {
+    await loadAddresses();
   }
 
   @override
@@ -58,7 +83,11 @@ class _ShowAddressesState extends State<ShowAddresses> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      AddressState addressState = Provider.of<AddressState>(context);
+      AddressState addressState =
+          Provider.of<AddressState>(context, listen: false);
+      if (_addresses.isNotEmpty) {
+        addressState.setAddresses(_addresses);
+      }
       return DraggableScrollableSheet(
         key: _sheet,
         initialChildSize: 1,
@@ -90,11 +119,19 @@ class _ShowAddressesState extends State<ShowAddresses> {
                       style: AppTheme.headingBlack600_16,
                     ),
                   ),
-                  Column(
-                    children: addressState.addresses
-                        .map((address) => addressTile(address))
-                        .toList(),
-                  ),
+                  _loading
+                      ? const Center(
+                          child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: CircularProgressIndicator(
+                            color: AppColors.mainBlue,
+                          ),
+                        ))
+                      : Column(
+                          children: _addresses
+                              .map((address) => addressTile(address))
+                              .toList(),
+                        ),
                   ListTile(
                     leading: SvgPicture.asset(
                       'assets/svg/plus-black.svg',
@@ -123,7 +160,48 @@ class _ShowAddressesState extends State<ShowAddresses> {
     });
   }
 
-  Widget addressTile(Address address) => ListTile(
-        title: Text(address.name),
-      );
+  Widget addressTile(Address address) {
+    AddressState addressState =
+        Provider.of<AddressState>(context, listen: true);
+    return ListTile(
+      onTap: () {
+        addressState.setCurrentAddress(address);
+        Navigator.of(context).pop();
+      },
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      leading: Address.getIconByType(address.name),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            address.name == 'work'
+                ? 'Работа'
+                : address.name == 'home'
+                    ? 'Дом'
+                    : address.name,
+            style: AppTheme.bodyBlack500_14,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            address.info,
+            style: AppTheme.bodyDarkgrey500_11,
+          ),
+        ],
+      ),
+      trailing: (addressState.currentAddress != null &&
+              address.id == addressState.currentAddress!.id)
+          ? IconButton(
+              padding: EdgeInsets.zero,
+              iconSize: 24,
+              icon: SvgPicture.asset(
+                'assets/svg/address-check.svg',
+                width: 24,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(NewAddressPage.routeName);
+              },
+            )
+          : null,
+    );
+  }
 }

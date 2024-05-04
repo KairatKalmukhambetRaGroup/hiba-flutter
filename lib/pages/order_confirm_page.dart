@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/app_text_form_field.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/order_menu_item_tile.dart';
+import 'package:hiba/components/show_addresses.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/providers/address_state.dart';
@@ -269,7 +271,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                         builder: (context, addressState, child) {
                       Address? address = addressState.addresses.isEmpty
                           ? null
-                          : addressState.addresses[0];
+                          : addressState.currentAddress;
                       if (address != null) {
                         _order.setAddress(address);
                       }
@@ -277,14 +279,31 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                       return address == null
                           ? ListTile(
                               onTap: () {
-                                // if (addressState.addresses.isNotEmpty) {
-                                //   addressState.setCurrentAddress(
-                                //       addressState.addresses[0]);
-                                // }
+                                showModalBottomSheet(
+                                  isDismissible: true,
+                                  backgroundColor: Colors.transparent,
+                                  // isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return const ShowAddresses();
+                                  },
+                                );
                               },
                               title: Text('Выберите адрес'),
                             )
                           : ListTile(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  isDismissible: true,
+                                  backgroundColor: Colors.transparent,
+                                  // isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return const ShowAddresses();
+                                  },
+                                );
+                              },
+                              tileColor: AppColors.bgLight,
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
                               leading: Address.getIconByType(address.name),
@@ -305,6 +324,10 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                     style: AppTheme.bodyDarkgrey500_11,
                                   ),
                                 ],
+                              ),
+                              trailing: SvgPicture.asset(
+                                'assets/svg/chevron-right-grey.svg',
+                                width: 24,
                               ),
                             );
                     }),

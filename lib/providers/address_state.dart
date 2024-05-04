@@ -21,14 +21,17 @@ class AddressState extends ChangeNotifier {
 
   void setCurrentAddress(Address address) {
     _currentAddress = address;
+    print(address);
     notifyListeners();
   }
 
   void setAddresses(List<Address> data) {
     _addresses = data;
-    _currentAddress = _addresses[0];
+    if (_currentAddress == null ||
+        data.indexWhere((element) => element.id == _currentAddress!.id) == -1) {
+      _currentAddress = _addresses[0];
+    }
     print(_currentAddress);
-    notifyListeners();
   }
 
   Future<void> addAddress() async {}

@@ -23,29 +23,33 @@ class Order {
   }
 
   factory Order.fromJson(Map<String, dynamic> json) {
+    print(json);
     Order order = Order(
       butchery: Butchery.fromJson(json['butchery'] as Map<String, dynamic>),
       charity: json['charity'] as bool,
     );
 
-    order.setAddress(Address.fromJson(json['address'] as Map<String, dynamic>));
+    if (json.containsKey('address') && json['address'] != null) {
+      order.setAddress(
+          Address.fromJson(json['address'] as Map<String, dynamic>));
+    }
     order.id = json['id'];
     order.orderStatus = json['orderStatus'];
 
-    if (json.containsKey('totalPrice')) {
+    if (json.containsKey('totalPrice') && json['totalPrice'] != null) {
       order.totalPrice = json['totalPrice'];
     }
-    if (json.containsKey('deliveryPrice')) {
+    if (json.containsKey('deliveryPrice') && json['deliveryPrice'] != null) {
       order.deliveryPrice = json['deliveryPrice'];
     }
-    if (json.containsKey('donation')) {
+    if (json.containsKey('donation') && json['donation'] != null) {
       order.donation = json['donation'];
     }
-    if (json.containsKey('deliveryDate')) {
+    if (json.containsKey('deliveryDate') && json['deliveryDate'] != null) {
       order.deliveryDate = DateTime.parse(json['deliveryDate']);
     }
 
-    if (json.containsKey('menuItems')) {
+    if (json.containsKey('menuItems') && json['menuItems'] != null) {
       final menuItems = json['menuItems'];
       order.setMenuItemsFromJson(menuItems);
     }

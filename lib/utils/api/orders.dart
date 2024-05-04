@@ -68,7 +68,7 @@ Future<List<Order>?> getMyOrders() async {
     }
     return null;
   } catch (e) {
-    print('Error: $e');
+    print('Error on my orders: $e');
     return null;
   }
 }
