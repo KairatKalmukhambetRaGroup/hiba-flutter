@@ -92,10 +92,10 @@ class _AddressesPageState extends State<AddressesPage> {
           },
           style: ButtonStyle(
             backgroundColor:
-                const MaterialStatePropertyAll<Color>(AppColors.mainBlue),
-            shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                const WidgetStatePropertyAll<Color>(AppColors.mainBlue),
+            shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            minimumSize: const MaterialStatePropertyAll(Size.fromHeight(48)),
+            minimumSize: const WidgetStatePropertyAll(Size.fromHeight(48)),
           ),
           child: const Text(
             'Добавить адресс',

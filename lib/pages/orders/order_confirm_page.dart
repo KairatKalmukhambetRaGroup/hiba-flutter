@@ -204,7 +204,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                     fit: BoxFit.cover,
                                     child: Switch(
                                         trackOutlineColor:
-                                            const MaterialStatePropertyAll(
+                                            const WidgetStatePropertyAll(
                                                 Colors.transparent),
                                         inactiveThumbColor: AppColors.white,
                                         inactiveTrackColor: AppColors.grey,
@@ -625,10 +625,10 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
           },
           style: ButtonStyle(
             backgroundColor:
-                const MaterialStatePropertyAll<Color>(AppColors.mainBlue),
-            shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                const WidgetStatePropertyAll<Color>(AppColors.mainBlue),
+            shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            minimumSize: const MaterialStatePropertyAll(Size.fromHeight(48)),
+            minimumSize: const WidgetStatePropertyAll(Size.fromHeight(48)),
           ),
           child: const Text(
             'Продолжить',

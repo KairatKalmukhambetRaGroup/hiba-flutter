@@ -1,4 +1,3 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/login_page.dart';
@@ -27,7 +26,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   void initState() {
     super.initState();
+    
   }
+
+  final List<String> routes = ['/','/basket','/profile'];
 
   @override
   void dispose() {
@@ -66,7 +68,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           ? null
           : NavigationBar(
               onDestinationSelected: (int index) {
+                String? currentRounte = ModalRoute.of(context)?.settings.name;
                 navigationBarState.setCurrentPageIndex(index);
+
+                if(currentRounte == null || currentRounte != routes[index]){
+                  Navigator.of(context).pushReplacementNamed(routes[index]);
+                }
               },
               selectedIndex: navigationBarState.currentPageIndex,
               backgroundColor: AppColors.white,
@@ -80,7 +87,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                       width: 24),
                   icon: SvgPicture.asset('assets/svg/home-outline.svg',
                       width: 24),
-                  label: AppLocalizations.of(context)!.navbarHome,
+                  label: 'Главная',
                 ),
                 // NavigationDestination(
                 //   selectedIcon:
@@ -94,14 +101,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   icon: isBasketEmpty()
                       ? SvgPicture.asset('assets/svg/cart.svg', width: 24)
                       : SvgPicture.asset('assets/svg/cart-full.svg', width: 24),
-                  label: AppLocalizations.of(context)!.navbarBasket,
+                  label: 'Корзина',
                 ),
                 NavigationDestination(
                   selectedIcon: SvgPicture.asset(
                       'assets/svg/account-active.svg',
                       width: 24),
                   icon: SvgPicture.asset('assets/svg/account.svg', width: 24),
-                  label: AppLocalizations.of(context)!.navbarProfile,
+                  label: 'Профиль',
                 ),
               ],
             ),

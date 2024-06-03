@@ -120,10 +120,10 @@ class MenuItemPage extends StatelessWidget {
                         }
                       },
                       style: const ButtonStyle(
-                        padding: MaterialStatePropertyAll(EdgeInsets.all(12)),
+                        padding: WidgetStatePropertyAll(EdgeInsets.all(12)),
                         alignment: Alignment.center,
                         backgroundColor:
-                            MaterialStatePropertyAll(AppColors.mainBlue),
+                            WidgetStatePropertyAll(AppColors.mainBlue),
                       ),
                       child: const Text(
                         'В корзину',

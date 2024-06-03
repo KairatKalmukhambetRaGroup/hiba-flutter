@@ -35,8 +35,8 @@ class ContactUsPage extends StatelessWidget {
                 onPressed: () {},
                 style: const ButtonStyle(
                   alignment: Alignment.center,
-                  minimumSize: MaterialStatePropertyAll(Size.fromHeight(48)),
-                  backgroundColor: MaterialStatePropertyAll(AppColors.red),
+                  minimumSize: WidgetStatePropertyAll(Size.fromHeight(48)),
+                  backgroundColor: WidgetStatePropertyAll(AppColors.red),
                 ),
                 child: const Text(
                   'Позвонить',
@@ -50,8 +50,8 @@ class ContactUsPage extends StatelessWidget {
                 },
                 style: const ButtonStyle(
                   alignment: Alignment.center,
-                  minimumSize: MaterialStatePropertyAll(Size.fromHeight(48)),
-                  backgroundColor: MaterialStatePropertyAll(AppColors.mainBlue),
+                  minimumSize: WidgetStatePropertyAll(Size.fromHeight(48)),
+                  backgroundColor: WidgetStatePropertyAll(AppColors.mainBlue),
                 ),
                 child: const Text(
                   'Написать в чат',

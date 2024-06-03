@@ -160,11 +160,11 @@ class _LoginPageState extends State<LoginPage> {
                             // }
                           },
                           style: ButtonStyle(
-                            shape: MaterialStatePropertyAll<
+                            shape: WidgetStatePropertyAll<
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8))),
-                            minimumSize: const MaterialStatePropertyAll(
+                            minimumSize: const WidgetStatePropertyAll(
                                 Size.fromHeight(48)),
                           ),
                           child: Ink(
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton.icon(
                     onPressed: () {},
                     style: ButtonStyle(
-                        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                        shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                             side: const BorderSide(
@@ -227,11 +227,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         padding:
-                            const MaterialStatePropertyAll(EdgeInsets.all(8)),
+                            const WidgetStatePropertyAll(EdgeInsets.all(8)),
                         minimumSize:
-                            const MaterialStatePropertyAll(Size.fromHeight(48)),
+                            const WidgetStatePropertyAll(Size.fromHeight(48)),
                         backgroundColor:
-                            const MaterialStatePropertyAll(AppColors.white)),
+                            const WidgetStatePropertyAll(AppColors.white)),
                     icon: SvgPicture.asset(
                       'assets/svg/google.svg',
                       width: 24,
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton.icon(
                     onPressed: () {},
                     style: ButtonStyle(
-                      shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                      shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                           side: const BorderSide(
@@ -258,11 +258,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       padding:
-                          const MaterialStatePropertyAll(EdgeInsets.all(8)),
+                          const WidgetStatePropertyAll(EdgeInsets.all(8)),
                       minimumSize:
-                          const MaterialStatePropertyAll(Size.fromHeight(48)),
+                          const WidgetStatePropertyAll(Size.fromHeight(48)),
                       backgroundColor:
-                          const MaterialStatePropertyAll(AppColors.white),
+                          const WidgetStatePropertyAll(AppColors.white),
                     ),
                     icon: SvgPicture.asset(
                       'assets/svg/apple.svg',

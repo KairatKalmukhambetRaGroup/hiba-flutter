@@ -118,11 +118,11 @@ class MenuItemTile extends StatelessWidget {
                                   }
                                 },
                                 style: const ButtonStyle(
-                                  padding: MaterialStatePropertyAll(
+                                  padding: WidgetStatePropertyAll(
                                       EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 5)),
                                   alignment: Alignment.center,
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor: WidgetStatePropertyAll(
                                       AppColors.mainBlue),
                                 ),
                                 child: const Text(

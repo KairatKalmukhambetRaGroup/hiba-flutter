@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/active_orders.dart';
+import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/promotion_carousel.dart';
 import 'package:hiba/components/show_addresses.dart';
 import 'package:hiba/providers/address_state.dart';
@@ -24,10 +25,10 @@ class HomePage extends StatelessWidget {
     //   addressState.openHomeAddresses();
     // }
 
-    return Scaffold(
+    return CustomScaffold(
       backgroundColor: AppColors.bgLight,
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             ListTile(
               tileColor: AppColors.white,
@@ -84,8 +85,8 @@ class HomePage extends StatelessWidget {
                     style: const ButtonStyle(
                       alignment: Alignment.center,
                       minimumSize:
-                          MaterialStatePropertyAll(Size.fromHeight(48)),
-                      backgroundColor: MaterialStatePropertyAll(AppColors.red),
+                          WidgetStatePropertyAll(Size.fromHeight(48)),
+                      backgroundColor: WidgetStatePropertyAll(AppColors.red),
                     ),
                     child: const Text(
                       'На благотворительность',
@@ -100,9 +101,9 @@ class HomePage extends StatelessWidget {
                     style: const ButtonStyle(
                       alignment: Alignment.center,
                       minimumSize:
-                          MaterialStatePropertyAll(Size.fromHeight(48)),
+                          WidgetStatePropertyAll(Size.fromHeight(48)),
                       backgroundColor:
-                          MaterialStatePropertyAll(AppColors.mainBlue),
+                          WidgetStatePropertyAll(AppColors.mainBlue),
                     ),
                     child: const Text(
                       'Для себя или близких',

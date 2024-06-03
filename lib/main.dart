@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:hiba/fluro_routes.dart';
-import 'package:hiba/home.dart';
 import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/providers/chat_provider.dart';
 import 'package:hiba/providers/navigation_bar_state.dart';
@@ -58,7 +56,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppStrings.loginAndRegister,
       localizationsDelegates: const [
-        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
@@ -68,7 +65,7 @@ class MyApp extends StatelessWidget {
         Locale('kk'),
       ],
       theme: AppTheme.themeData,
-      home: const Home(),
+      initialRoute: '/',
       scaffoldMessengerKey: SnackbarHelper.key,
       navigatorKey: NavigationHelper.key,
       onGenerateRoute: FluroRoutes.router.generator,

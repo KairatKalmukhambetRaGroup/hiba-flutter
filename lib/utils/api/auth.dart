@@ -64,7 +64,7 @@ class AuthState extends ChangeNotifier {
   }
 
   Future<int> confirmCode(String phone, String code) async {
-    String apiUrl = '${dotenv.get('API_URL')}/auth/confirm-code';
+    String apiUrl = '${dotenv.get('API_URL')}/auth/confirmCode';
 
     final Map<String, String> reqData = {
       'phoneNumber': phone,
@@ -100,7 +100,7 @@ class AuthState extends ChangeNotifier {
 
   Future<int> completeRegistration(
       String phone, String name, File photo) async {
-    String apiUrl = '${dotenv.get('API_URL')}/auth/complete-registration';
+    String apiUrl = '${dotenv.get('API_URL')}/auth/completeRegistration';
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl));

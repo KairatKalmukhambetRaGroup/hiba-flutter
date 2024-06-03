@@ -1,4 +1,3 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
@@ -43,11 +42,11 @@ class _ButcherPageState extends State<ButcheryPage> {
   getCategoryTranslations(String key) {
     switch (key) {
       case 'sheep':
-        return AppLocalizations.of(context)!.sheep;
+        return 'Баран';
       case 'cow':
-        return AppLocalizations.of(context)!.cow;
+        return 'Корова';
       case 'horse':
-        return AppLocalizations.of(context)!.horse;
+        return 'Лошадь';
       case 'birds':
         return 'Птицы';
       default:

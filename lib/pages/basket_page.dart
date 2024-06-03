@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
+import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/pages/orders/order_confirm_page.dart';
 import 'package:hiba/providers/shopping_basket.dart';
@@ -9,7 +10,7 @@ import 'package:hiba/values/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class BasketPage extends StatefulWidget {
-  static const routeName = 'basket';
+  static const routeName = '/basket';
   const BasketPage({super.key});
 
   @override
@@ -21,7 +22,7 @@ class _BasketPageState extends State<BasketPage> {
   Widget build(BuildContext context) {
     final shoppingBasket = Provider.of<ShoppingBasket>(context);
 
-    return Scaffold(
+    return CustomScaffold(
       backgroundColor: AppColors.bgLight,
       appBar: CustomAppBar(
         titleText: 'Корзина',
@@ -122,9 +123,9 @@ class _BasketPageState extends State<BasketPage> {
                               },
                               style: const ButtonStyle(
                                 alignment: Alignment.center,
-                                minimumSize: MaterialStatePropertyAll(
+                                minimumSize: WidgetStatePropertyAll(
                                     Size.fromHeight(48)),
-                                backgroundColor: MaterialStatePropertyAll(
+                                backgroundColor: WidgetStatePropertyAll(
                                     AppColors.mainBlue),
                               ),
                               child: const Text(

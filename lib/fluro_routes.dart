@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:hiba/pages/basket_page.dart';
 import 'package:hiba/pages/butchery/butchery_page.dart';
 import 'package:hiba/pages/code_verification_page.dart';
 import 'package:hiba/pages/contact_us_page.dart';
@@ -116,8 +117,18 @@ class FluroRoutes {
       return const SupportChatPage();
     },
   );
+  static final Handler _basketPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      return const BasketPage();
+    },
+  );
 
   static void setupRouter() {
+    router.define(
+      BasketPage.routeName, 
+      handler: _basketPageHandler, 
+      transitionType: TransitionType.cupertino,
+    );
     router.define(
       SupportChatPage.routeName,
       handler: _supportChatPageHandler,

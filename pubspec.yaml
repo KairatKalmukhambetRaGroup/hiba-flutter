@@ -58,6 +58,7 @@ dependencies:
   collection: ^1.18.0
   jwt_decoder: ^2.0.1
 
+  flutter_gen: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
@@ -30,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
     AuthState authState = Provider.of<AuthState>(context, listen: false);
     user ??= authState.user;
 
-    return Scaffold(
+    return CustomScaffold(
       backgroundColor: AppColors.bgLight,
       body: SafeArea(
         child: Column(
