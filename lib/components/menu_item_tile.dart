@@ -34,9 +34,8 @@ class MenuItemTile extends StatelessWidget {
             ? DismissDirection.endToStart
             : DismissDirection.none,
         onDismissed: (direction) {
-          print(direction);
           if (direction == DismissDirection.endToStart) {
-            shoppingBasket.deleteFromBasket(basketItem.id);
+            shoppingBasket.deleteFromBasket(basketItem.id, butchery, charity);
           } else {
             return;
           }
@@ -132,8 +131,7 @@ class MenuItemTile extends StatelessWidget {
                                 ))
                             : Row(
                                 children: [
-                                  IconButton.outlined(
-                                    splashRadius: 4,
+                                  IconButton(
                                     onPressed: () {
                                       shoppingBasket.removeItem(
                                           menuItem.id, butchery, charity);
@@ -143,7 +141,10 @@ class MenuItemTile extends StatelessWidget {
                                             'assets/svg/trash-can-outline.svg',
                                             width: 24,
                                           )
-                                        : const Icon(Icons.remove),
+                                        : SvgPicture.asset(
+                                            'assets/svg/round-minus.svg',
+                                            width: 24,
+                                          ),
                                     iconSize: 24,
                                   ),
                                   SizedBox(
@@ -156,8 +157,7 @@ class MenuItemTile extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                  IconButton.outlined(
-                                    splashRadius: 4,
+                                  IconButton(
                                     onPressed: () {
                                       if (orderIndex != -1) {
                                         shoppingBasket.addItemByOrderIndex(
@@ -167,7 +167,8 @@ class MenuItemTile extends StatelessWidget {
                                             menuItem, butchery, charity);
                                       }
                                     },
-                                    icon: const Icon(Icons.add),
+                                    icon: SvgPicture.asset(
+                                        'assets/svg/round-plus.svg'),
                                     iconSize: 24,
                                   ),
                                 ],

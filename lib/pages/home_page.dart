@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/components/active_orders.dart';
 import 'package:hiba/components/promotion_carousel.dart';
 import 'package:hiba/components/show_addresses.dart';
 import 'package:hiba/providers/address_state.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
     // User? user = authState.user;
 
     AddressState addressState =
-        Provider.of<AddressState>(context, listen: false);
+        Provider.of<AddressState>(context, listen: true);
 
     // if (addressState.currentAddress == null) {
     //   addressState.openHomeAddresses();
@@ -63,6 +64,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             const PromotionCarousel(),
+            const ActiveOrders(),
             ListTile(
               contentPadding: const EdgeInsets.all(16),
               tileColor: AppColors.white,

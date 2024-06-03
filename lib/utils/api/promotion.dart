@@ -6,7 +6,7 @@ import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Promotion>?> getPromotions() async {
-  String apiUrl = '${dotenv.get('API_URL')}/promotion/getPromotions';
+  String apiUrl = '${dotenv.get('API_URL')}/promotion/';
 
   try {
     final String? authToken = await AuthState.getAuthToken();
@@ -37,7 +37,6 @@ Future<List<Promotion>?> getPromotions() async {
     }
     return null;
   } catch (e) {
-    print('Error: $e');
     return null;
   }
 }

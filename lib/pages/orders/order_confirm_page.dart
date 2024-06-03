@@ -7,6 +7,7 @@ import 'package:hiba/components/show_addresses.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/providers/address_state.dart';
+import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/api/orders.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -32,13 +33,20 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
   late final TextEditingController recipientNameController;
   late final TextEditingController senderNameController;
   late final TextEditingController recipientPhoneController;
+  late final TextEditingController donationController;
+
+  late ShoppingBasket shoppingBasket;
+
+  int _packagesNumber = 1;
+  int _donation = 0;
 
   late Order _order;
 
   bool isAnonym = false;
-  DateTime? selectedDate = null;
+  DateTime? selectedDate;
 
   List<DateTime> futureDates = [];
+  List<int> donations = [0, 100, 200, 500];
 
   void _handleAnonymChange(bool value) {
     setState(() {
@@ -54,6 +62,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
       ..addListener(controllerListener);
     recipientPhoneController = TextEditingController()
       ..addListener(controllerListener);
+    donationController = TextEditingController();
   }
 
   void disposeControllers() {
@@ -93,16 +102,22 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
     } else {
       _order.deliveryDate = selectedDate!;
     }
+    _order.packages = _packagesNumber;
+    // _order.donation = _donation as double;
     if (senderNameController.text.isNotEmpty) {
       _order.senderName = senderNameController.text;
     }
 
     try {
+      // ignore: unused_local_variable
       int status = await createOrder(_order);
-      print(status);
-    } catch (e) {
-      print(e);
-    }
+      if (status == 200) {
+        shoppingBasket.deleteOrder(_order.butchery, _order.charity);
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+      }
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   List<DateTime> getFutureDates() {
@@ -116,6 +131,8 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
 
   @override
   Widget build(BuildContext context) {
+    shoppingBasket = Provider.of<ShoppingBasket>(context);
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.bgLight,
@@ -237,9 +254,36 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                   'Разделить заказ на',
                                   style: AppTheme.bodyBlack500_14,
                                 ),
-                                const Text(
-                                  'пакетов',
-                                  style: AppTheme.bodyBlack500_14,
+                                Row(
+                                  children: [
+                                    DropdownButton<int>(
+                                      dropdownColor: AppColors.bgLight,
+                                      style: AppTheme.bodyBlack500_14,
+                                      elevation: 0,
+                                      value: _packagesNumber,
+                                      padding: const EdgeInsets.all(4),
+                                      items: [1, 2, 3, 4, 5]
+                                          .map((element) => DropdownMenuItem(
+                                                value: element,
+                                                child: Text(
+                                                  element.toString(),
+                                                  style:
+                                                      AppTheme.bodyBlack500_14,
+                                                ),
+                                              ))
+                                          .toList(),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _packagesNumber = newValue!;
+                                        });
+                                      },
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Text(
+                                      'пакетов',
+                                      style: AppTheme.bodyBlack500_14,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -249,8 +293,124 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                               style: AppTheme.headingBlack600_16,
                             ),
                             const SizedBox(height: 16),
-                            Row(
-                              children: [],
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  ...donations
+                                      .map(
+                                        (donation) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 2),
+                                          child: InkWell(
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 6),
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.white,
+                                                  border: _donation == donation
+                                                      ? Border.all(
+                                                          width: 1,
+                                                          color: AppColors
+                                                              .mainBlue,
+                                                        )
+                                                      : Border.all(
+                                                          width: 1,
+                                                          color: AppColors.grey,
+                                                        ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16)),
+                                              child: Text(
+                                                '$donation ₸',
+                                                style: _donation == donation
+                                                    ? AppTheme.bodyBlue500_14
+                                                    : AppTheme
+                                                        .bodyDarkGrey500_14,
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                _order.donation = double.parse(
+                                                    donation.toString());
+                                                _donation = donation;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 2),
+                                    child: SizedBox(
+                                      width: 100,
+                                      child: TextField(
+                                        textAlign: TextAlign.center,
+                                        controller: donationController,
+                                        keyboardType: TextInputType.number,
+                                        // padding: const EdgeInsets.symmetric(
+                                        //     horizontal: 12, vertical: 6),
+                                        textInputAction: TextInputAction.done,
+                                        decoration: InputDecoration(
+                                          fillColor: AppColors.white,
+                                          border: OutlineInputBorder(
+                                            borderSide: _donation ==
+                                                    int.tryParse(
+                                                        donationController.text)
+                                                ? const BorderSide(
+                                                    width: 1,
+                                                    color: AppColors.mainBlue,
+                                                  )
+                                                : const BorderSide(
+                                                    width: 1,
+                                                    color: AppColors.grey,
+                                                  ),
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          hintText: 'другая сумма',
+                                          hintStyle:
+                                              AppTheme.bodyDarkGrey500_14,
+                                          contentPadding:
+                                              const EdgeInsets.all(0),
+                                        ),
+                                        scrollPadding: EdgeInsets.zero,
+                                        onSubmitted: (value) {
+                                          if (value.isEmpty) return;
+                                          int? don = int.tryParse(value);
+                                          if (don == null) return;
+                                          setState(() {
+                                            _order.donation =
+                                                double.parse(value);
+                                            _donation = don;
+                                          });
+                                          if (donations.contains(don)) {
+                                            donationController.clear();
+                                          }
+                                        },
+                                        onChanged: (_) {},
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: _donation ==
+                                                int.tryParse(
+                                                    donationController.text)
+                                            ? AppTheme.bodyBlue500_14
+                                            : AppTheme.bodyDarkGrey500_14,
+
+                                        // child: TextField(
+                                        //   '$donation ₸',
+                                        //   style: _donation == donation
+                                        //       ? AppTheme.bodyBlue500_14
+                                        //       : AppTheme.bodyDarkGrey500_14,
+                                        // ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         )
@@ -289,7 +449,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                   },
                                 );
                               },
-                              title: Text('Выберите адрес'),
+                              title: const Text('Выберите адрес'),
                             )
                           : ListTile(
                               onTap: () {

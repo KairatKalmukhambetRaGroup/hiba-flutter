@@ -25,6 +25,7 @@ class OrderPage extends StatelessWidget {
               order.orderStatus,
               style: AppTheme.headingBlue600_16,
             ),
+            // ignore: prefer_const_constructors
             subtitle: Text(
               'data',
               style: AppTheme.bodyDarkGrey500_14,
@@ -119,7 +120,7 @@ class OrderPage extends StatelessWidget {
                       style: AppTheme.bodyRed500_16,
                     ),
                     Text(
-                      '${order.totalPrice.toString()} ₸',
+                      '${order.totalPrice} ₸',
                       style: AppTheme.headingRed700_16,
                     ),
                   ],

@@ -106,7 +106,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               ],
             ),
       body: loading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : authState.isLoggedIn

@@ -103,14 +103,31 @@ class ShoppingBasket extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteFromBasket(int id) {
-    // int index = findById(id);
-    // if (index == -1) {
-    //   return;
-    // }
-    // _items[index].quantity = 0;
-    // _items.removeWhere((element) => element.id == id);
-    // notifyListeners();
+  void deleteFromBasket(int menuItemId, Butchery butchery, bool charity) {
+    int index = getOrderIndex(butchery, charity);
+    if (index == -1) {
+      return;
+    }
+    int j = findById(menuItemId, index);
+    if (j == -1) {
+      return;
+    }
+    _orders[index].items[j].quantity = 0;
+    _orders[index].items.removeWhere((element) => element.id == menuItemId);
+    if (_orders[index].items.isEmpty) {
+      _orders.removeAt(index);
+    }
+
+    notifyListeners();
+  }
+
+  void deleteOrder(Butchery butchery, bool charity) {
+    int index = getOrderIndex(butchery, charity);
+    if (index == -1) {
+      return;
+    }
+    _orders[index].items.clear();
+    _orders.removeAt(index);
   }
 
   // void updateItem(int index, MenuItem newItem) {

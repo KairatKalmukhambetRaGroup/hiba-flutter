@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -212,17 +214,14 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                           },
                           hapticFeedbackType: HapticFeedbackType.lightImpact,
                           onCompleted: (pin) async {
-                            print(_phone);
-
                             String phone = _phone.split('+')[1];
                             int status =
                                 await authState.confirmCode(phone, pin);
-                            print(status);
                             if (status == 201) {
                               Navigator.of(context).pushNamed('/');
                             } else if (status == 200) {
                               Navigator.of(context)
-                                  .pushNamed('/register-profile/${phone}');
+                                  .pushNamed('/register-profile/$phone');
                             }
                           },
                           submittedPinTheme: defaultPinTheme.copyWith(
@@ -236,19 +235,19 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                         ),
                       ),
                       const SizedBox(height: 48),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                                '/register-profile/${_phone.split('+')[1]}');
-                          },
-                          child: const Text(
-                            'Отправить повторно',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: AppColors.mainBlue,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          )),
+                      // TextButton(
+                      //     onPressed: () {
+                      //       Navigator.of(context).pushNamed(
+                      //           '/register-profile/${_phone.split('+')[1]}');
+                      //     },
+                      //     child: const Text(
+                      //       'Отправить повторно',
+                      //       textAlign: TextAlign.center,
+                      //       style: TextStyle(
+                      //           color: AppColors.mainBlue,
+                      //           fontSize: 14,
+                      //           fontWeight: FontWeight.w500),
+                      //     )),
                       _sendCodeAgain
                           ? TextButton(
                               onPressed: _sendCodeAgain

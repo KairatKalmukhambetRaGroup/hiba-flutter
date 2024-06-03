@@ -19,6 +19,7 @@ class CustomAppBar extends AppBar {
                 )
               : null,
           backgroundColor: AppColors.white,
+          surfaceTintColor: AppColors.white,
           title: titleText == null
               ? null
               : Text(

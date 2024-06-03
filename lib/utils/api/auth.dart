@@ -79,6 +79,7 @@ class AuthState extends ChangeNotifier {
           'Content-Type': 'application/json',
         },
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
           final Map<String, dynamic> responseData = json.decode(response.body);

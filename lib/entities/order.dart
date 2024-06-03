@@ -9,6 +9,7 @@ class Order {
   final List<MenuItem> items = [];
   late String orderStatus;
   late int id;
+  int packages = 1;
   late double price = 0;
   late double totalPrice = 0;
   late double deliveryPrice = 0;
@@ -23,7 +24,6 @@ class Order {
   }
 
   factory Order.fromJson(Map<String, dynamic> json) {
-    print(json);
     Order order = Order(
       butchery: Butchery.fromJson(json['butchery'] as Map<String, dynamic>),
       charity: json['charity'] as bool,
@@ -35,6 +35,10 @@ class Order {
     }
     order.id = json['id'];
     order.orderStatus = json['orderStatus'];
+
+    if (json.containsKey('packages') && json['packages'] != null) {
+      order.packages = json['packages'];
+    }
 
     if (json.containsKey('totalPrice') && json['totalPrice'] != null) {
       order.totalPrice = json['totalPrice'];
@@ -144,15 +148,14 @@ class Order {
     Map<String, int> menuItemsId = {};
 
     for (MenuItem item in items) {
-      menuItemsId[item.id.toString()] = menuItemsId[item.id.toString()] == null
-          ? 1
-          : menuItemsId[item.id.toString()]! + 1;
+      menuItemsId[item.id.toString()] = item.quantity;
     }
 
     json['address'] = {"id": address?.id};
     json['butchery'] = {"id": butchery.id};
     json['charity'] = charity.toString();
     json['menuItemsId'] = menuItemsId;
+    json['packages'] = packages;
 
     json['deliveryDate'] = deliveryDate.millisecondsSinceEpoch;
     json['sender'] = senderName;

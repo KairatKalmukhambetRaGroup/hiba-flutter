@@ -1,0 +1,21 @@
+i Found 2 Firebase projects.
+✔ Select a Firebase project to configure your Flutter application with · hiba-ccd46 (hiba)
+✔ Which platforms should your configuration support (use arrow keys & space to select)? · android, ios
+i Firebase android app com.example.hiba is not registered on Firebase project hiba-ccd46.
+i Registered a new Firebase android app on Firebase project hiba-ccd46.
+i Firebase ios app com.example.hiba is not registered on Firebase project hiba-ccd46.
+i Registered a new Firebase ios app on Firebase project hiba-ccd46.
+
+Firebase configuration file lib\firebase_options.dart generated successfully with the following Firebase apps:
+
+Platform  Firebase App Id
+android   1:98361440646:android:f4f1acab426681a5229407
+ios       1:98361440646:ios:77abbe6d7ecdac4e229407
+
+Learn more about using this file and next steps from the documentation:
+ > https://firebase.google.com/docs/flutter/setup
+
+
+FCM TOKEN
+
+fVZIK6o0RCaOFHuCWM3jfF:APA91bF0k-fvhi_GtgczDNhHN2v6bO_fbI6inCerjfhZh91Buo2vN7eFw0Q0euRXPvyXxRhz80Dv4SKixdj9iivjDfJD9d5xDCClFjlwV4mu1LfhzBTk28UJvlyE4KVd25qqcOED3pbO

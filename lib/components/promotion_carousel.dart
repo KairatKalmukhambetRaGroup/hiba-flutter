@@ -54,13 +54,20 @@ class _PromotionCarouselState extends State<PromotionCarousel> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: _loading
-          ? const Text('Loading')
+          ? const Center(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: CircularProgressIndicator(
+                  color: AppColors.mainBlue,
+                ),
+              ),
+            )
           : Column(
               children: [
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 200.0,
-                    enableInfiniteScroll: _promotions.length > 1 ? true : false,
+                    enableInfiniteScroll: _promotions.length > 1,
                     onPageChanged: (index, reason) {
                       setState(() {
                         _current = index;

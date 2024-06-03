@@ -7,15 +7,12 @@ import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
 Future<int> addAddress(Address address) async {
-  String apiUrl = '${dotenv.get('API_URL')}/address/addMyNewAddress';
+  String apiUrl = '${dotenv.get('API_URL')}/address/';
 
   final Map<String, String> reqData = address.toJson();
 
-  print(reqData);
-
   try {
     final String? authToken = await AuthState.getAuthToken();
-    print(authToken);
     if (authToken == null) {
       // Token is not available, handle accordingly
       return 403;
@@ -29,8 +26,6 @@ Future<int> addAddress(Address address) async {
       },
     );
 
-    print(response.statusCode);
-
     // if (response.statusCode == 200) {
     //   final Map<String, dynamic> responseData = json.decode(response.body);
 
@@ -40,13 +35,12 @@ Future<int> addAddress(Address address) async {
     // }
     return response.statusCode;
   } catch (e) {
-    print('Error: $e');
     return 500;
   }
 }
 
 Future<List<Address>?> getAddresses() async {
-  String apiUrl = '${dotenv.get('API_URL')}/address/getAllMyAddresses';
+  String apiUrl = '${dotenv.get('API_URL')}/address/';
   try {
     final String? authToken = await AuthState.getAuthToken();
     if (authToken == null) {
@@ -62,7 +56,6 @@ Future<List<Address>?> getAddresses() async {
       },
     );
     if (response.statusCode == 200) {
-      print(response.body);
       final decodedBody = utf8.decode(response.bodyBytes);
       // print(decodedBody);
       final responseData =
@@ -77,7 +70,6 @@ Future<List<Address>?> getAddresses() async {
     }
     return null;
   } catch (e) {
-    print('Error: $e');
     return null;
   }
 }
@@ -112,7 +104,6 @@ Future<List<City>?> getCities() async {
     }
     return null;
   } catch (e) {
-    print('Error: $e');
     return null;
   }
 }

@@ -7,7 +7,7 @@ class Butchery {
   final String address;
   final double latitude;
   final double longitude;
-  final City city;
+  final City? city;
   late List<ButcheryCategory> categories;
 
   Butchery({

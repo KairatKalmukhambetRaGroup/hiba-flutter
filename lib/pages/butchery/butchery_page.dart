@@ -48,6 +48,8 @@ class _ButcherPageState extends State<ButcheryPage> {
         return AppLocalizations.of(context)!.cow;
       case 'horse':
         return AppLocalizations.of(context)!.horse;
+      case 'birds':
+        return 'Птицы';
       default:
         return '';
     }
@@ -63,7 +65,6 @@ class _ButcherPageState extends State<ButcheryPage> {
         title = butchery.name;
       });
     } catch (e) {
-      print('$e');
       errorMessage = 'error';
       hasError = true;
     } finally {
@@ -166,6 +167,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                         ),
                         ListTile(
                           tileColor: AppColors.white,
+                          // ignore: prefer_const_constructors
                           title: Text(
                             '+7 (777) 123 4567',
                             style: AppTheme.bodyBlack500_14,
@@ -181,6 +183,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                         ),
                         ListTile(
                           tileColor: AppColors.white,
+                          // ignore: prefer_const_constructors
                           title: Text(
                             'Доставка в течении 3 дней',
                             style: AppTheme.bodyBlack500_14,
@@ -306,6 +309,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                     //   separatorBuilder: (context, index) =>
                     //       const SizedBox(height: 8),
                     // ),
+                    const SizedBox(height: 16),
 
                     // const Column(
                     //   children: [

@@ -56,26 +56,27 @@ class _ShowAddressesState extends State<ShowAddresses> {
   }
 
   void _onChanged() {
+    // ignore: unused_local_variable
     final currentSize = _controller.size;
     // if (currentSize <= 0.5) _collapse();
     // if (currentSize < 0.4) _hide();
   }
 
-  void _collapse() => _animateSheet(sheet.snapSizes!.first);
+  // void _collapse() => _animateSheet(sheet.snapSizes!.first);
 
-  void _anchor() => _animateSheet(sheet.snapSizes!.last);
+  // void _anchor() => _animateSheet(sheet.snapSizes!.last);
 
-  void _expand() => _animateSheet(sheet.maxChildSize);
+  // void _expand() => _animateSheet(sheet.maxChildSize);
 
-  void _hide() => _animateSheet(sheet.minChildSize);
+  // void _hide() => _animateSheet(sheet.minChildSize);
 
-  void _animateSheet(double size) {
-    _controller.animateTo(
-      size,
-      duration: const Duration(milliseconds: 50),
-      curve: Curves.easeInOut,
-    );
-  }
+  // void _animateSheet(double size) {
+  //   _controller.animateTo(
+  //     size,
+  //     duration: const Duration(milliseconds: 50),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 
   DraggableScrollableSheet get sheet =>
       (_sheet.currentWidget as DraggableScrollableSheet);

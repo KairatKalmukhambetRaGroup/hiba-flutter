@@ -21,7 +21,6 @@ class AddressState extends ChangeNotifier {
 
   void setCurrentAddress(Address address) {
     _currentAddress = address;
-    print(address);
     notifyListeners();
   }
 
@@ -31,7 +30,6 @@ class AddressState extends ChangeNotifier {
         data.indexWhere((element) => element.id == _currentAddress!.id) == -1) {
       _currentAddress = _addresses[0];
     }
-    print(_currentAddress);
   }
 
   Future<void> addAddress() async {}

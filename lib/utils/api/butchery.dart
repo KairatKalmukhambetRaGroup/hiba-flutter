@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:hiba/entities/butchery.dart';
+import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,7 +37,6 @@ Future<List<Map<String, dynamic>>?> getButcheries() async {
     }
     return null;
   } catch (e) {
-    print('Error: $e');
     return null;
   }
 }
@@ -44,7 +44,7 @@ Future<List<Map<String, dynamic>>?> getButcheries() async {
 Future<Butchery?> getButcheryById(String? id) async {
   if (id == null) return null;
 
-  String apiUrl = '${dotenv.get('API_URL')}/butcheries/getOneButchery/$id';
+  String apiUrl = '${dotenv.get('API_URL')}/butcheries/$id';
 
   try {
     final String? authToken = await AuthState.getAuthToken();
@@ -63,11 +63,14 @@ Future<Butchery?> getButcheryById(String? id) async {
     if (response.statusCode == 200) {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData = Map<String, dynamic>.from(json.decode(decodedBody));
-      return Butchery.fromJson(responseData);
+      Butchery butchery = Butchery.fromJson(responseData['butchery']);
+      butchery.categories = (responseData["categories"] as List)
+          .map((el) => ButcheryCategory.fromJson(el))
+          .toList();
+      return butchery;
     }
     return null;
   } catch (e) {
-    print('Error: $e');
     return null;
   }
 }

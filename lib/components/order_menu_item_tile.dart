@@ -32,6 +32,7 @@ class OrderMenuItemTile extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       menuItem.name,
@@ -39,16 +40,28 @@ class OrderMenuItemTile extends StatelessWidget {
                     ),
                     Text(
                       '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
-                      style: AppTheme.bodyBlue700_14,
+                      style: AppTheme.bodyDarkGrey500_11,
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
                 const Text(
                   'Реберная часть',
                   style: AppTheme.bodyDarkgrey500_11,
                 ),
-                const SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'х ${menuItem.quantity} ${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
+                      style: AppTheme.bodyBlack400_12,
+                    ),
+                    Text(
+                      '${menuItem.calculateItemPrice()} ₸',
+                      style: AppTheme.bodyBlue700_14,
+                    ),
+                  ],
+                ),
               ],
             ),
           )

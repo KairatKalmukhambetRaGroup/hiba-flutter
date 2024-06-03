@@ -34,6 +34,16 @@ class MenuItem {
     return menuItem;
   }
 
-  void incrimentQuantity() => quantity++;
-  void decrementQuantity() => quantity > 0 ? quantity-- : quantity = 0;
+  int calculateItemPrice() {
+    return price * quantity;
+  }
+
+  void incrimentQuantity() => isWholeAnimal
+      ? quantity++
+      : (quantity == 0 ? quantity += weight : quantity++);
+  void decrementQuantity() => quantity > 0
+      ? (isWholeAnimal
+          ? quantity--
+          : (quantity > weight ? quantity-- : quantity = 0))
+      : quantity = 0;
 }

@@ -64,8 +64,9 @@ class OrderCard extends StatelessWidget {
                     'Заказ №${order.id}',
                     style: AppTheme.bodyBlack500_11,
                   ),
+                  // ignore: prefer_const_constructors
                   Text(
-                    '158 200 ₸',
+                    '${order.totalPrice} ₸',
                     style: AppTheme.bodyBlue700_14,
                   ),
                 ],
