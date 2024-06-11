@@ -62,7 +62,6 @@ Future<List<Order>?> getMyOrders() async {
     }
     return null;
   } catch (e) {
-    print(e);
     return null;
   }
 }

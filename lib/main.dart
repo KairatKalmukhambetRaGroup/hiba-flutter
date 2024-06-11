@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
       home: PersistentTabView(
         tabs: [
           PersistentTabConfig(
-            screen: HomePage(),
+            screen: const HomePage(),
             item: ItemConfig(
               activeForegroundColor: AppColors.black,
               inactiveForegroundColor: AppColors.black,
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
           //   ),
           // ),
           PersistentTabConfig(
-            screen: BasketPage(),
+            screen: const BasketPage(),
             item: ItemConfig(
               activeForegroundColor: AppColors.black,
               inactiveForegroundColor: AppColors.black,
@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           PersistentTabConfig(
-            screen: ProfilePage(),
+            screen: const ProfilePage(),
             item: ItemConfig(
               activeForegroundColor: AppColors.black,
               inactiveForegroundColor: AppColors.black,

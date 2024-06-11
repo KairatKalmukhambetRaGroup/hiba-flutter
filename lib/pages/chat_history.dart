@@ -56,7 +56,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                 ListTile(
                   tileColor: AppColors.white,
                   title: Text(_chats[index].chatStatus),
-                  subtitle: Text('${_chats[index].support==null ? '' : _chats[index].support!.name} - ${_chats[index].createdAt==null ? '' : _chats[index].createdAt}'),
+                  subtitle: Text('${_chats[index].support==null ? '' : _chats[index].support!.name} - ${_chats[index].createdAt ?? ''}'),
                   trailing: SvgPicture.asset(
                     'assets/svg/chevron-right-grey.svg',
                     width: 24,

@@ -24,6 +24,7 @@ class WebSocketService{
         },
         url: 'http://localhost:8080/ws',
         onConnect: onConnect,
+        // ignore: avoid_print
         onWebSocketError: (dynamic error) => print(error.toString()),
       ),
     );
@@ -41,11 +42,9 @@ class WebSocketService{
         }
       },
     );
-    print(chatId);
   }
 
   void sendMessage(String message) {
-    print(chatId);
     stompClient?.send(
       destination: '/app/chat',
       body: message,

@@ -340,8 +340,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                             },
                                           ),
                                         ),
-                                      )
-                                      .toList(),
+                                      ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 2),

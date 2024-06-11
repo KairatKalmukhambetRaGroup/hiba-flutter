@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/login_page.dart';
-import 'package:hiba/providers/navigation_bar_state.dart';
-import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/api/auth.dart';
-import 'package:hiba/values/app_colors.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -29,7 +25,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     
   }
 
-  final List<String> routes = ['/','/basket','/profile'];
 
   @override
   void dispose() {
@@ -52,14 +47,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     AuthState authState = Provider.of<AuthState>(context, listen: true);
-    ShoppingBasket shoppingBasket =
-        Provider.of<ShoppingBasket>(context, listen: false);
-    NavigationBarState navigationBarState =
-        Provider.of<NavigationBarState>(context, listen: false);
     if (loading) {
       getUser();
     }
-    bool isBasketEmpty() => shoppingBasket.items.isEmpty;
 
     return Scaffold(
       backgroundColor: widget.backgroundColor,

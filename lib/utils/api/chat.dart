@@ -28,13 +28,11 @@ Future<HibaChat?> createChat() async {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData =
           Map<String, dynamic>.from(json.decode(decodedBody));
-      print(responseData);
       HibaChat chat = HibaChat.fromJson(responseData);
       return chat;
     }
     return null;
   } catch (e) {
-    print(e);
     return null;
   }
 
@@ -61,7 +59,6 @@ Future<List<HibaChat>?> getChatHistory() async {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData =
           List<Map<String, dynamic>>.from(json.decode(decodedBody));
-      print(responseData);
       
       List<HibaChat> list = [];
       for(var el in responseData){
@@ -72,7 +69,6 @@ Future<List<HibaChat>?> getChatHistory() async {
     }
     return null;
   } catch (e) {
-    print(e);
     return null;
   }
 }
@@ -99,7 +95,6 @@ Future<List<Order>?> getOrdersForChat() async {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData =
           List<Map<String, dynamic>>.from(json.decode(decodedBody));
-      print(responseData);
       
       List<Order> list = [];
       for(var el in responseData){
@@ -110,7 +105,6 @@ Future<List<Order>?> getOrdersForChat() async {
     }
     return null;
   } catch (e) {
-    print(e);
     return null;
   }
 
@@ -146,12 +140,10 @@ Future<List<ChatMessage>?> getMessages(String id) async {
         ChatMessage message = ChatMessage.fromJson(el);
         list.add(message);
       }
-      print(list);
       return list;
     }
     return null;
   } catch (e) {
-    print(e);
     return null;
   }
 
