@@ -4,16 +4,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hiba/fluro_routes.dart';
+import 'package:hiba/pages/basket_page.dart';
+import 'package:hiba/pages/home_page.dart';
+import 'package:hiba/pages/profile/profile_page.dart';
 import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/providers/chat_provider.dart';
 import 'package:hiba/providers/navigation_bar_state.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/utils/helpers/navigation_helper.dart';
 import 'package:hiba/utils/helpers/snackbar_helper.dart';
+import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_strings.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:hiba/utils/api/auth.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -65,7 +71,51 @@ class MyApp extends StatelessWidget {
         Locale('kk'),
       ],
       theme: AppTheme.themeData,
-      initialRoute: '/',
+      // initialRoute: '/',
+      home: PersistentTabView(
+        tabs: [
+          PersistentTabConfig(
+            screen: HomePage(),
+            item: ItemConfig(
+              activeForegroundColor: AppColors.black,
+              inactiveForegroundColor: AppColors.black,
+              inactiveIcon: SvgPicture.asset('assets/svg/home-outline.svg', width: 24),
+              icon: SvgPicture.asset('assets/svg/home-outline-active.svg', width: 24),
+              title: "Главная",
+            ),
+          ),
+          // PersistentTabConfig(
+          //   screen: HomePage(),
+          //   item: ItemConfig(
+          //     icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
+          //     title: "Главная",
+          //   ),
+          // ),
+          PersistentTabConfig(
+            screen: BasketPage(),
+            item: ItemConfig(
+              activeForegroundColor: AppColors.black,
+              inactiveForegroundColor: AppColors.black,
+              inactiveIcon: SvgPicture.asset('assets/svg/cart.svg', width: 24),
+              icon: SvgPicture.asset('assets/svg/cart-active.svg', width: 24),
+              title: "Корзина",
+            ),
+          ),
+          PersistentTabConfig(
+            screen: ProfilePage(),
+            item: ItemConfig(
+              activeForegroundColor: AppColors.black,
+              inactiveForegroundColor: AppColors.black,
+              icon:SvgPicture.asset(
+                      'assets/svg/account-active.svg', width: 24),
+              inactiveIcon: SvgPicture.asset('assets/svg/home-outline.svg',
+                      width: 24),
+              title: "Профиль",
+            ),
+          ),
+        ],
+        navBarBuilder: (navBarConfig) => Style1BottomNavBar(navBarConfig: navBarConfig),
+      ),
       scaffoldMessengerKey: SnackbarHelper.key,
       navigatorKey: NavigationHelper.key,
       onGenerateRoute: FluroRoutes.router.generator,

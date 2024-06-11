@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:hiba/pages/basket_page.dart';
 import 'package:hiba/pages/butchery/butchery_page.dart';
+import 'package:hiba/pages/chat_history.dart';
 import 'package:hiba/pages/code_verification_page.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/home_page.dart';
@@ -114,6 +115,11 @@ class FluroRoutes {
 
   static final Handler _supportChatPageHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      if (params.containsKey('id')) {
+        return SupportChatPage(
+          chatId: params['id'][0]
+        );
+      }
       return const SupportChatPage();
     },
   );
@@ -123,10 +129,21 @@ class FluroRoutes {
     },
   );
 
+  static final Handler _chatHistoryPageHandler = Handler(
+    handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+      return const ChatHistory();
+    },
+  );
+
   static void setupRouter() {
     router.define(
       BasketPage.routeName, 
       handler: _basketPageHandler, 
+      transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      '${SupportChatPage.routeName}/:id',
+      handler: _supportChatPageHandler,
       transitionType: TransitionType.cupertino,
     );
     router.define(
@@ -203,6 +220,11 @@ class FluroRoutes {
       '${ButcheryPage.routeName}/:id',
       handler: _butcheryPageHandler,
       transitionType: TransitionType.cupertino,
+    );
+    router.define(
+      ChatHistory.routeName, 
+      handler: _chatHistoryPageHandler,
+      transitionType: TransitionType.cupertino
     );
   }
 }

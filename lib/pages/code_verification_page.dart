@@ -156,9 +156,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                         textDirection: TextDirection.ltr,
                         child: Pinput(
                           controller: codeController,
-                          androidSmsAutofillMethod:
-                              AndroidSmsAutofillMethod.smsUserConsentApi,
-                          listenForMultipleSmsOnAndroid: true,
+                          
                           defaultPinTheme: defaultPinTheme,
                           separatorBuilder: (i) => const SizedBox(width: 12),
                           pinputAutovalidateMode:

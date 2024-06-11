@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/entities/chat_message.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/io.dart';
+
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class ChatProvider extends ChangeNotifier {
+  final String serverUrl = 'http://localhost:8080/ws';
+  late io.Socket socket;
+
   late WebSocketChannel _channel;
   final List<ChatMessage> _messages = [];
 
@@ -11,28 +15,10 @@ class ChatProvider extends ChangeNotifier {
 
   ChatProvider() {
     _initWebSocket();
-    _messages.add(ChatMessage(
-        idFrom: 1,
-        idTo: 2,
-        timestamp: '11:45',
-        content: 'Здравствуйте',
-        type: ChatMessageType.sent));
-    _messages.add(ChatMessage(
-        idFrom: 2,
-        idTo: 1,
-        timestamp: '11:45',
-        content: 'Здравствуйте, чем мы вам можем помочь?',
-        type: ChatMessageType.received));
-    _messages.add(ChatMessage(
-        idFrom: 1,
-        idTo: 2,
-        timestamp: '11:47',
-        content: 'Хочу перенести дату доставки на завтра',
-        type: ChatMessageType.sent));
   }
 
   void _initWebSocket() {
-    _channel = IOWebSocketChannel.connect('ws://localhost:8000/chat');
+    _channel = WebSocketChannel.connect(Uri.parse('wss://localhost:8080/ws'));
     _channel.stream.listen((message) {
       _handleMessage(message);
     });
@@ -40,12 +26,12 @@ class ChatProvider extends ChangeNotifier {
 
   void sendMessage(String message) {
     // _channel.sink.add(message);
-    _messages.add(ChatMessage(
-        idFrom: 1,
-        idTo: 2,
-        timestamp: 'today',
-        content: message,
-        type: ChatMessageType.sent));
+    // _messages.add(ChatMessage(
+    //     idFrom: 1,
+    //     idTo: 2,
+    //     timestamp: 'today',
+    //     content: message,
+    //     type: ChatMessageType.sent));
     notifyListeners();
   }
 

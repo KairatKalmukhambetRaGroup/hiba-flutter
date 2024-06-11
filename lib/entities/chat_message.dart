@@ -4,25 +4,29 @@ enum ChatMessageType {
 }
 
 class ChatMessage {
-  int idFrom;
-  int idTo;
-  String timestamp;
+  String? timestamp;
   String content;
-  ChatMessageType type;
+  String senderType;
+  String? messageStatus;
+  String chat;
 
   ChatMessage({
-    required this.idFrom,
-    required this.idTo,
-    required this.timestamp,
+    required this.chat,
     required this.content,
-    required this.type,
+    required this.senderType,
+    this.messageStatus
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
-        idFrom: json['idFrom'],
-        idTo: json['idTo'],
-        timestamp: json['timestamp'],
+        chat: json['chat'].toString(),
         content: json['content'],
-        type: json['type'],
+        senderType: json['senderType'],
+        messageStatus: json['messageStatus']
       );
+
+
+  @override
+  String toString() {
+    return '{"senderType":"CLIENT", "content": "$content", "chat": "$chat"}';
+  }
 }

@@ -2,40 +2,110 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/chat_message.dart';
-import 'package:hiba/providers/chat_provider.dart';
+import 'package:hiba/entities/order.dart';
+import 'package:hiba/utils/api/chat.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
-import 'package:provider/provider.dart';
+import 'package:hiba/web_socket_service.dart';
+
 
 class SupportChatPage extends StatefulWidget {
   static const routeName = '/support-chat';
-  const SupportChatPage({super.key});
+  final String? chatId;
+  const SupportChatPage({super.key, this.chatId});
 
   @override
   State<StatefulWidget> createState() => _SupportChatPageState();
 }
 
 class _SupportChatPageState extends State<SupportChatPage> {
+  late WebSocketService _webSocketService;
   late final TextEditingController messageController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  List<ChatMessage> messages = [];
+
+
+  String? _chatId;
+
+  List<Order> orders = [];
+
+  void _onMessageReceived(ChatMessage message) {
+    setState(() {
+      messages.add(message);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     messageController = TextEditingController()
       ..addListener(controllerListener);
+    _webSocketService = WebSocketService(onMessageReceived: _onMessageReceived);
+    if(widget.chatId != null){
+      _webSocketService.connect(widget.chatId);
+      fetchMessages(widget.chatId!);
+      setState(() {
+        _chatId = widget.chatId;
+      });
+    }
+    // if(chatId == null){
+    //   fetchOrders();
+    // }
   }
+
+  // Future<void> fetchOrders() async {
+  //   List<Order>? data = await getOrdersForChat();
+  //   if(data != null){
+  //     setState(() {
+  //       orders = data;
+  //     });
+  //   }
+  // }
 
   @override
   void dispose() {
     messageController.dispose();
+    _webSocketService.disconnect();
     super.dispose();
   }
+
+
 
   void controllerListener() {
     final phoneNumber = messageController.text;
 
     if (phoneNumber.isEmpty) return;
+  }
+
+  Future<void> fetchMessages(String id) async {
+    final data = await getMessages(id);
+    if(data != null){
+      setState(() {
+        messages = data;
+      });
+    }
+  }
+
+  void sendMessage(String message) async {
+    if (message.isNotEmpty) {
+      if(_chatId == null){
+        final data = await createChat();
+        if(data!= null){
+          final id = data.id;
+          setState(() {
+            _chatId = id.toString();
+          });
+          await _webSocketService.connect(id.toString());
+
+          ChatMessage cm = ChatMessage(content: message, senderType: 'CLIENT', chat: id.toString());
+          _webSocketService.sendMessage(cm.toString());
+        }
+      }else{
+        ChatMessage cm = ChatMessage(content: message, senderType: 'CLIENT', chat: _chatId!);
+        _webSocketService.sendMessage(cm.toString());
+      }
+    }
+    messageController.clear();
   }
 
   @override
@@ -45,18 +115,16 @@ class _SupportChatPageState extends State<SupportChatPage> {
         titleText: 'Hiba чат',
         context: context,
       ),
-      body: Consumer<ChatProvider>(
-        builder: (context, chatProvider, child) {
-          return Column(
+      body: Column(
             children: [
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ListView.separated(
                     reverse: true,
-                    itemCount: chatProvider.messages.length,
+                    itemCount: messages.length,
                     itemBuilder: (context, index) {
-                      var message = chatProvider.messages[index];
+                      var message = messages[index];
                       return ChatMessageBubble(message: message);
                     },
                     separatorBuilder: (context, index) =>
@@ -64,6 +132,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
                   ),
                 ),
               ),
+
               Container(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                 decoration: const BoxDecoration(
@@ -81,7 +150,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
                           controller: messageController,
                           keyboardType: TextInputType.text,
                           onFieldSubmitted: (text) {
-                            chatProvider.sendMessage(messageController.text);
+                            sendMessage(messageController.text);
                             messageController.clear();
                           },
                           decoration: const InputDecoration(
@@ -106,7 +175,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
                       IconButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            chatProvider.sendMessage(messageController.text);
+                            sendMessage(messageController.text);
                             messageController.clear();
                           }
                         },
@@ -120,9 +189,8 @@ class _SupportChatPageState extends State<SupportChatPage> {
                 ),
               )
             ],
-          );
-        },
-      ),
+          )
+        
     );
   }
 }
@@ -133,7 +201,7 @@ class ChatMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isSentMessage = message.type == ChatMessageType.sent;
+    bool isSentMessage = message.senderType == 'CLIENT';
 
     return Row(
       mainAxisAlignment:
@@ -171,7 +239,7 @@ class ChatMessageBubble extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      message.timestamp,
+                      message.timestamp ?? '',
                       style: AppTheme.bodyDarkgrey500_11,
                     ),
                   ],

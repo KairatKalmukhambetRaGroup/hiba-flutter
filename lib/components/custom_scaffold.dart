@@ -64,54 +64,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return Scaffold(
       backgroundColor: widget.backgroundColor,
       appBar: widget.appBar,
-      bottomNavigationBar: (loading || !authState.isLoggedIn)
-          ? null
-          : NavigationBar(
-              onDestinationSelected: (int index) {
-                String? currentRounte = ModalRoute.of(context)?.settings.name;
-                navigationBarState.setCurrentPageIndex(index);
-
-                if(currentRounte == null || currentRounte != routes[index]){
-                  Navigator.of(context).pushReplacementNamed(routes[index]);
-                }
-              },
-              selectedIndex: navigationBarState.currentPageIndex,
-              backgroundColor: AppColors.white,
-              elevation: 0,
-              indicatorColor: Colors.transparent,
-              indicatorShape: null,
-              destinations: [
-                NavigationDestination(
-                  selectedIcon: SvgPicture.asset(
-                      'assets/svg/home-outline-active.svg',
-                      width: 24),
-                  icon: SvgPicture.asset('assets/svg/home-outline.svg',
-                      width: 24),
-                  label: 'Главная',
-                ),
-                // NavigationDestination(
-                //   selectedIcon:
-                //       SvgPicture.asset('assets/svg/charity-active.svg', width: 24),
-                //   icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
-                //   label: AppLocalizations.of(context)!.navbarBlog,
-                // ),
-                NavigationDestination(
-                  selectedIcon:
-                      SvgPicture.asset('assets/svg/cart-active.svg', width: 24),
-                  icon: isBasketEmpty()
-                      ? SvgPicture.asset('assets/svg/cart.svg', width: 24)
-                      : SvgPicture.asset('assets/svg/cart-full.svg', width: 24),
-                  label: 'Корзина',
-                ),
-                NavigationDestination(
-                  selectedIcon: SvgPicture.asset(
-                      'assets/svg/account-active.svg',
-                      width: 24),
-                  icon: SvgPicture.asset('assets/svg/account.svg', width: 24),
-                  label: 'Профиль',
-                ),
-              ],
-            ),
+      
       body: loading
           ? const Center(
               child: CircularProgressIndicator(),
