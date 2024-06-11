@@ -21,6 +21,7 @@ class _OrdersPageState extends State<OrdersPage> {
   @override
   void initState() {
     super.initState();
+
     loadOrders();
   }
 

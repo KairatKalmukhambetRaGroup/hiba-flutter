@@ -61,6 +61,46 @@ class Order {
     return order;
   }
 
+  factory Order.fromJsonOrderResponse(Map<String, dynamic> data) {
+    var json = data['order'];
+    var list = data['menuList'];
+
+    Order order = Order(
+      butchery: Butchery.fromJson(json['butchery'] as Map<String, dynamic>),
+      charity: json['charity'] as bool,
+    );
+
+    if (json.containsKey('address') && json['address'] != null) {
+      order.setAddress(
+          Address.fromJson(json['address'] as Map<String, dynamic>));
+    }
+    order.id = json['id'];
+    order.orderStatus = json['orderStatus'];
+
+    if (json.containsKey('packages') && json['packages'] != null) {
+      order.packages = json['packages'];
+    }
+
+    if (json.containsKey('totalPrice') && json['totalPrice'] != null) {
+      order.totalPrice = json['totalPrice'];
+    }
+    if (json.containsKey('deliveryPrice') && json['deliveryPrice'] != null) {
+      order.deliveryPrice = json['deliveryPrice'];
+    }
+    if (json.containsKey('donation') && json['donation'] != null) {
+      order.donation = json['donation'];
+    }
+    if (json.containsKey('deliveryDate') && json['deliveryDate'] != null) {
+      order.deliveryDate = DateTime.parse(json['deliveryDate']);
+    }
+
+    for (var l in list) {
+      order.items.add(MenuItem.fromJson(l));
+    }
+
+    return order;
+  }
+
   void setDonation(double donation) {
     this.donation = donation;
     calculateTotalPrice();

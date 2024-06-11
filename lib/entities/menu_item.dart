@@ -19,16 +19,19 @@ class MenuItem {
 
   factory MenuItem.fromJson(Map<String, dynamic> json) {
     MenuItem menuItem = MenuItem(
-      id: json['id'],
-      name: json['name'],
-      weight: json['weight'],
-      isWholeAnimal: json['isWholeAnimal'],
-      categoryId: json['categoryId'],
-      price: json['price'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      weight: json['weight'] ?? 0,
+      isWholeAnimal: json['isWholeAnimal'] ?? false,
+      categoryId: json['categoryId'] ?? 0,
+      price: json['price'] ?? 0,
     );
 
     if (json.containsKey('description') && json['description'] != null) {
       menuItem.description = json['description'];
+    }
+    if (json.containsKey('quantity') && json['quantity'] != null) {
+      menuItem.quantity = json['quantity'];
     }
 
     return menuItem;

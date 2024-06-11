@@ -47,7 +47,6 @@ Future<List<Order>?> getMyOrders() async {
         'Authorization': 'Bearer $authToken',
       },
     );
-
     if (response.statusCode == 200) {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData =
@@ -55,7 +54,7 @@ Future<List<Order>?> getMyOrders() async {
 
       List<Order> list = [];
       for (var el in responseData) {
-        Order order = Order.fromJson(el);
+        Order order = Order.fromJsonOrderResponse(el);
 
         list.add(order);
       }
@@ -63,6 +62,7 @@ Future<List<Order>?> getMyOrders() async {
     }
     return null;
   } catch (e) {
+    print(e);
     return null;
   }
 }
