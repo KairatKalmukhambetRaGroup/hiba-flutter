@@ -6,6 +6,7 @@ class MenuItem {
   String description = '';
   final int categoryId;
   final int price;
+  String? image;
 
   int quantity = 0;
 
@@ -15,7 +16,8 @@ class MenuItem {
       required this.weight,
       required this.isWholeAnimal,
       required this.categoryId,
-      required this.price});
+      required this.price,
+  });
 
   factory MenuItem.fromJson(Map<String, dynamic> json) {
     MenuItem menuItem = MenuItem(
@@ -26,6 +28,9 @@ class MenuItem {
       categoryId: json['categoryId'] ?? 0,
       price: json['price'] ?? 0,
     );
+    if(json.containsKey('image') && json['image'] !=null){
+      menuItem.image = json['image'];
+    }
 
     if (json.containsKey('description') && json['description'] != null) {
       menuItem.description = json['description'];

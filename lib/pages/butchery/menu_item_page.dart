@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
@@ -40,10 +42,21 @@ class MenuItemPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  Image.asset(
-                    'assets/images/meat.png',
-                    fit: BoxFit.contain,
-                  ),
+                  if(menuItem.image != null) ...[
+                    Image(
+                      image: MemoryImage(base64Decode(menuItem.image!)), 
+                      fit: BoxFit.cover, 
+                      height: 200, 
+                      width: double.infinity,
+                    )
+                  ]else ...[
+                    Image.asset(
+                      'assets/images/meat.png',
+                      fit: BoxFit.cover,
+                      height: 200,
+                      width: double.infinity,
+                    ),
+                  ],
                   const SizedBox(height: 16),
                   Container(
                     color: AppColors.white,
@@ -55,7 +68,7 @@ class MenuItemPage extends StatelessWidget {
                           children: [
                             Text(
                               menuItem.name,
-                              style: AppTheme.headingBlack600_16,
+                              style: AppTheme.headingBlue700_16,
                             ),
                             Text(
                               '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
@@ -71,11 +84,13 @@ class MenuItemPage extends StatelessWidget {
                         ),
                         if (menuItem.description.isNotEmpty)
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 16),
                               const Text(
                                 'Описание',
-                                style: AppTheme.headingBlack600_14,
+                                textAlign: TextAlign.left,
+                                style: AppTheme.headingBlue700_16,
                               ),
                               const SizedBox(height: 8),
                               Text(

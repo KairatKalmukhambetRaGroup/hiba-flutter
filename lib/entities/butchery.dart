@@ -1,5 +1,6 @@
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/entities/location.dart';
+import 'package:hiba/entities/working_hour.dart';
 
 class Butchery {
   final int id;
@@ -8,7 +9,9 @@ class Butchery {
   final double latitude;
   final double longitude;
   final City? city;
+  final String? image;
   late List<ButcheryCategory> categories;
+  List<WorkingHour>? workingHours;
 
   Butchery({
     required this.id,
@@ -17,6 +20,7 @@ class Butchery {
     required this.latitude,
     required this.longitude,
     required this.city,
+    required this.image
   });
 
   factory Butchery.fromJson(Map<String, dynamic> json) {
@@ -27,6 +31,7 @@ class Butchery {
       latitude: json["latitude"],
       longitude: json["longitude"],
       city: City.fromJson(json['city']),
+      image: json["image"]
     );
     if (json["categories"] != null) {
       butchery.categories = (json["categories"] as List)

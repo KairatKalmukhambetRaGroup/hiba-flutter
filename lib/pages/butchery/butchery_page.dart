@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/components/menu_item_tile.dart';
+import 'package:hiba/pages/butchery/butchery_details.dart';
 import 'package:hiba/utils/api/butchery.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -89,167 +91,34 @@ class _ButcherPageState extends State<ButcheryPage> {
                 )
               : ListView(
                   children: [
-                    Image.network(
-                      'https://picsum.photos/250?image=9',
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ),
+                    if(butchery.image!=null ) ...[
+                      Image(
+                        image: MemoryImage(base64Decode(butchery.image!)), 
+                        height: 200, 
+                        width: double.infinity, 
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                     const SizedBox(height: 16),
                     // info
-                    Column(
-                      children: [
-                        ListTile(
-                          tileColor: AppColors.white,
-                          title: Text(
-                            butchery.name,
-                            style: AppTheme.headingBlue600_16,
+                    
+                    ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            fullscreenDialog: false,
+                            builder: (context) => ButcheryDetails(butchery: butchery),
                           ),
-                        ),
-                        const Divider(
-                          height: 1,
-                          color: AppColors.grey,
-                        ),
-                        ExpansionTile(
-                          backgroundColor: AppColors.white,
-                          collapsedBackgroundColor: AppColors.white,
-                          leading: SvgPicture.asset(
-                            'assets/svg/food-halal.svg',
-                            width: 24,
-                          ),
-                          title: const Text(
-                            'Сертификат соответствия',
-                            style: AppTheme.bodyBlack500_14,
-                          ),
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/halal-certificate-mock.png',
-                                    width: 120,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Image.asset(
-                                    'assets/images/halal-certificate-mock.png',
-                                    width: 120,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        const Divider(
-                          height: 1,
-                          color: AppColors.grey,
-                        ),
-                        ListTile(
-                          tileColor: AppColors.white,
-                          title: Text(
-                            butchery.address,
-                            style: AppTheme.bodyBlack500_14,
-                          ),
-                          leading: SvgPicture.asset(
-                            'assets/svg/location.svg',
-                            width: 24,
-                          ),
-                        ),
-                        const Divider(
-                          height: 1,
-                          color: AppColors.grey,
-                        ),
-                        ListTile(
-                          tileColor: AppColors.white,
-                          // ignore: prefer_const_constructors
-                          title: Text(
-                            '+7 (777) 123 4567',
-                            style: AppTheme.bodyBlack500_14,
-                          ),
-                          leading: SvgPicture.asset(
-                            'assets/svg/phone.svg',
-                            width: 24,
-                          ),
-                        ),
-                        const Divider(
-                          height: 1,
-                          color: AppColors.grey,
-                        ),
-                        ListTile(
-                          tileColor: AppColors.white,
-                          // ignore: prefer_const_constructors
-                          title: Text(
-                            'Доставка в течении 3 дней',
-                            style: AppTheme.bodyBlack500_14,
-                          ),
-                          leading: SvgPicture.asset(
-                            'assets/svg/moped-outline.svg',
-                            width: 24,
-                          ),
-                        ),
-                        const Divider(
-                          height: 1,
-                          color: AppColors.grey,
-                        ),
-                        ExpansionTile(
-                          backgroundColor: AppColors.white,
-                          collapsedBackgroundColor: AppColors.white,
-                          leading: SvgPicture.asset(
-                            'assets/svg/clock-outline.svg',
-                            width: 24,
-                          ),
-                          title: const Text(
-                            '09:00 - 22:00',
-                            style: AppTheme.bodyBlack500_14,
-                          ),
-                          children: const [
-                            ListTile(
-                              title: Text(
-                                'Будние дни',
-                                style: AppTheme.bodyBlack500_14,
-                              ),
-                              trailing: Text(
-                                '09:00 - 22:00',
-                                style: AppTheme.bodyBlack500_14,
-                              ),
-                            ),
-                            Divider(
-                              height: 1,
-                              color: AppColors.grey,
-                            ),
-                            ListTile(
-                              title: Text(
-                                'Суббота',
-                                style: AppTheme.bodyBlack500_14,
-                              ),
-                              trailing: Text(
-                                '09:00 - 18:00',
-                                style: AppTheme.bodyBlack500_14,
-                              ),
-                            ),
-                            Divider(
-                              height: 1,
-                              color: AppColors.grey,
-                            ),
-                            ListTile(
-                              title: Text(
-                                'Воскресенье',
-                                style: AppTheme.bodyBlack500_14,
-                              ),
-                              trailing: Text(
-                                'выходной',
-                                style: AppTheme.bodyBlack500_14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        );
+                      },
+                      tileColor: AppColors.white,
+                      title: Text(
+                        butchery.name,
+                        style: AppTheme.headingBlue600_16,
+                      ),
                     ),
+                     
                     const SizedBox(height: 16),
                     Column(
                       children: List.generate(
@@ -275,74 +144,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                         },
                       ),
                     ),
-                    // ListView.separated(
-                    //   itemBuilder: (context, index) {
-                    //     return Text('f');
-                    //   },
-                    //   separatorBuilder: (context, index) =>
-                    //       const SizedBox(height: 8),
-                    //   itemCount: 2,
-                    // ),
-                    // ListView.separated(
-                    //   itemBuilder: (context, index) {
-                    //     ButcheryCategory? category =
-                    //         butchery?.categories[index];
-                    //     if (category == null) return Text('non');
-                    //     return ExpansionTile(
-                    //       backgroundColor: AppColors.white,
-                    //       collapsedBackgroundColor: AppColors.white,
-                    //       title: Text(
-                    //         '${category.name}',
-                    //         style: AppTheme.headingBlue600_16,
-                    //       ),
-                    //       children: [
-                    //         MenuItem(),
-                    //         MenuItem(),
-                    //         MenuItem(),
-                    //         MenuItem(),
-                    //       ],
-                    //     );
-                    //     // return ButcheryTile(butchery: butchery);
-                    //   },
-                    //   itemCount: butchery!.categories.length,
-                    //   separatorBuilder: (context, index) =>
-                    //       const SizedBox(height: 8),
-                    // ),
                     const SizedBox(height: 16),
-
-                    // const Column(
-                    //   children: [
-                    //     ExpansionTile(
-                    //       backgroundColor: AppColors.white,
-                    //       collapsedBackgroundColor: AppColors.white,
-                    //       title: Text(
-                    //         'Конина',
-                    //         style: AppTheme.headingBlue600_16,
-                    //       ),
-                    //       children: [
-                    //         MenuItemTile(),
-                    //         MenuItemTile(),
-                    //         MenuItemTile(),
-                    //         MenuItemTile(),
-                    //       ],
-                    //     ),
-                    //     SizedBox(height: 8),
-                    //     ExpansionTile(
-                    //       backgroundColor: AppColors.white,
-                    //       collapsedBackgroundColor: AppColors.white,
-                    //       title: Text(
-                    //         'Говядина',
-                    //         style: AppTheme.headingBlue600_16,
-                    //       ),
-                    //       children: [
-                    //         MenuItemTile(),
-                    //         MenuItemTile(),
-                    //         MenuItemTile(),
-                    //         MenuItemTile(),
-                    //       ],
-                    //     ),
-                    //   ],
-                    // )
                   ],
                 ),
     );

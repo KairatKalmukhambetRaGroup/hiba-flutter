@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
+import 'package:hiba/entities/working_hour.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -64,6 +65,9 @@ Future<Butchery?> getButcheryById(String? id) async {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData = Map<String, dynamic>.from(json.decode(decodedBody));
       Butchery butchery = Butchery.fromJson(responseData['butchery']);
+      if(responseData['workingHours'] != null){
+        butchery.workingHours = WorkingHour.workingHourListFromJson(responseData["workingHours"]);
+      }
       butchery.categories = (responseData["categories"] as List)
           .map((el) => ButcheryCategory.fromJson(el))
           .toList();

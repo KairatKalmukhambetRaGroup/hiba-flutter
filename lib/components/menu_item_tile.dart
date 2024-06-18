@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
@@ -72,12 +74,22 @@ class MenuItemTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.asset(
-                'assets/images/meat.png',
-                width: 80,
-                height: 56,
-                fit: BoxFit.contain,
-              ),
+              if(menuItem.image != null) ...[
+                Image(
+                  image: MemoryImage(base64Decode(menuItem.image!)), 
+                  height: 56, 
+                  width: 80, 
+                  fit: BoxFit.contain,
+                ),
+              ]
+              else ...[
+                Image.asset(
+                  'assets/images/meat.png',
+                  width: 80,
+                  height: 56,
+                  fit: BoxFit.contain,
+                ),
+              ],
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
