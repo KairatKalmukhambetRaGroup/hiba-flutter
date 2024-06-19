@@ -13,7 +13,8 @@ import 'package:pinput/pinput.dart';
 
 class NewAddressPage extends StatefulWidget {
   static const routeName = '/new-adress';
-  const NewAddressPage({super.key});
+  NewAddressPage({super.key, this.editAddress});
+  Address? editAddress;
 
   @override
   State<StatefulWidget> createState() => _NewAddressPage();
@@ -49,6 +50,27 @@ class _NewAddressPage extends State<NewAddressPage> {
     floorController = TextEditingController()..addListener(controllerListener);
     addressNameController = TextEditingController()
       ..addListener(controllerListener);
+
+    if(widget.editAddress != null){
+      addressController.setText(widget.editAddress!.address);
+      houseController.setText(widget.editAddress!.building);
+      apartmentController.setText(widget.editAddress!.apartment);
+      entranceController.setText(widget.editAddress!.entrance);
+      floorController.setText(widget.editAddress!.floor);
+      if(widget.editAddress!.name == 'work'){
+        setState(() {
+          _addressType = AddressType.work;
+        });
+      }else if(widget.editAddress!.name == 'home'){
+        setState(() {
+          _addressType = AddressType.home;
+        });
+      }
+      addressNameController.setText(widget.editAddress!.name);
+      setState(() {
+        _selectedCityId = widget.editAddress!.city;
+      });
+    }
   }
 
   void disposeControllers() {
@@ -91,10 +113,18 @@ class _NewAddressPage extends State<NewAddressPage> {
           floor: floorController.text,
           city: _selectedCityId!,
         );
-        int status = await addAddress(address);
-        if (status == 200) {
-          // ignore: use_build_context_synchronously
-          Navigator.of(context).pop(true);
+        if(widget.editAddress != null){
+          int status = await editAddress(address);
+          if(status == 200) {
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pop(true);
+          }
+        }else{
+          int status = await addAddress(address);
+          if (status == 200) {
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pop(true);
+          }
         }
       } catch (e) {
         print(e);
@@ -107,7 +137,15 @@ class _NewAddressPage extends State<NewAddressPage> {
     if (data != null) {
       setState(() {
         _cities = data;
-        _selectedCityId = _cities[0];
+        if(widget.editAddress != null){
+          for(City city in _cities){
+            if(city.id == widget.editAddress!.city.id){
+              _selectedCityId = city;
+            }
+          }
+        }else{
+          _selectedCityId = _cities[0];
+        }
       });
     }
   }

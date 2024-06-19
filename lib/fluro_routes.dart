@@ -56,7 +56,7 @@ class FluroRoutes {
 
   static final Handler _newAddresshandler = Handler(
       handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-    return const NewAddressPage();
+    return NewAddressPage();
   });
 
   static final Handler _searchPageHandler = Handler(

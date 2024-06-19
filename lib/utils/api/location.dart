@@ -25,19 +25,37 @@ Future<int> addAddress(Address address) async {
         'Authorization': 'Bearer $authToken',
       },
     );
-
-    // if (response.statusCode == 200) {
-    //   final Map<String, dynamic> responseData = json.decode(response.body);
-
-    //   storeAuthData(responseData['token'], responseData['user']);
-    // } else {
-    //   print('Error on post');
-    // }
     return response.statusCode;
   } catch (e) {
     return 500;
   }
 }
+Future<int> editAddress(Address address) async {
+  String apiUrl = '${dotenv.get('API_URL')}/address/';
+
+  final Map<String, String> reqData = address.toJson();
+
+  try {
+    final String? authToken = await AuthState.getAuthToken();
+    if (authToken == null) {
+      // Token is not available, handle accordingly
+      return 403;
+    }
+    final http.Response response = await http.put(
+      Uri.parse(apiUrl),
+      body: json.encode(reqData),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $authToken',
+      },
+    );
+    return response.statusCode;
+  } catch (e) {
+    return 500;
+  }
+}
+
+
 
 Future<List<Address>?> getAddresses() async {
   String apiUrl = '${dotenv.get('API_URL')}/address/';

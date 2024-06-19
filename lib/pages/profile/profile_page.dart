@@ -6,6 +6,7 @@ import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
+import 'package:hiba/pages/profile/new_address_page.dart';
 import 'package:hiba/pages/profile/notification_page.dart';
 import 'package:hiba/pages/orders/orders_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
@@ -13,6 +14,7 @@ import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 
 import 'package:hiba/utils/api/auth.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -131,7 +133,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 24,
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(AddressesPage.routeName);
+                pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const AddressesPage()));
+                // Navigator.of(context).pushNamed(AddressesPage.routeName);
               },
             ),
             ListTile(

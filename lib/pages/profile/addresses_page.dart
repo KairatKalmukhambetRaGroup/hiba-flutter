@@ -82,6 +82,7 @@ class _AddressesPageState extends State<AddressesPage> {
         contentPadding: const EdgeInsets.all(16),
         title: TextButton(
           onPressed: () {
+            
             Navigator.of(context)
                 .pushNamed(NewAddressPage.routeName)
                 .then((value) {
@@ -142,7 +143,13 @@ class AddressTile extends StatelessWidget {
           width: 24,
         ),
         onPressed: () {
-          Navigator.of(context).pushNamed(NewAddressPage.routeName);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => NewAddressPage(editAddress: address,),
+              ),
+            );
         },
       ),
     );
