@@ -167,7 +167,11 @@ class Order {
   int calculateWeight() {
     int weight = 0;
     for (MenuItem item in items) {
-      weight += item.weight * item.quantity;
+      if(item.isWholeAnimal){
+        weight += item.weight * item.quantity;
+      }else{
+        weight += item.quantity;
+      }
     }
     return weight;
   }

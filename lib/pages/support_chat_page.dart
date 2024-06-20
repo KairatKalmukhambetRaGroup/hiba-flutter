@@ -96,7 +96,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
             _chatId = id.toString();
           });
           await _webSocketService.connect(id.toString());
-
+          _webSocketService.activate();
           ChatMessage cm = ChatMessage(content: message, senderType: 'CLIENT', chat: id.toString());
           _webSocketService.sendMessage(cm.toString());
         }
@@ -111,6 +111,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: CustomAppBar(
         titleText: 'Hiba чат',
         context: context,

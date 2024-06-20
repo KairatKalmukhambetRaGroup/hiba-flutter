@@ -7,6 +7,7 @@ import 'package:hiba/pages/orders/order_confirm_page.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class BasketPage extends StatefulWidget {
@@ -114,12 +115,8 @@ class _BasketPageState extends State<BasketPage> {
                             TextButton(
                               onPressed: () {
                                 // Navigator.of(context).pushNamed('/search');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          OrderConfirmPage(order: order)),
-                                );
+                                pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => OrderConfirmPage(order: order)));
+                                
                               },
                               style: const ButtonStyle(
                                 alignment: Alignment.center,

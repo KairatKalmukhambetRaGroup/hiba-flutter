@@ -6,6 +6,7 @@ import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/utils/api/location.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class ShowAddresses extends StatefulWidget {
@@ -143,13 +144,7 @@ class _ShowAddressesState extends State<ShowAddresses> {
                       style: AppTheme.headingBlack600_14,
                     ),
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(NewAddressPage.routeName)
-                          .then((value) {
-                        // if (value == true) {
-                        //   refresh();
-                        // }
-                      });
+                      pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => NewAddressPage()));
                     },
                   ),
                 ],

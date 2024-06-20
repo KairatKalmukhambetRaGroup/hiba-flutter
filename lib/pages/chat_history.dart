@@ -7,6 +7,7 @@ import 'package:hiba/entities/hiba_chat.dart';
 import 'package:hiba/pages/support_chat_page.dart';
 import 'package:hiba/utils/api/chat.dart';
 import 'package:hiba/values/app_colors.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class ChatHistory extends StatefulWidget{
   static const routeName = '/chat-history';
@@ -56,13 +57,13 @@ class _ChatHistoryState extends State<ChatHistory> {
                 ListTile(
                   tileColor: AppColors.white,
                   title: Text(_chats[index].chatStatus),
-                  subtitle: Text('${_chats[index].support==null ? '' : _chats[index].support!.name} - ${_chats[index].createdAt ?? ''}'),
+                  subtitle: Text('${_chats[index].support==null ? 'Hiba' : _chats[index].support!.name} - ${_chats[index].createdAt ?? ''}'),
                   trailing: SvgPicture.asset(
                     'assets/svg/chevron-right-grey.svg',
                     width: 24,
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamed('${SupportChatPage.routeName}/${_chats[index].id}');
+                    pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => SupportChatPage(chatId: _chats[index].id.toString(),)));
                   },
                 ), 
               itemCount: _chats.length,

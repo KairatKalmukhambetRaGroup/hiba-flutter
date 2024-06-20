@@ -7,6 +7,7 @@ import 'package:hiba/pages/butchery/butchery_page.dart';
 import 'package:hiba/utils/api/butchery.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = '/search';
@@ -121,6 +122,7 @@ class ButcheryTile extends StatelessWidget {
       ),
       onTap: () => {
         // print(isCharity)
+        // pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => ButcheryPage(id: butchery.id.toString(), charity: isCharity)));
         Navigator.of(context).pushNamed(
             '${ButcheryPage.routeName}/${butchery.id}?charity=$isCharity')
       },

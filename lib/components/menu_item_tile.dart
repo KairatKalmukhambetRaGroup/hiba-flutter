@@ -8,6 +8,7 @@ import 'package:hiba/pages/butchery/menu_item_page.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class MenuItemTile extends StatelessWidget {
@@ -58,7 +59,7 @@ class MenuItemTile extends StatelessWidget {
         ),
         child: ListTile(
           onTap: () {
-            Navigator.push(
+            pushWithoutNavBar(
               context,
               MaterialPageRoute(
                 builder: (context) => MenuItemPage(

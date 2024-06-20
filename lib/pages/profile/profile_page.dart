@@ -6,7 +6,6 @@ import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
-import 'package:hiba/pages/profile/new_address_page.dart';
 import 'package:hiba/pages/profile/notification_page.dart';
 import 'package:hiba/pages/orders/orders_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
@@ -86,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(UserInfoPage.routeName);
+                      pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const UserInfoPage()));
                     },
                   ),
                 ],
