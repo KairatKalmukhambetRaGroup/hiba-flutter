@@ -92,10 +92,23 @@ class AppTheme {
     color: AppColors.darkGrey,
     fontWeight: FontWeight.w500,
     fontSize: 11,
+    height: 1,
   );
   static const TextStyle bodyWhite500_14 = TextStyle(
     color: AppColors.white,
     fontWeight: FontWeight.w500,
+    fontSize: 14,
+    height: 1,
+  );
+
+  static const TextStyle bodyDarkGrey600_11 = TextStyle(
+    color: AppColors.darkGrey,
+    fontWeight: FontWeight.w600,
+    fontSize: 11,
+  );
+  static const TextStyle bodyDarkGrey600_14 = TextStyle(
+    color: AppColors.darkGrey,
+    fontWeight: FontWeight.w600,
     fontSize: 14,
   );
 
@@ -109,6 +122,18 @@ class AppTheme {
     color: AppColors.white,
     fontWeight: FontWeight.w600,
     fontSize: 16,
+  );
+
+  static const TextStyle bodyBlack600_11 = TextStyle(
+    color: AppColors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 11,
+  );
+  static const TextStyle bodyBlack600_14 = TextStyle(
+    color: AppColors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    height: 1,
   );
 
   static const TextStyle bodyBlack600_28 = TextStyle(
@@ -132,6 +157,11 @@ class AppTheme {
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
+  static const TextStyle headingWhite600_16 = TextStyle(
+    color: AppColors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
   static const TextStyle headingBlue600_16 = TextStyle(
     color: AppColors.mainBlue,
     fontWeight: FontWeight.w600,
@@ -149,11 +179,17 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     fontSize: 16,
   );
+  static const TextStyle bodyBlue600_11 = TextStyle(
+    color: AppColors.mainBlue,
+    fontWeight: FontWeight.w600,
+    fontSize: 11,
+  );
 
   static const TextStyle bodyBlue600_14 = TextStyle(
     color: AppColors.mainBlue,
     fontWeight: FontWeight.w600,
     fontSize: 14,
+    height: 1,
   );
   static const TextStyle bodyBlue500_14 = TextStyle(
     color: AppColors.mainBlue,

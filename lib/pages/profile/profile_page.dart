@@ -84,7 +84,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const UserInfoPage()));
+                      pushWithoutNavBar(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const UserInfoPage()));
                     },
                   ),
                 ],
@@ -109,7 +112,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 24,
               ),
               onTap: () {
-                pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const OrdersPage()));
+                pushWithoutNavBar(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const OrdersPage()));
               },
             ),
             ListTile(
@@ -131,7 +137,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 24,
               ),
               onTap: () {
-                pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const AddressesPage()));
+                pushWithoutNavBar(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddressesPage()));
               },
             ),
 
@@ -178,7 +187,31 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 24,
               ),
               onTap: () {
-                pushWithNavBar(context, MaterialPageRoute(builder: (context) => const ContactUsPage()));
+                pushWithNavBar(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ContactUsPage()));
+              },
+            ),
+            // if (authState.isCourier && authState.isClientUI)
+            ListTile(
+              shape: const BorderDirectional(
+                  bottom: BorderSide(
+                color: AppColors.grey,
+                width: 0.5,
+                style: BorderStyle.solid,
+              )),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              tileColor: AppColors.white,
+              leading: SvgPicture.asset(
+                'assets/svg/truck-delivery-outline.svg',
+                width: 24,
+              ),
+              title: const Text('Войти как курьер',
+                  style: AppTheme.bodyBlack500_14),
+              onTap: () {
+                authState.changeUItoCourier();
+                Navigator.of(context).pushNamed("/");
               },
             ),
             ListTile(

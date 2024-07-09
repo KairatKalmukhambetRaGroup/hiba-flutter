@@ -5,8 +5,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
+import 'package:hiba/pages/courier_login.dart';
+import 'package:hiba/pages/register_profile.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -156,7 +159,6 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                         textDirection: TextDirection.ltr,
                         child: Pinput(
                           controller: codeController,
-                          
                           defaultPinTheme: defaultPinTheme,
                           separatorBuilder: (i) => const SizedBox(width: 12),
                           pinputAutovalidateMode:
@@ -215,11 +217,24 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                             String phone = _phone.split('+')[1];
                             int status =
                                 await authState.confirmCode(phone, pin);
+                            print(status);
                             if (status == 201) {
-                              Navigator.of(context).pushNamed('/');
+                              if (authState.isCourier) {
+                                pushWithoutNavBar(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CourierLogin()));
+                              } else {
+                                Navigator.of(context).pushNamed('/');
+                              }
                             } else if (status == 200) {
-                              Navigator.of(context)
-                                  .pushNamed('/register-profile/$phone');
+                              pushWithoutNavBar(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterProfile(
+                                            phone: phone,
+                                          )));
                             }
                           },
                           submittedPinTheme: defaultPinTheme.copyWith(

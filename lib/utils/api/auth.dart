@@ -14,6 +14,12 @@ class AuthState extends ChangeNotifier {
   User? _user;
   User? get user => _user;
 
+  bool _isCourier = false;
+  bool get isCourier => _isCourier;
+
+  bool _isClientUI = true;
+  bool get isClientUI => _isClientUI;
+
   bool _isLoggedIn = false;
   bool get isLoggedIn => _isLoggedIn;
 
@@ -85,11 +91,14 @@ class AuthState extends ChangeNotifier {
           'Content-Type': 'application/json',
         },
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
           final Map<String, dynamic> responseData = json.decode(response.body);
-          print(responseData);
+          if (responseData['role']['name'] == 'ROLE_COURIER') {
+            _isCourier = true;
+          } else {
+            _isCourier = false;
+          }
           await storeAuthData(responseData['token'], responseData['user']);
           _user = User.fromJson(responseData['user']);
           notifyListeners();
@@ -104,6 +113,16 @@ class AuthState extends ChangeNotifier {
     }
   }
 
+  void changeUItoClient() {
+    _isClientUI = true;
+    notifyListeners();
+  }
+
+  void changeUItoCourier() {
+    _isClientUI = false;
+    notifyListeners();
+  }
+
   Future<int> completeRegistration(
       String phone, String name, File? photo) async {
     String apiUrl = '${dotenv.get('API_URL')}/auth/completeRegistration';
@@ -111,8 +130,9 @@ class AuthState extends ChangeNotifier {
     try {
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
       request.headers['Content-Type'] = 'multipart/form-data; charset=UTF-8;';
-      if(photo != null){
-        request.files.add(await http.MultipartFile.fromPath('photo', photo.path));
+      if (photo != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('photo', photo.path));
       }
       request.fields['name'] = name;
       request.fields['phoneNumber'] = phone;
@@ -155,6 +175,11 @@ class AuthState extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['role'].name == 'ROLE_COURIER') {
+          _isCourier = true;
+        } else {
+          _isCourier = false;
+        }
 
         storeAuthData(responseData['token'], responseData['user']);
       } else {

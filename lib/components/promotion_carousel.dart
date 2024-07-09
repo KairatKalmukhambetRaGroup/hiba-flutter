@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:hiba/entities/promotion.dart';
 import 'package:hiba/pages/promotion_page.dart';
@@ -63,70 +63,71 @@ class _PromotionCarouselState extends State<PromotionCarousel> {
                 ),
               ),
             )
-          : _promotions.isEmpty ?  
-            null
-            : Column(
-              children: [
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 200.0,
-                    enableInfiniteScroll: _promotions.length > 1,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                      });
-                    },
-                  ),
-                  items: _promotions.map(
-                    (promo) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return InkWell(
-                            onTap: () {
-                              pushWithoutNavBar(
-                                context,
-                                MaterialPageRoute(
-                                  fullscreenDialog: false,
-                                  builder: (context) =>
-                                      PromotionPage(promotion: promo),
+          : _promotions.isEmpty
+              ? null
+              : Column(
+                  children: [
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200.0,
+                        enableInfiniteScroll: _promotions.length > 1,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _current = index;
+                          });
+                        },
+                      ),
+                      items: _promotions.map(
+                        (promo) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return InkWell(
+                                onTap: () {
+                                  pushWithoutNavBar(
+                                    context,
+                                    MaterialPageRoute(
+                                      fullscreenDialog: false,
+                                      builder: (context) =>
+                                          PromotionPage(promotion: promo),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: MemoryImage(
+                                          base64Decode(promo.image)),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: MemoryImage(base64Decode(promo.image)),
-                                ),
-                              ),
-                            ),
                           );
                         },
-                      );
-                    },
-                  ).toList(),
+                      ).toList(),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _promotions.asMap().entries.map((entry) {
+                        return Container(
+                          width: 8,
+                          height: 8,
+                          margin: const EdgeInsets.symmetric(horizontal: 6),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _current == entry.key
+                                ? AppColors.mainBlue
+                                : AppColors.grey,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _promotions.asMap().entries.map((entry) {
-                    return Container(
-                      width: 8,
-                      height: 8,
-                      margin: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _current == entry.key
-                            ? AppColors.mainBlue
-                            : AppColors.grey,
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
     );
   }
 }

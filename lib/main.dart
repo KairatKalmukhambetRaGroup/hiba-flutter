@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/basket_page.dart';
+import 'package:hiba/pages/courier/active_deliveries.dart';
+import 'package:hiba/pages/courier/deliveries.dart';
 import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
 import 'package:hiba/providers/address_state.dart';
@@ -37,7 +39,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
   await dotenv.load(fileName: '.env');
   runApp(MultiProvider(
     providers: [
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    AuthState authState = Provider.of<AuthState>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppStrings.loginAndRegister,
@@ -71,51 +72,128 @@ class MyApp extends StatelessWidget {
       ],
       theme: AppTheme.themeData,
       // initialRoute: '/',
-      home: PersistentTabView(
-        stateManagement: false,
-        tabs: [
-          PersistentTabConfig(
-            screen: const HomePage(),
-            item: ItemConfig(
-              activeForegroundColor: AppColors.black,
-              inactiveForegroundColor: AppColors.black,
-              inactiveIcon: SvgPicture.asset('assets/svg/home-outline.svg', width: 24),
-              icon: SvgPicture.asset('assets/svg/home-outline-active.svg', width: 24),
-              title: "Главная",
+      home: authState.isClientUI
+          ? PersistentTabView(
+              stateManagement: false,
+              tabs: [
+                PersistentTabConfig(
+                  screen: const HomePage(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    inactiveIcon: SvgPicture.asset(
+                        'assets/svg/home-outline.svg',
+                        width: 24),
+                    icon: SvgPicture.asset('assets/svg/home-outline-active.svg',
+                        width: 24),
+                    title: "Главная",
+                  ),
+                ),
+                PersistentTabConfig(
+                  screen: const HomePage(),
+                  item: ItemConfig(
+                    icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
+                    title: "Блог",
+                  ),
+                ),
+                PersistentTabConfig(
+                  screen: const BasketPage(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    inactiveIcon:
+                        SvgPicture.asset('assets/svg/cart.svg', width: 24),
+                    icon: SvgPicture.asset('assets/svg/cart-active.svg',
+                        width: 24),
+                    title: "Корзина",
+                  ),
+                ),
+                PersistentTabConfig(
+                  screen: const ProfilePage(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    icon: SvgPicture.asset('assets/svg/account-active.svg',
+                        width: 24),
+                    inactiveIcon: SvgPicture.asset(
+                        'assets/svg/home-outline.svg',
+                        width: 24),
+                    title: "Профиль",
+                  ),
+                ),
+              ],
+              navBarBuilder: (navBarConfig) =>
+                  Style1BottomNavBar(navBarConfig: navBarConfig),
+            )
+          : PersistentTabView(
+              stateManagement: false,
+              tabs: [
+                PersistentTabConfig(
+                  screen: ActiveDeliveries(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    icon: SvgPicture.asset('assets/svg/bookmark-active.svg',
+                        width: 24),
+                    inactiveIcon:
+                        SvgPicture.asset('assets/svg/bookmark.svg', width: 24),
+                    title: "Активные",
+                  ),
+                ),
+                PersistentTabConfig(
+                  screen: Deliveries(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    inactiveIcon:
+                        SvgPicture.asset('assets/svg/file-plus.svg', width: 24),
+                    icon: SvgPicture.asset('assets/svg/file-plus-active.svg',
+                        width: 24),
+                    title: "Заявки",
+                  ),
+                ),
+                PersistentTabConfig(
+                  screen: const BasketPage(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    inactiveIcon:
+                        SvgPicture.asset('assets/svg/notifs.svg', width: 24),
+                    icon: SvgPicture.asset('assets/svg/notifs-active.svg',
+                        width: 24),
+                    title: "Уведомления",
+                  ),
+                ),
+                PersistentTabConfig(
+                  screen: const ProfilePage(),
+                  item: ItemConfig(
+                    activeForegroundColor: AppColors.black,
+                    inactiveForegroundColor: AppColors.black,
+                    icon: SvgPicture.asset('assets/svg/account-active.svg',
+                        width: 24),
+                    inactiveIcon: SvgPicture.asset(
+                        'assets/svg/home-outline.svg',
+                        width: 24),
+                    title: "Профиль",
+                  ),
+                ),
+                // PersistentTabConfig(
+                //   screen: const ProfilePage(),
+                //   item: ItemConfig(
+                //     activeForegroundColor: AppColors.black,
+                //     inactiveForegroundColor: AppColors.black,
+                //     icon:
+                //         SvgPicture.asset('assets/svg/account-active.svg', width: 24),
+                //     inactiveIcon:
+                //         SvgPicture.asset('assets/svg/home-outline.svg', width: 24),
+                //     title: "Профиль",
+                //   ),
+                // ),
+              ],
+              navBarBuilder: (navBarConfig) =>
+                  Style1BottomNavBar(navBarConfig: navBarConfig),
             ),
-          ),
-          // PersistentTabConfig(
-          //   screen: HomePage(),
-          //   item: ItemConfig(
-          //     icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
-          //     title: "Главная",
-          //   ),
-          // ),
-          PersistentTabConfig(
-            screen: const BasketPage(),
-            item: ItemConfig(
-              activeForegroundColor: AppColors.black,
-              inactiveForegroundColor: AppColors.black,
-              inactiveIcon: SvgPicture.asset('assets/svg/cart.svg', width: 24),
-              icon: SvgPicture.asset('assets/svg/cart-active.svg', width: 24),
-              title: "Корзина",
-            ),
-          ),
-          PersistentTabConfig(
-            screen: const ProfilePage(),
-            item: ItemConfig(
-              activeForegroundColor: AppColors.black,
-              inactiveForegroundColor: AppColors.black,
-              icon:SvgPicture.asset(
-                      'assets/svg/account-active.svg', width: 24),
-              inactiveIcon: SvgPicture.asset('assets/svg/home-outline.svg',
-                      width: 24),
-              title: "Профиль",
-            ),
-          ),
-        ],
-        navBarBuilder: (navBarConfig) => Style1BottomNavBar(navBarConfig: navBarConfig),
-      ),
+
       scaffoldMessengerKey: SnackbarHelper.key,
       navigatorKey: NavigationHelper.key,
     );

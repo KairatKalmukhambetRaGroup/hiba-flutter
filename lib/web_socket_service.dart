@@ -6,7 +6,7 @@ import 'package:hiba/entities/chat_message.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
-class WebSocketService{
+class WebSocketService {
   late StompClient stompClient;
   String? chatId;
 
@@ -16,16 +16,14 @@ class WebSocketService{
 
   Future<void> connect(String? chatId) async {
     try {
-      if(chatId != null){
+      if (chatId != null) {
         this.chatId = chatId;
 
         final String? authToken = await AuthState.getAuthToken();
 
         stompClient = StompClient(
           config: StompConfig.sockJS(
-            stompConnectHeaders: {
-              'Authorization': 'Bearer $authToken'
-            },
+            stompConnectHeaders: {'Authorization': 'Bearer $authToken'},
             url: '${dotenv.get('API_URL')}/ws',
             onConnect: onConnect,
             // ignore: avoid_print
@@ -33,15 +31,13 @@ class WebSocketService{
           ),
         );
 
-        stompClient.activate();      
-
+        stompClient.activate();
       }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
-
   }
 
   void activate() {
@@ -69,8 +65,8 @@ class WebSocketService{
   }
 
   void disconnect() {
-    if(stompClient.isActive)
+    if (stompClient.isActive) {
       stompClient.deactivate();
+    }
   }
-
 }
