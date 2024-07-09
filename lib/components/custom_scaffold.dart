@@ -22,7 +22,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   void initState() {
     super.initState();
-    
   }
 
 
@@ -59,9 +58,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : authState.isLoggedIn
-              ? widget.body
-              : const LoginPage(),
+          : authState.isLoggedIn ? 
+            widget.body
+            : const LoginPage(),
     );
   }
 }

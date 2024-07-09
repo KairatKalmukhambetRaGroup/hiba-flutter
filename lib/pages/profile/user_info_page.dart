@@ -2,6 +2,9 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -51,10 +54,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 
   void controllerListener() {
+    // ignore: unused_local_variable
     final phoneNumber = phoneController.text;
+    // ignore: unused_local_variable
     final name = nameController.text;
 
-    if (phoneNumber.isEmpty && name.isEmpty) return;
+    // if (phoneNumber.isEmpty && name.isEmpty) return;
 
     // if (AppRegex.phoneNumberRegex.hasMatch(phoneNumber)) {
     //   fieldValidNotifier.value = true;
@@ -205,12 +210,49 @@ class _UserInfoPageState extends State<UserInfoPage> {
     );
   }
 
+  void handleSubmit(AuthState authState) async {
+    String apiUrl = '${dotenv.get('API_URL')}/user/updateUser';
+
+    try {
+      String name = nameController.text;
+      String phone = phoneNumber.phoneNumber ?? "";
+      File? photo = _imageFile;
+      final String? authToken = await AuthState.getAuthToken();
+
+      var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
+      request.headers['Content-Type'] = 'multipart/form-data; charset=UTF-8;';
+      if(photo != null){
+        request.files.add(await http.MultipartFile.fromPath('avatar', photo.path));
+      }
+      request.fields['name'] = name;
+      request.fields['phone'] = phone;
+
+      request.headers['Authorization']='Bearer $authToken';
+
+      final streamResponse = await request.send();
+
+      final response = await http.Response.fromStream(streamResponse);
+      if(response.statusCode == 200){
+        final decodedBody = utf8.decode(response.bodyBytes);
+        final responseData = Map<String, dynamic>.from(json.decode(decodedBody));
+        authState.updateUserData(responseData['token'], responseData['user']);
+        Navigator.pop(context);
+      }
+
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     AuthState authState = Provider.of<AuthState>(context, listen: false);
     User? user = authState.user;
     nameController.setText(user!.name);
-    phoneController.setText(user.phone);
+    phoneController.setText(user.phone.split(phoneNumber.isoCode ?? '')[0]);
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -306,12 +348,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 const SizedBox(height: 8),
                 InternationalPhoneNumberInput(
                   onInputChanged: (PhoneNumber number) {
-                    if (phoneNumber.phoneNumber != number.phoneNumber) {
-                      setState(() {
-                        phoneNumber = number;
-                      });
-                    }
-                    _formKey.currentState?.validate();
+                    // if (phoneNumber.phoneNumber != number.phoneNumber) {
+                      // setState(() {
+                      //   phoneNumber = number;
+                      // });
+                    // }
+                    // _formKey.currentState?.validate();
                   },
                   selectorConfig: const SelectorConfig(
                     selectorType: PhoneInputSelectorType.DROPDOWN,
@@ -335,7 +377,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
       bottomNavigationBar: ListTile(
         contentPadding: const EdgeInsets.all(16),
         title: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            handleSubmit(authState);
+          },
           style: ButtonStyle(
             backgroundColor:
                 const WidgetStatePropertyAll<Color>(AppColors.mainBlue),

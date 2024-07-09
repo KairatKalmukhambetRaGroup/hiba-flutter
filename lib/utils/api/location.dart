@@ -7,7 +7,7 @@ import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
 Future<int> addAddress(Address address) async {
-  String apiUrl = '${dotenv.get('API_URL')}/address/';
+  String apiUrl = '${dotenv.get('API_URL')}/address';
 
   final Map<String, String> reqData = address.toJson();
 
@@ -31,7 +31,7 @@ Future<int> addAddress(Address address) async {
   }
 }
 Future<int> editAddress(Address address) async {
-  String apiUrl = '${dotenv.get('API_URL')}/address/';
+  String apiUrl = '${dotenv.get('API_URL')}/address';
 
   final Map<String, String> reqData = address.toJson();
 

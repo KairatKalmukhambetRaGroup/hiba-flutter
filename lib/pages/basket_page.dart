@@ -114,7 +114,6 @@ class _BasketPageState extends State<BasketPage> {
                             const SizedBox(height: 16),
                             TextButton(
                               onPressed: () {
-                                // Navigator.of(context).pushNamed('/search');
                                 pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => OrderConfirmPage(order: order)));
                                 
                               },

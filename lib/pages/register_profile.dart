@@ -254,11 +254,8 @@ class _RegisterProfileState extends State<RegisterProfile> {
         contentPadding: const EdgeInsets.all(16),
         title: TextButton(
           onPressed: () async {
-            print(_usernameController.text);
-            print(_phone);
-            print(_imageFile?.path);
             int status = await authState.completeRegistration(
-                _phone, _usernameController.text, _imageFile!);
+                _phone, _usernameController.text, _imageFile);
             if (status == 200) {
               Navigator.of(context).pushNamed('/');
             }

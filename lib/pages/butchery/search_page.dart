@@ -122,9 +122,7 @@ class ButcheryTile extends StatelessWidget {
       ),
       onTap: () => {
         // print(isCharity)
-        // pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => ButcheryPage(id: butchery.id.toString(), charity: isCharity)));
-        Navigator.of(context).pushNamed(
-            '${ButcheryPage.routeName}/${butchery.id}?charity=$isCharity')
+        pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => ButcheryPage(id: butchery.id.toString(), charity: isCharity)))        
       },
     );
   }

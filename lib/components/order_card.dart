@@ -4,6 +4,7 @@ import 'package:hiba/entities/order.dart';
 import 'package:hiba/pages/orders/order_page.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.order});
@@ -89,7 +90,7 @@ class OrderCard extends StatelessWidget {
                 width: double.infinity,
                 child: InkResponse(
                   onTap: () {
-                    Navigator.push(
+                    pushWithNavBar(
                       context,
                       MaterialPageRoute(
                           fullscreenDialog: false,

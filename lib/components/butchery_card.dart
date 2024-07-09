@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/entities/butchery.dart';
+import 'package:hiba/pages/butchery/butchery_page.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class ButcheryCard extends StatelessWidget {
   const ButcheryCard({super.key, required this.butchery});
@@ -13,7 +15,15 @@ class ButcheryCard extends StatelessWidget {
         aspectRatio: 4 / 3,
         child: GestureDetector(
           onTap: () =>
-              {Navigator.of(context).pushNamed('/butchery/${butchery.id}')},
+              {
+                pushWithNavBar(
+                  context,
+                  MaterialPageRoute(
+                    fullscreenDialog: false,
+                    builder: (context) => ButcheryPage(id: butchery.id.toString(), charity: true),
+                  ),
+                )
+              },
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

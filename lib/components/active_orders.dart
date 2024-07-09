@@ -5,6 +5,7 @@ import 'package:hiba/pages/orders/order_page.dart';
 import 'package:hiba/utils/api/orders.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class ActiveOrders extends StatefulWidget {
   const ActiveOrders({super.key});
@@ -61,7 +62,7 @@ class _ActiveOrdersState extends State<ActiveOrders> {
                       (order) => Builder(builder: (context) {
                         return InkWell(
                           onTap: () {
-                            Navigator.push(
+                            pushWithNavBar(
                               context,
                               MaterialPageRoute(
                                 fullscreenDialog: false,

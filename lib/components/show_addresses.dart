@@ -194,7 +194,11 @@ class _ShowAddressesState extends State<ShowAddresses> {
                 width: 24,
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed(NewAddressPage.routeName);
+                pushWithoutNavBar(context, 
+                  MaterialPageRoute(builder: (context) => 
+                    NewAddressPage()
+                  )
+                );
               },
             )
           : null,

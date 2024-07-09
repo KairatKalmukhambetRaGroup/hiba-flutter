@@ -11,6 +11,7 @@ import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:pinput/pinput.dart';
 
+// ignore: must_be_immutable
 class NewAddressPage extends StatefulWidget {
   static const routeName = '/new-adress';
   NewAddressPage({super.key, this.editAddress});

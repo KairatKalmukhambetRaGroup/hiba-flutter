@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hiba/fluro_routes.dart';
 import 'package:hiba/pages/basket_page.dart';
 import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
@@ -38,7 +37,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FluroRoutes.setupRouter();
 
   await dotenv.load(fileName: '.env');
   runApp(MultiProvider(
@@ -58,6 +56,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppStrings.loginAndRegister,
@@ -73,6 +72,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.themeData,
       // initialRoute: '/',
       home: PersistentTabView(
+        stateManagement: false,
         tabs: [
           PersistentTabConfig(
             screen: const HomePage(),
@@ -118,7 +118,6 @@ class MyApp extends StatelessWidget {
       ),
       scaffoldMessengerKey: SnackbarHelper.key,
       navigatorKey: NavigationHelper.key,
-      onGenerateRoute: FluroRoutes.router.generator,
     );
   }
 }

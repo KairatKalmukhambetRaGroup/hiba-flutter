@@ -4,9 +4,11 @@ import 'package:hiba/components/active_orders.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/promotion_carousel.dart';
 import 'package:hiba/components/show_addresses.dart';
+import 'package:hiba/pages/butchery/search_page.dart';
 import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -80,7 +82,9 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () async {
-                      Navigator.of(context).pushNamed('/search/charity');
+                      pushWithNavBar(context,
+                        MaterialPageRoute(builder: (context) => const SearchPage(charity: true))
+                      );
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,
@@ -96,7 +100,9 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/search');
+                      pushWithNavBar(context,
+                        MaterialPageRoute(builder: (context) => const SearchPage(charity: false))
+                      );
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,

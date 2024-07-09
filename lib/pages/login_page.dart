@@ -6,6 +6,7 @@ import 'package:hiba/values/app_regex.dart';
 import 'package:hiba/values/app_strings.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
@@ -155,8 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                             // );
                             // phoneNumberController.clear();
                             // passwordController.clear();
-                            Navigator.of(_scaffoldKey.currentContext!).pushNamed(
-                                '${CodeVerificationPage.routeName}/${phoneNumber.phoneNumber}');
+                            pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => CodeVerificationPage(phone: phoneNumber.phoneNumber)));
                             // }
                           },
                           style: ButtonStyle(

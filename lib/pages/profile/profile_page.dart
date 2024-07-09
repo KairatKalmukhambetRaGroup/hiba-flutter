@@ -6,7 +6,6 @@ import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
-import 'package:hiba/pages/profile/notification_page.dart';
 import 'package:hiba/pages/orders/orders_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -29,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    AuthState authState = Provider.of<AuthState>(context, listen: false);
+    AuthState authState = Provider.of<AuthState>(context, listen: true);
     user ??= authState.user;
 
     return CustomScaffold(
@@ -110,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 24,
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(OrdersPage.routeName);
+                pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const OrdersPage()));
               },
             ),
             ListTile(
@@ -133,31 +132,32 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               onTap: () {
                 pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const AddressesPage()));
-                // Navigator.of(context).pushNamed(AddressesPage.routeName);
               },
             ),
-            ListTile(
-              shape: const BorderDirectional(
-                  bottom: BorderSide(
-                color: AppColors.grey,
-                width: 0.5,
-                style: BorderStyle.solid,
-              )),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              tileColor: AppColors.white,
-              leading: SvgPicture.asset(
-                'assets/svg/bell-outline.svg',
-                width: 24,
-              ),
-              title: const Text('Уведомления', style: AppTheme.bodyBlack500_14),
-              trailing: SvgPicture.asset(
-                'assets/svg/chevron-right-grey.svg',
-                width: 24,
-              ),
-              onTap: () {
-                Navigator.of(context).pushNamed(NotificationsPage.routeName);
-              },
-            ),
+
+            // ListTile(
+            //   shape: const BorderDirectional(
+            //       bottom: BorderSide(
+            //     color: AppColors.grey,
+            //     width: 0.5,
+            //     style: BorderStyle.solid,
+            //   )),
+            //   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            //   tileColor: AppColors.white,
+            //   leading: SvgPicture.asset(
+            //     'assets/svg/bell-outline.svg',
+            //     width: 24,
+            //   ),
+            //   title: const Text('Уведомления', style: AppTheme.bodyBlack500_14),
+            //   trailing: SvgPicture.asset(
+            //     'assets/svg/chevron-right-grey.svg',
+            //     width: 24,
+            //   ),
+            //   onTap: () {
+            //     pushWithNavBar(context, MaterialPageRoute(builder: (context)=> const NotificationsPage()));
+            //   },
+            // ),
+
             ListTile(
               shape: const BorderDirectional(
                   bottom: BorderSide(
@@ -178,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 24,
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(ContactUsPage.routeName);
+                pushWithNavBar(context, MaterialPageRoute(builder: (context) => const ContactUsPage()));
               },
             ),
             ListTile(
@@ -197,7 +197,6 @@ class _ProfilePageState extends State<ProfilePage> {
               title: const Text('Выйти', style: AppTheme.bodyBlack500_14),
               onTap: () async {
                 authState.logout();
-                // Navigator.of(context).pushNamed('/');
               },
             ),
           ],

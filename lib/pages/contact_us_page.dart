@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
+import 'package:hiba/pages/chat_history.dart';
 import 'package:hiba/pages/support_chat_page.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -50,7 +51,7 @@ class ContactUsPage extends StatelessWidget {
               const SizedBox(height: 8),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/chat-history');
+                  pushWithNavBar(context, MaterialPageRoute(builder: (context) => const ChatHistory()));
                 },
                 style: const ButtonStyle(
                   alignment: Alignment.center,

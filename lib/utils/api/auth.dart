@@ -55,6 +55,12 @@ class AuthState extends ChangeNotifier {
 
   // 192.168.68.101:8000
 
+  void updateUserData(String token, dynamic user) {
+    storeAuthData(token, user);
+    _user = User.fromJson(user);
+    notifyListeners();
+  }
+
   Future<void> logout() async {
     _user = null;
     await storage.delete(key: 'authToken');
@@ -99,13 +105,15 @@ class AuthState extends ChangeNotifier {
   }
 
   Future<int> completeRegistration(
-      String phone, String name, File photo) async {
+      String phone, String name, File? photo) async {
     String apiUrl = '${dotenv.get('API_URL')}/auth/completeRegistration';
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
       request.headers['Content-Type'] = 'multipart/form-data; charset=UTF-8;';
-      request.files.add(await http.MultipartFile.fromPath('photo', photo.path));
+      if(photo != null){
+        request.files.add(await http.MultipartFile.fromPath('photo', photo.path));
+      }
       request.fields['name'] = name;
       request.fields['phoneNumber'] = phone;
 

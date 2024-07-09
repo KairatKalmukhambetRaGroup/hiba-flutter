@@ -6,6 +6,7 @@ import 'package:hiba/entities/promotion.dart';
 import 'package:hiba/pages/promotion_page.dart';
 import 'package:hiba/utils/api/promotion.dart';
 import 'package:hiba/values/app_colors.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class PromotionCarousel extends StatefulWidget {
   const PromotionCarousel({super.key});
@@ -62,7 +63,9 @@ class _PromotionCarouselState extends State<PromotionCarousel> {
                 ),
               ),
             )
-          : Column(
+          : _promotions.isEmpty ?  
+            null
+            : Column(
               children: [
                 CarouselSlider(
                   options: CarouselOptions(
@@ -80,7 +83,7 @@ class _PromotionCarouselState extends State<PromotionCarousel> {
                         builder: (BuildContext context) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
+                              pushWithoutNavBar(
                                 context,
                                 MaterialPageRoute(
                                   fullscreenDialog: false,

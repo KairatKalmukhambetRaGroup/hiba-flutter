@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hiba/entities/chat_message.dart';
 import 'package:hiba/utils/api/auth.dart';
@@ -36,7 +37,9 @@ class WebSocketService{
 
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
   }
@@ -66,7 +69,8 @@ class WebSocketService{
   }
 
   void disconnect() {
-    stompClient.deactivate();
+    if(stompClient.isActive)
+      stompClient.deactivate();
   }
 
 }
