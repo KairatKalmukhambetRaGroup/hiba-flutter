@@ -7,6 +7,7 @@ import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
+// ignore: must_be_immutable
 class DeliveryTile extends StatelessWidget {
   final Order order;
   bool? fromButchery = false;

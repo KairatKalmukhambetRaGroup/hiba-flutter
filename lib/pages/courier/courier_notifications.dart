@@ -1,50 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 
-class NotificationsPage extends StatefulWidget {
-  static const routeName = '/notifications';
-  const NotificationsPage({super.key});
+class CourierNotifications extends StatefulWidget {
+  const CourierNotifications({super.key});
 
   @override
-  State<StatefulWidget> createState() => _NotificationsPageState();
+  State<StatefulWidget> createState() => _CourierNotificationsState();
 }
 
-class _NotificationsPageState extends State<NotificationsPage> {
+class _CourierNotificationsState extends State<CourierNotifications> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       backgroundColor: AppColors.white,
-      appBar: CustomAppBar(
-        titleText: 'Уведомления',
-        context: context,
-      ),
-      body: const Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Сегодня',
-                style: AppTheme.blue500_14,
-              )
-            ],
-          ),
-          NotificationMessage(
-            title: 'Ваш заказ передан в службу доставки ',
-            text:
-                'Ваш заказ будет доставлен 12 февраля. Курьер с вами заранее свяжется',
-            orderId: '000001',
-          ),
-          SizedBox(height: 12),
-          NotificationMessage(
-            title: 'Заказ доставлен ',
-            text: 'Поздравляем с покупкой. Спасибо что выбираете нас!',
-            orderId: '000001',
-          ),
-        ],
+      body: SafeArea(
+        child: const Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Сегодня',
+                  style: AppTheme.blue500_14,
+                )
+              ],
+            ),
+            NotificationMessage(
+              title: 'Ваш заказ передан в службу доставки ',
+              text:
+                  'Ваш заказ будет доставлен 12 февраля. Курьер с вами заранее свяжется',
+              orderId: '000001',
+            ),
+            SizedBox(height: 12),
+            NotificationMessage(
+              title: 'Заказ доставлен ',
+              text: 'Поздравляем с покупкой. Спасибо что выбираете нас!',
+              orderId: '000001',
+            ),
+          ],
+        ),
       ),
     );
   }
