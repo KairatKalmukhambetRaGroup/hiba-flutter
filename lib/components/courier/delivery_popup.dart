@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hiba/pages/courier/delivery_confirm.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class DeliveryPopup extends StatelessWidget {
   final String? status;
@@ -82,6 +84,14 @@ class DeliveryPopup extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
+                    if (status == 'ON_THE_WAY') {
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DeliveryConfirm(),
+                        ),
+                      );
+                    }
                   },
                   child: Text(
                     buttonTexts[status]!,

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
+import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/pages/courier_login.dart';
 import 'package:hiba/pages/register_profile.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -134,7 +135,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
       ),
     );
 
-    return Scaffold(
+    return CustomScaffold(
       backgroundColor: AppColors.bgLight,
       key: _scaffoldKey,
       appBar: CustomAppBar(
