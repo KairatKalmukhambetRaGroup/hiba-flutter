@@ -88,7 +88,7 @@ class CategoryTile extends StatelessWidget {
       tileColor: AppColors.white,
       title: Text(
         name,
-        style: AppTheme.bodyBlack500_14,
+        style: AppTheme.black500_14,
       ),
       trailing: SvgPicture.asset(
         'assets/svg/chevron-right-grey.svg',
@@ -110,11 +110,11 @@ class ButcheryTile extends StatelessWidget {
       tileColor: AppColors.white,
       title: Text(
         butchery.name,
-        style: AppTheme.bodyBlack500_14,
+        style: AppTheme.black500_14,
       ),
       // subtitle: Text(
       //   butchery.categories.join(', '),
-      //   style: AppTheme.bodyDarkgrey500_11,
+      //   style: AppTheme.darkGrey500_11,
       // ),
       trailing: SvgPicture.asset(
         'assets/svg/chevron-right-grey.svg',
@@ -122,7 +122,11 @@ class ButcheryTile extends StatelessWidget {
       ),
       onTap: () => {
         // print(isCharity)
-        pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => ButcheryPage(id: butchery.id.toString(), charity: isCharity)))        
+        pushWithoutNavBar(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ButcheryPage(
+                    id: butchery.id.toString(), charity: isCharity)))
       },
     );
   }

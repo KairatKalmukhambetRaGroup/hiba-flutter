@@ -27,7 +27,7 @@ class PromotionPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             child: Text(
               promotion.title,
-              style: AppTheme.headingBlue600_16,
+              style: AppTheme.blue600_16,
             ),
           ),
           const Divider(
@@ -39,7 +39,7 @@ class PromotionPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             child: Text(
               promotion.description,
-              style: AppTheme.bodyBlack500_14,
+              style: AppTheme.black500_14,
             ),
           ),
         ],

@@ -55,7 +55,7 @@ class AppTextFormField extends StatelessWidget {
         ),
         fillColor: AppColors.bgLight,
         hintText: placeholder,
-        hintStyle: AppTheme.bodyDarkgrey500_16,
+        hintStyle: AppTheme.darkGrey500_16,
         suffixIcon: suffixIcon,
         labelText: labelText,
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -63,7 +63,7 @@ class AppTextFormField extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      style: AppTheme.headingBlack500_16,
+      style: AppTheme.black500_16,
     );
   }
 }

@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 textAlign: TextAlign.center,
                 AppStrings.authWelcome,
-                style: AppTheme.bodyBlack600_28,
+                style: AppTheme.black600_28,
               ),
               const SizedBox(height: 24),
               Form(
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const Text(
                       'Введите номер телефона',
-                      style: AppTheme.bodyBlack400_14,
+                      style: AppTheme.black400_14,
                     ),
                     const SizedBox(height: 8),
                     InternationalPhoneNumberInput(
@@ -105,8 +105,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       ignoreBlank: false,
                       autoValidateMode: AutovalidateMode.disabled,
-                      selectorTextStyle: AppTheme.bodyBlack400_14,
-                      textStyle: AppTheme.bodyBlack400_14,
+                      selectorTextStyle: AppTheme.black400_14,
+                      textStyle: AppTheme.black400_14,
                       initialValue: phoneNumber,
                       textFieldController: phoneNumberController,
                       formatInput: true,
@@ -156,14 +156,19 @@ class _LoginPageState extends State<LoginPage> {
                             // );
                             // phoneNumberController.clear();
                             // passwordController.clear();
-                            pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => CodeVerificationPage(phone: phoneNumber.phoneNumber)));
+                            pushWithoutNavBar(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CodeVerificationPage(
+                                        phone: phoneNumber.phoneNumber)));
                             // }
                           },
                           style: ButtonStyle(
-                            shape: WidgetStatePropertyAll<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8))),
+                            shape:
+                                WidgetStatePropertyAll<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8))),
                             minimumSize: const WidgetStatePropertyAll(
                                 Size.fromHeight(48)),
                           ),
@@ -180,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                               alignment: Alignment.center,
                               child: const Text(
                                 AppStrings.authContinue,
-                                style: AppTheme.headingWhite500_16,
+                                style: AppTheme.white500_16,
                               ),
                             ),
                           ),
@@ -200,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(width: 8),
                   const Text(
                     AppStrings.orLoginWith,
-                    style: AppTheme.bodyBlack500_14,
+                    style: AppTheme.black500_14,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -239,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     label: const Text(
                       AppStrings.google,
-                      style: AppTheme.headingBlack500_16,
+                      style: AppTheme.black500_16,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -257,8 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                               strokeAlign: BorderSide.strokeAlignInside),
                         ),
                       ),
-                      padding:
-                          const WidgetStatePropertyAll(EdgeInsets.all(8)),
+                      padding: const WidgetStatePropertyAll(EdgeInsets.all(8)),
                       minimumSize:
                           const WidgetStatePropertyAll(Size.fromHeight(48)),
                       backgroundColor:
@@ -271,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     label: const Text(
                       AppStrings.apple,
-                      style: AppTheme.headingBlack500_16,
+                      style: AppTheme.black500_16,
                     ),
                   ),
                   const SizedBox(width: 4),

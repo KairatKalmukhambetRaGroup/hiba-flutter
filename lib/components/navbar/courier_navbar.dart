@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/basket_page.dart';
-import 'package:hiba/pages/courier/active_deliveries.dart';
 import 'package:hiba/pages/courier/deliveries.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
 import 'package:hiba/values/app_colors.dart';
@@ -17,7 +16,7 @@ class CourierNavbar extends StatelessWidget {
       stateManagement: false,
       tabs: [
         PersistentTabConfig(
-          screen: ActiveDeliveries(),
+          screen: const Deliveries(isActive: true),
           item: ItemConfig(
             activeForegroundColor: AppColors.black,
             inactiveForegroundColor: AppColors.black,
@@ -28,7 +27,7 @@ class CourierNavbar extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: Deliveries(),
+          screen: const Deliveries(isActive: false),
           item: ItemConfig(
             activeForegroundColor: AppColors.black,
             inactiveForegroundColor: AppColors.black,

@@ -151,7 +151,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   title: const Text(
                     'Открыть галерею',
                     textAlign: TextAlign.center,
-                    style: AppTheme.headingBlack500_16,
+                    style: AppTheme.black500_16,
                   ),
                   onTap: () async {
                     await getImage(ImageSource.gallery);
@@ -174,8 +174,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     'Убрать фото',
                     textAlign: TextAlign.center,
                     style: _imageFile != null
-                        ? AppTheme.bodyRed500_16
-                        : AppTheme.bodyGrey500_16,
+                        ? AppTheme.red500_16
+                        : AppTheme.grey500_16,
                   ),
                   onTap: () {
                     setState(() {
@@ -196,7 +196,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   title: const Text(
                     'Отменить',
                     textAlign: TextAlign.center,
-                    style: AppTheme.bodyBlue500_16,
+                    style: AppTheme.blue500_16,
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -221,31 +221,31 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
       request.headers['Content-Type'] = 'multipart/form-data; charset=UTF-8;';
-      if(photo != null){
-        request.files.add(await http.MultipartFile.fromPath('avatar', photo.path));
+      if (photo != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('avatar', photo.path));
       }
       request.fields['name'] = name;
       request.fields['phone'] = phone;
 
-      request.headers['Authorization']='Bearer $authToken';
+      request.headers['Authorization'] = 'Bearer $authToken';
 
       final streamResponse = await request.send();
 
       final response = await http.Response.fromStream(streamResponse);
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         final decodedBody = utf8.decode(response.bodyBytes);
-        final responseData = Map<String, dynamic>.from(json.decode(decodedBody));
+        final responseData =
+            Map<String, dynamic>.from(json.decode(decodedBody));
         authState.updateUserData(responseData['token'], responseData['user']);
         Navigator.pop(context);
       }
-
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -321,7 +321,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   children: [
                     Text(
                       'Введите Имя и Фамилию',
-                      style: AppTheme.bodyBlack500_14,
+                      style: AppTheme.black500_14,
                     ),
                   ],
                 ),
@@ -337,7 +337,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   ),
-                  style: AppTheme.headingBlack500_16,
+                  style: AppTheme.black500_16,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   controller: nameController,
                   onChanged: (_) => _formKey.currentState?.validate(),
@@ -349,9 +349,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 InternationalPhoneNumberInput(
                   onInputChanged: (PhoneNumber number) {
                     // if (phoneNumber.phoneNumber != number.phoneNumber) {
-                      // setState(() {
-                      //   phoneNumber = number;
-                      // });
+                    // setState(() {
+                    //   phoneNumber = number;
+                    // });
                     // }
                     // _formKey.currentState?.validate();
                   },
@@ -361,8 +361,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   ),
                   ignoreBlank: false,
                   autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: AppTheme.bodyBlack400_14,
-                  textStyle: AppTheme.bodyBlack400_14,
+                  selectorTextStyle: AppTheme.black400_14,
+                  textStyle: AppTheme.black400_14,
                   initialValue: phoneNumber,
                   textFieldController: phoneController,
                   formatInput: true,
@@ -389,7 +389,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
           ),
           child: const Text(
             'Сохранить',
-            style: AppTheme.headingWhite500_16,
+            style: AppTheme.white500_16,
           ),
         ),
       ),

@@ -52,17 +52,17 @@ class _NewAddressPage extends State<NewAddressPage> {
     addressNameController = TextEditingController()
       ..addListener(controllerListener);
 
-    if(widget.editAddress != null){
+    if (widget.editAddress != null) {
       addressController.setText(widget.editAddress!.address);
       houseController.setText(widget.editAddress!.building);
       apartmentController.setText(widget.editAddress!.apartment);
       entranceController.setText(widget.editAddress!.entrance);
       floorController.setText(widget.editAddress!.floor);
-      if(widget.editAddress!.name == 'work'){
+      if (widget.editAddress!.name == 'work') {
         setState(() {
           _addressType = AddressType.work;
         });
-      }else if(widget.editAddress!.name == 'home'){
+      } else if (widget.editAddress!.name == 'home') {
         setState(() {
           _addressType = AddressType.home;
         });
@@ -114,13 +114,13 @@ class _NewAddressPage extends State<NewAddressPage> {
           floor: floorController.text,
           city: _selectedCityId!,
         );
-        if(widget.editAddress != null){
+        if (widget.editAddress != null) {
           int status = await editAddress(address);
-          if(status == 200) {
+          if (status == 200) {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pop(true);
           }
-        }else{
+        } else {
           int status = await addAddress(address);
           if (status == 200) {
             // ignore: use_build_context_synchronously
@@ -138,13 +138,13 @@ class _NewAddressPage extends State<NewAddressPage> {
     if (data != null) {
       setState(() {
         _cities = data;
-        if(widget.editAddress != null){
-          for(City city in _cities){
-            if(city.id == widget.editAddress!.city.id){
+        if (widget.editAddress != null) {
+          for (City city in _cities) {
+            if (city.id == widget.editAddress!.city.id) {
               _selectedCityId = city;
             }
           }
-        }else{
+        } else {
           _selectedCityId = _cities[0];
         }
       });
@@ -195,12 +195,12 @@ class _NewAddressPage extends State<NewAddressPage> {
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
                           fillColor: AppColors.white,
-                          hintStyle: AppTheme.bodyDarkgrey500_16,
+                          hintStyle: AppTheme.darkGrey500_16,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
                         ),
-                        style: AppTheme.headingBlack500_16,
+                        style: AppTheme.black500_16,
                         onChanged: (City? newValue) {
                           setState(() {
                             _selectedCityId = newValue!;
@@ -289,8 +289,8 @@ class _NewAddressPage extends State<NewAddressPage> {
                                       Text(
                                         'Дом',
                                         style: _addressType == AddressType.home
-                                            ? AppTheme.bodyBlue500_11
-                                            : AppTheme.bodyDarkgrey500_11,
+                                            ? AppTheme.blue500_11
+                                            : AppTheme.darkGrey500_11,
                                       ),
                                     ],
                                   ),
@@ -331,8 +331,8 @@ class _NewAddressPage extends State<NewAddressPage> {
                                       Text(
                                         'Работа',
                                         style: _addressType == AddressType.work
-                                            ? AppTheme.bodyBlue500_11
-                                            : AppTheme.bodyDarkgrey500_11,
+                                            ? AppTheme.blue500_11
+                                            : AppTheme.darkGrey500_11,
                                       ),
                                     ],
                                   ),
@@ -373,8 +373,8 @@ class _NewAddressPage extends State<NewAddressPage> {
                                       Text(
                                         'Другое',
                                         style: _addressType == AddressType.other
-                                            ? AppTheme.bodyBlue500_11
-                                            : AppTheme.bodyDarkgrey500_11,
+                                            ? AppTheme.blue500_11
+                                            : AppTheme.darkGrey500_11,
                                       ),
                                     ],
                                   ),
@@ -414,7 +414,7 @@ class _NewAddressPage extends State<NewAddressPage> {
           ),
           child: const Text(
             'Сохранить',
-            style: AppTheme.headingWhite500_16,
+            style: AppTheme.white500_16,
           ),
         ),
       ),

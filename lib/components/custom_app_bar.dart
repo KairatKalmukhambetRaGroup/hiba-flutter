@@ -24,7 +24,7 @@ class CustomAppBar extends AppBar {
               ? null
               : Text(
                   titleText,
-                  style: AppTheme.headingBlack600_16,
+                  style: AppTheme.black600_16,
                 ),
           shape:
               const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),

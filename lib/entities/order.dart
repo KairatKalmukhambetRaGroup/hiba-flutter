@@ -19,6 +19,8 @@ class Order {
   String? senderName;
   User? user;
 
+  String? status = "PREPARING_FOR_DELIVERY";
+
   Order({required this.butchery, required this.charity});
 
   void setAddress(Address address) {

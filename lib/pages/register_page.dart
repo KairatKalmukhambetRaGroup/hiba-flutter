@@ -106,10 +106,10 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Text(
                 AppStrings.signInToYourNAccount,
-                style: AppTheme.titleLarge,
+                style: AppTheme.white700_34,
               ),
               SizedBox(height: 6),
-              Text(AppStrings.signInToYourAccount, style: AppTheme.bodySmall),
+              Text(AppStrings.signInToYourAccount, style: AppTheme.grey400_14),
             ],
           ),
           Form(
@@ -251,7 +251,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Text(
                 AppStrings.iHaveAnAccount,
-                style: AppTheme.bodySmall.copyWith(color: Colors.black),
+                style: AppTheme.grey400_14.copyWith(color: Colors.black),
               ),
               const SizedBox(width: 4),
               TextButton(

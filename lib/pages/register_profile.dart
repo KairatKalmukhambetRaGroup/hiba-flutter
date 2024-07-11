@@ -125,7 +125,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                   title: const Text(
                     'Открыть галерею',
                     textAlign: TextAlign.center,
-                    style: AppTheme.headingBlack500_16,
+                    style: AppTheme.black500_16,
                   ),
                   onTap: () async {
                     await getImage(ImageSource.gallery);
@@ -148,8 +148,8 @@ class _RegisterProfileState extends State<RegisterProfile> {
                     'Убрать фото',
                     textAlign: TextAlign.center,
                     style: _imageFile != null
-                        ? AppTheme.bodyRed500_16
-                        : AppTheme.bodyGrey500_16,
+                        ? AppTheme.red500_16
+                        : AppTheme.grey500_16,
                   ),
                   onTap: () {
                     setState(() {
@@ -170,7 +170,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                   title: const Text(
                     'Отменить',
                     textAlign: TextAlign.center,
-                    style: AppTheme.bodyBlue500_16,
+                    style: AppTheme.blue500_16,
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -239,7 +239,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
               const SizedBox(height: 28),
               TextField(
                 controller: _usernameController,
-                style: AppTheme.bodyBlack400_14,
+                style: AppTheme.black400_14,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   fillColor: AppColors.bgLight,
@@ -269,7 +269,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
           ),
           child: const Text(
             'Продолжить',
-            style: AppTheme.headingWhite500_16,
+            style: AppTheme.white500_16,
           ),
         ),
       ),

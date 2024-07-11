@@ -152,7 +152,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                       Text(
                         'Сообщение с кодом подтверждения отправлен на  $_phone',
                         textAlign: TextAlign.center,
-                        style: AppTheme.headingBlack400_16,
+                        style: AppTheme.black400_16,
                       ),
                       const SizedBox(height: 40),
                       Directionality(
@@ -200,7 +200,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                             //           const SizedBox(width: 8),
                             //           const Text(
                             //             'Неверный код. Попробуйте еще раз',
-                            //             style: AppTheme.bodyWhite500_14,
+                            //             style: AppTheme.white500_14,
                             //           ),
                             //         ],
                             //       ),
@@ -311,7 +311,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                     Text(
                       'Выберите способ отправки кода на ваш номер телефона $_phone',
                       textAlign: TextAlign.center,
-                      style: AppTheme.headingBlack400_16,
+                      style: AppTheme.black400_16,
                     ),
                     const SizedBox(height: 16),
                     Container(
@@ -335,7 +335,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                         label: Ink(
                           child: const Text(
                             'Telegram',
-                            style: AppTheme.headingWhite500_16,
+                            style: AppTheme.white500_16,
                           ),
                         ),
                         icon: SvgPicture.asset('assets/svg/telegram.svg'),

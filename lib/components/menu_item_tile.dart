@@ -75,15 +75,14 @@ class MenuItemTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if(menuItem.image != null) ...[
+              if (menuItem.image != null) ...[
                 Image(
-                  image: MemoryImage(base64Decode(menuItem.image!)), 
-                  height: 56, 
-                  width: 80, 
+                  image: MemoryImage(base64Decode(menuItem.image!)),
+                  height: 56,
+                  width: 80,
                   fit: BoxFit.contain,
                 ),
-              ]
-              else ...[
+              ] else ...[
                 Image.asset(
                   'assets/images/meat.png',
                   width: 80,
@@ -102,18 +101,18 @@ class MenuItemTile extends StatelessWidget {
                       children: [
                         Text(
                           menuItem.name,
-                          style: AppTheme.bodyBlack500_14,
+                          style: AppTheme.black500_14,
                         ),
                         Text(
                           '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
-                          style: AppTheme.bodyBlue700_14,
+                          style: AppTheme.blue700_14,
                         ),
                       ],
                     ),
                     const SizedBox(height: 4),
                     const Text(
                       'Реберная часть',
-                      style: AppTheme.bodyDarkgrey500_11,
+                      style: AppTheme.darkGrey500_11,
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -140,7 +139,7 @@ class MenuItemTile extends StatelessWidget {
                                 ),
                                 child: const Text(
                                   'В корзину',
-                                  style: AppTheme.bodyWhite600_11,
+                                  style: AppTheme.white600_11,
                                 ))
                             : Row(
                                 children: [
@@ -166,7 +165,7 @@ class MenuItemTile extends StatelessWidget {
                                       menuItem.isWholeAnimal
                                           ? '${basketItem.quantity} гл'
                                           : '${basketItem.quantity} кг',
-                                      style: AppTheme.bodyBlack500_14,
+                                      style: AppTheme.black500_14,
                                       textAlign: TextAlign.center,
                                     ),
                                   ),

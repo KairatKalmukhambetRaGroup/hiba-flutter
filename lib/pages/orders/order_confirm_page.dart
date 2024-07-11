@@ -151,7 +151,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                 children: [
                   const Text(
                     'Выберите дату доставки',
-                    style: AppTheme.headingBlack600_16,
+                    style: AppTheme.black600_16,
                   ),
                   const SizedBox(height: 16),
                   Wrap(
@@ -173,8 +173,8 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                               child: Text(
                                 DateFormat('dd-MMMM').format(date),
                                 style: selectedDate?.compareTo(date) == 0
-                                    ? AppTheme.bodyBlue500_14
-                                    : AppTheme.bodyDarkGrey500_14,
+                                    ? AppTheme.blue500_14
+                                    : AppTheme.darkGrey500_14,
                               ),
                             ),
                             onTap: () {
@@ -195,7 +195,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                               children: [
                                 const Text(
                                   'Сделать благотворительность анонимно',
-                                  style: AppTheme.bodyBlack500_14,
+                                  style: AppTheme.black500_14,
                                 ),
                                 SizedBox(
                                   height: 20,
@@ -223,7 +223,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                     const SizedBox(height: 24),
                                     const Text(
                                       'Отправитель',
-                                      style: AppTheme.headingBlack600_16,
+                                      style: AppTheme.black600_16,
                                     ),
                                     const SizedBox(height: 8),
                                     AppTextFormField(
@@ -252,13 +252,13 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                               children: [
                                 const Text(
                                   'Разделить заказ на',
-                                  style: AppTheme.bodyBlack500_14,
+                                  style: AppTheme.black500_14,
                                 ),
                                 Row(
                                   children: [
                                     DropdownButton<int>(
                                       dropdownColor: AppColors.bgLight,
-                                      style: AppTheme.bodyBlack500_14,
+                                      style: AppTheme.black500_14,
                                       elevation: 0,
                                       value: _packagesNumber,
                                       padding: const EdgeInsets.all(4),
@@ -267,8 +267,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                                 value: element,
                                                 child: Text(
                                                   element.toString(),
-                                                  style:
-                                                      AppTheme.bodyBlack500_14,
+                                                  style: AppTheme.black500_14,
                                                 ),
                                               ))
                                           .toList(),
@@ -281,7 +280,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                     const SizedBox(width: 8),
                                     const Text(
                                       'пакетов',
-                                      style: AppTheme.bodyBlack500_14,
+                                      style: AppTheme.black500_14,
                                     ),
                                   ],
                                 ),
@@ -290,57 +289,51 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                             const SizedBox(height: 24),
                             const Text(
                               'Вы можете оставить любую сумму на благотворительнось',
-                              style: AppTheme.headingBlack600_16,
+                              style: AppTheme.black600_16,
                             ),
                             const SizedBox(height: 16),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: [
-                                  ...donations
-                                      .map(
-                                        (donation) => Padding(
+                                  ...donations.map(
+                                    (donation) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 2),
+                                      child: InkWell(
+                                        child: Container(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 2),
-                                          child: InkWell(
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 12,
-                                                      vertical: 6),
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.white,
-                                                  border: _donation == donation
-                                                      ? Border.all(
-                                                          width: 1,
-                                                          color: AppColors
-                                                              .mainBlue,
-                                                        )
-                                                      : Border.all(
-                                                          width: 1,
-                                                          color: AppColors.grey,
-                                                        ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16)),
-                                              child: Text(
-                                                '$donation ₸',
-                                                style: _donation == donation
-                                                    ? AppTheme.bodyBlue500_14
-                                                    : AppTheme
-                                                        .bodyDarkGrey500_14,
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                _order.donation = double.parse(
-                                                    donation.toString());
-                                                _donation = donation;
-                                              });
-                                            },
+                                              horizontal: 12, vertical: 6),
+                                          decoration: BoxDecoration(
+                                              color: AppColors.white,
+                                              border: _donation == donation
+                                                  ? Border.all(
+                                                      width: 1,
+                                                      color: AppColors.mainBlue,
+                                                    )
+                                                  : Border.all(
+                                                      width: 1,
+                                                      color: AppColors.grey,
+                                                    ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16)),
+                                          child: Text(
+                                            '$donation ₸',
+                                            style: _donation == donation
+                                                ? AppTheme.blue500_14
+                                                : AppTheme.darkGrey500_14,
                                           ),
                                         ),
+                                        onTap: () {
+                                          setState(() {
+                                            _order.donation = double.parse(
+                                                donation.toString());
+                                            _donation = donation;
+                                          });
+                                        },
                                       ),
+                                    ),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 2),
@@ -371,8 +364,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                                 BorderRadius.circular(16),
                                           ),
                                           hintText: 'другая сумма',
-                                          hintStyle:
-                                              AppTheme.bodyDarkGrey500_14,
+                                          hintStyle: AppTheme.darkGrey500_14,
                                           contentPadding:
                                               const EdgeInsets.all(0),
                                         ),
@@ -396,14 +388,14 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                         style: _donation ==
                                                 int.tryParse(
                                                     donationController.text)
-                                            ? AppTheme.bodyBlue500_14
-                                            : AppTheme.bodyDarkGrey500_14,
+                                            ? AppTheme.blue500_14
+                                            : AppTheme.darkGrey500_14,
 
                                         // child: TextField(
                                         //   '$donation ₸',
                                         //   style: _donation == donation
-                                        //       ? AppTheme.bodyBlue500_14
-                                        //       : AppTheme.bodyDarkGrey500_14,
+                                        //       ? AppTheme.blue500_14
+                                        //       : AppTheme.darkGrey500_14,
                                         // ),
                                       ),
                                     ),
@@ -475,12 +467,12 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                         : address.name == 'home'
                                             ? 'Дом'
                                             : address.name,
-                                    style: AppTheme.bodyBlack500_14,
+                                    style: AppTheme.black500_14,
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     address.info,
-                                    style: AppTheme.bodyDarkgrey500_11,
+                                    style: AppTheme.darkGrey500_11,
                                   ),
                                 ],
                               ),
@@ -493,7 +485,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                     const SizedBox(height: 24),
                     const Text(
                       'Получатель',
-                      style: AppTheme.headingBlack600_16,
+                      style: AppTheme.black600_16,
                     ),
                     const SizedBox(height: 16),
                     AppTextFormField(
@@ -538,7 +530,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
               backgroundColor: AppColors.white,
               title: Text(
                 _order.butchery.name,
-                style: AppTheme.headingBlue600_16,
+                style: AppTheme.blue600_16,
               ),
               children: _order.items
                   .map((item) => OrderMenuItemTile(menuItem: item))
@@ -555,7 +547,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                       const Text('Мясная продукция'),
                       Text(
                         _order.calculatePrice().toString(),
-                        style: AppTheme.bodyBlack500_14,
+                        style: AppTheme.black500_14,
                       )
                     ],
                   ),
@@ -565,13 +557,13 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                     children: [
                       const Text(
                         'Доставка',
-                        style: AppTheme.bodyBlack500_14,
+                        style: AppTheme.black500_14,
                       ),
                       Text(
                         _order.deliveryPrice == 0
                             ? 'бесплатно'
                             : _order.deliveryPrice.toString(),
-                        style: AppTheme.bodyBlack500_14,
+                        style: AppTheme.black500_14,
                       ),
                     ],
                   ),
@@ -583,11 +575,11 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                         children: [
                           const Text(
                             'На благотворительность',
-                            style: AppTheme.bodyBlack500_14,
+                            style: AppTheme.black500_14,
                           ),
                           Text(
                             '${_order.donation.toString()} ₸',
-                            style: AppTheme.bodyBlack500_14,
+                            style: AppTheme.black500_14,
                           ),
                         ],
                       ),
@@ -598,11 +590,11 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                     children: [
                       const Text(
                         'Общая сумма заказа:',
-                        style: AppTheme.bodyRed500_16,
+                        style: AppTheme.red500_16,
                       ),
                       Text(
                         '${_order.totalPrice.toString()} ₸',
-                        style: AppTheme.headingRed700_16,
+                        style: AppTheme.red700_16,
                       ),
                     ],
                   ),
@@ -631,7 +623,7 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
           ),
           child: const Text(
             'Продолжить',
-            style: AppTheme.headingWhite500_16,
+            style: AppTheme.white500_16,
           ),
         ),
       ),

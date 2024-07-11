@@ -36,17 +36,17 @@ class OrderMenuItemTile extends StatelessWidget {
                   children: [
                     Text(
                       menuItem.name,
-                      style: AppTheme.bodyBlack500_14,
+                      style: AppTheme.black500_14,
                     ),
                     Text(
                       '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
-                      style: AppTheme.bodyDarkGrey500_11,
+                      style: AppTheme.darkGrey500_11,
                     ),
                   ],
                 ),
                 const Text(
                   'Реберная часть',
-                  style: AppTheme.bodyDarkgrey500_11,
+                  style: AppTheme.darkGrey500_11,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,11 +54,11 @@ class OrderMenuItemTile extends StatelessWidget {
                   children: [
                     Text(
                       'х ${menuItem.quantity} ${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
-                      style: AppTheme.bodyBlack400_12,
+                      style: AppTheme.black400_12,
                     ),
                     Text(
                       '${menuItem.calculateItemPrice()} ₸',
-                      style: AppTheme.bodyBlue700_14,
+                      style: AppTheme.blue700_14,
                     ),
                   ],
                 ),

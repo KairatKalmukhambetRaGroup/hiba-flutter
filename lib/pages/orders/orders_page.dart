@@ -60,7 +60,7 @@ class _OrdersPageState extends State<OrdersPage> {
                       const SizedBox(height: 16),
                       const Text(
                         'Заказов не было',
-                        style: AppTheme.headingBlack600_16,
+                        style: AppTheme.black600_16,
                       )
                     ],
                   ),

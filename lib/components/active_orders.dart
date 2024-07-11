@@ -83,18 +83,18 @@ class _ActiveOrdersState extends State<ActiveOrders> {
                                   children: [
                                     Text(
                                       'Заказ №${order.id}',
-                                      style: AppTheme.bodyBlack500_11,
+                                      style: AppTheme.black500_11,
                                     ),
                                     const Text(
                                       'подробнее',
-                                      style: AppTheme.bodyDarkGrey500_11,
+                                      style: AppTheme.darkGrey500_11,
                                     ),
                                   ],
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
                                   order.orderStatus,
-                                  style: AppTheme.headingOrange600_14,
+                                  style: AppTheme.orange600_14,
                                 ),
                                 const SizedBox(height: 4),
                                 SingleChildScrollView(

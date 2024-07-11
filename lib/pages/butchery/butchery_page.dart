@@ -91,34 +91,35 @@ class _ButcherPageState extends State<ButcheryPage> {
                 )
               : ListView(
                   children: [
-                    if(butchery.image!=null ) ...[
+                    if (butchery.image != null) ...[
                       Image(
-                        image: MemoryImage(base64Decode(butchery.image!)), 
-                        height: 200, 
-                        width: double.infinity, 
+                        image: MemoryImage(base64Decode(butchery.image!)),
+                        height: 200,
+                        width: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ],
                     const SizedBox(height: 16),
                     // info
-                    
+
                     ListTile(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             fullscreenDialog: false,
-                            builder: (context) => ButcheryDetails(butchery: butchery),
+                            builder: (context) =>
+                                ButcheryDetails(butchery: butchery),
                           ),
                         );
                       },
                       tileColor: AppColors.white,
                       title: Text(
                         butchery.name,
-                        style: AppTheme.headingBlue600_16,
+                        style: AppTheme.blue600_16,
                       ),
                     ),
-                     
+
                     const SizedBox(height: 16),
                     Column(
                       children: List.generate(
@@ -131,7 +132,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                             collapsedBackgroundColor: AppColors.white,
                             title: Text(
                               getCategoryTranslations(category.name),
-                              style: AppTheme.headingBlue600_16,
+                              style: AppTheme.blue600_16,
                             ),
                             children: List.generate(
                                 category.menuItems.length,

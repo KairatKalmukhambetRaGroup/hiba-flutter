@@ -42,7 +42,7 @@ class _BasketPageState extends State<BasketPage> {
                   const SizedBox(height: 16),
                   const Text(
                     'Ваша корзина пуста',
-                    style: AppTheme.headingBlack600_16,
+                    style: AppTheme.black600_16,
                   )
                 ],
               ),
@@ -60,7 +60,7 @@ class _BasketPageState extends State<BasketPage> {
                             vertical: 10, horizontal: 16),
                         title: Text(
                           order.butchery.name,
-                          style: AppTheme.headingBlue600_16,
+                          style: AppTheme.blue600_16,
                         ),
                       ),
                       const Divider(height: 1, color: AppColors.grey),
@@ -69,7 +69,7 @@ class _BasketPageState extends State<BasketPage> {
                         order.charity
                             ? 'На благотворительность'
                             : 'Для себя и близких',
-                        style: AppTheme.bodyBlue500_14,
+                        style: AppTheme.blue500_14,
                       ),
                       const SizedBox(height: 8),
                       const Divider(height: 1, color: AppColors.grey),
@@ -114,19 +114,22 @@ class _BasketPageState extends State<BasketPage> {
                             const SizedBox(height: 16),
                             TextButton(
                               onPressed: () {
-                                pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => OrderConfirmPage(order: order)));
-                                
+                                pushWithoutNavBar(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            OrderConfirmPage(order: order)));
                               },
                               style: const ButtonStyle(
                                 alignment: Alignment.center,
-                                minimumSize: WidgetStatePropertyAll(
-                                    Size.fromHeight(48)),
-                                backgroundColor: WidgetStatePropertyAll(
-                                    AppColors.mainBlue),
+                                minimumSize:
+                                    WidgetStatePropertyAll(Size.fromHeight(48)),
+                                backgroundColor:
+                                    WidgetStatePropertyAll(AppColors.mainBlue),
                               ),
                               child: const Text(
                                 'Продолжить',
-                                style: AppTheme.bodyWhite600_16,
+                                style: AppTheme.white600_16,
                               ),
                             ),
                           ],

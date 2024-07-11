@@ -118,7 +118,7 @@ class _ShowAddressesState extends State<ShowAddresses> {
                         top: 24, left: 16, right: 16, bottom: 16),
                     child: Text(
                       'Адрес доставки',
-                      style: AppTheme.headingBlack600_16,
+                      style: AppTheme.black600_16,
                     ),
                   ),
                   _loading
@@ -141,10 +141,13 @@ class _ShowAddressesState extends State<ShowAddresses> {
                     ),
                     title: const Text(
                       'Добавить новый адрес',
-                      style: AppTheme.headingBlack600_14,
+                      style: AppTheme.black600_14,
                     ),
                     onTap: () {
-                      pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => NewAddressPage()));
+                      pushWithoutNavBar(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NewAddressPage()));
                     },
                   ),
                 ],
@@ -175,12 +178,12 @@ class _ShowAddressesState extends State<ShowAddresses> {
                 : address.name == 'home'
                     ? 'Дом'
                     : address.name,
-            style: AppTheme.bodyBlack500_14,
+            style: AppTheme.black500_14,
           ),
           const SizedBox(height: 4),
           Text(
             address.info,
-            style: AppTheme.bodyDarkgrey500_11,
+            style: AppTheme.darkGrey500_11,
           ),
         ],
       ),
@@ -194,11 +197,8 @@ class _ShowAddressesState extends State<ShowAddresses> {
                 width: 24,
               ),
               onPressed: () {
-                pushWithoutNavBar(context, 
-                  MaterialPageRoute(builder: (context) => 
-                    NewAddressPage()
-                  )
-                );
+                pushWithoutNavBar(context,
+                    MaterialPageRoute(builder: (context) => NewAddressPage()));
               },
             )
           : null,

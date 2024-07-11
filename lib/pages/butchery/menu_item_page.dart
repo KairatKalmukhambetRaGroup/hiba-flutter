@@ -42,14 +42,14 @@ class MenuItemPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  if(menuItem.image != null) ...[
+                  if (menuItem.image != null) ...[
                     Image(
-                      image: MemoryImage(base64Decode(menuItem.image!)), 
-                      fit: BoxFit.cover, 
-                      height: 200, 
+                      image: MemoryImage(base64Decode(menuItem.image!)),
+                      fit: BoxFit.cover,
+                      height: 200,
                       width: double.infinity,
                     )
-                  ]else ...[
+                  ] else ...[
                     Image.asset(
                       'assets/images/meat.png',
                       fit: BoxFit.cover,
@@ -68,11 +68,11 @@ class MenuItemPage extends StatelessWidget {
                           children: [
                             Text(
                               menuItem.name,
-                              style: AppTheme.headingBlue700_16,
+                              style: AppTheme.blue700_16,
                             ),
                             Text(
                               '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
-                              style: AppTheme.headingBlue700_16,
+                              style: AppTheme.blue700_16,
                             ),
                           ],
                         ),
@@ -80,7 +80,7 @@ class MenuItemPage extends StatelessWidget {
                         // ignore: prefer_const_constructors
                         Text(
                           '',
-                          style: AppTheme.bodyDarkgrey500_11,
+                          style: AppTheme.darkGrey500_11,
                         ),
                         if (menuItem.description.isNotEmpty)
                           Column(
@@ -90,12 +90,12 @@ class MenuItemPage extends StatelessWidget {
                               const Text(
                                 'Описание',
                                 textAlign: TextAlign.left,
-                                style: AppTheme.headingBlue700_16,
+                                style: AppTheme.blue700_16,
                               ),
                               const SizedBox(height: 8),
                               Text(
                                 menuItem.description,
-                                style: AppTheme.bodyBlack500_11,
+                                style: AppTheme.black500_11,
                               )
                             ],
                           ),
@@ -105,11 +105,11 @@ class MenuItemPage extends StatelessWidget {
                           children: [
                             const Text(
                               'Вид',
-                              style: AppTheme.bodyDarkgrey500_11,
+                              style: AppTheme.darkGrey500_11,
                             ),
                             Text(
                               menuItem.categoryId.toString(),
-                              style: AppTheme.bodyBlack500_11,
+                              style: AppTheme.black500_11,
                             )
                           ],
                         ),
@@ -142,7 +142,7 @@ class MenuItemPage extends StatelessWidget {
                       ),
                       child: const Text(
                         'В корзину',
-                        style: AppTheme.bodyWhite600_16,
+                        style: AppTheme.white600_16,
                       ),
                     )
                   : Padding(
@@ -152,7 +152,7 @@ class MenuItemPage extends StatelessWidget {
                         children: [
                           Text(
                             '${(basketItem.price * basketItem.quantity).toString()} ₸',
-                            style: AppTheme.headingBlue700_16,
+                            style: AppTheme.blue700_16,
                           ),
                           Row(
                             children: [
@@ -178,7 +178,7 @@ class MenuItemPage extends StatelessWidget {
                                   menuItem.isWholeAnimal
                                       ? '${basketItem.quantity} гл'
                                       : '${basketItem.quantity} кг',
-                                  style: AppTheme.bodyBlack500_14,
+                                  style: AppTheme.black500_14,
                                   textAlign: TextAlign.center,
                                 ),
                               ),

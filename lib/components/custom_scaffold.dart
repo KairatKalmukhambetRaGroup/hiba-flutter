@@ -8,9 +8,15 @@ class CustomScaffold extends StatefulWidget {
   final Widget body;
   Color? backgroundColor;
   PreferredSizeWidget? appBar;
+  Widget? bottomNavigationBar;
 
-  CustomScaffold(
-      {super.key, required this.body, this.backgroundColor, this.appBar});
+  CustomScaffold({
+    super.key,
+    required this.body,
+    this.backgroundColor,
+    this.appBar,
+    this.bottomNavigationBar,
+  });
 
   @override
   State<CustomScaffold> createState() => _CustomScaffoldState();
@@ -23,7 +29,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   void initState() {
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -51,16 +56,16 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     }
 
     return Scaffold(
+      bottomNavigationBar: widget.bottomNavigationBar,
       backgroundColor: widget.backgroundColor,
       appBar: widget.appBar,
-      
       body: loading
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : authState.isLoggedIn ? 
-            widget.body
-            : const LoginPage(),
+          : authState.isLoggedIn
+              ? widget.body
+              : const LoginPage(),
     );
   }
 }

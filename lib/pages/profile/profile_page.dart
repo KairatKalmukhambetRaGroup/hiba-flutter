@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Text(
                             user!.name,
-                            style: AppTheme.headingBlue600_16,
+                            style: AppTheme.blue600_16,
                           ),
                           const Text(
                             'Мои данные',
@@ -107,8 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   'assets/svg/orders.svg',
                   width: 24,
                 ),
-                title:
-                    const Text('Мои заказы', style: AppTheme.bodyBlack500_14),
+                title: const Text('Мои заказы', style: AppTheme.black500_14),
                 trailing: SvgPicture.asset(
                   'assets/svg/chevron-right-grey.svg',
                   width: 24,
@@ -134,8 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   'assets/svg/map-marker-outline.svg',
                   width: 24,
                 ),
-                title:
-                    const Text('Мои адреса', style: AppTheme.bodyBlack500_14),
+                title: const Text('Мои адреса', style: AppTheme.black500_14),
                 trailing: SvgPicture.asset(
                   'assets/svg/chevron-right-grey.svg',
                   width: 24,
@@ -161,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
             //     'assets/svg/bell-outline.svg',
             //     width: 24,
             //   ),
-            //   title: const Text('Уведомления', style: AppTheme.bodyBlack500_14),
+            //   title: const Text('Уведомления', style: AppTheme.black500_14),
             //   trailing: SvgPicture.asset(
             //     'assets/svg/chevron-right-grey.svg',
             //     width: 24,
@@ -185,8 +183,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   'assets/svg/orders.svg',
                   width: 24,
                 ),
-                title: const Text('История доставок',
-                    style: AppTheme.bodyBlack500_14),
+                title:
+                    const Text('История доставок', style: AppTheme.black500_14),
                 trailing: SvgPicture.asset(
                   'assets/svg/chevron-right-grey.svg',
                   width: 24,
@@ -212,8 +210,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 'assets/svg/phone-in-talk-outline.svg',
                 width: 24,
               ),
-              title: const Text('Связаться с нами',
-                  style: AppTheme.bodyBlack500_14),
+              title:
+                  const Text('Связаться с нами', style: AppTheme.black500_14),
               trailing: SvgPicture.asset(
                 'assets/svg/chevron-right-grey.svg',
                 width: 24,
@@ -239,8 +237,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   'assets/svg/truck-delivery-outline.svg',
                   width: 24,
                 ),
-                title: const Text('Войти как курьер',
-                    style: AppTheme.bodyBlack500_14),
+                title:
+                    const Text('Войти как курьер', style: AppTheme.black500_14),
                 onTap: () {
                   authState.changeUItoCourier();
                   Navigator.of(context).pushNamed("/");
@@ -261,7 +259,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 title: const Text('Войти как покупатель',
-                    style: AppTheme.bodyBlack500_14),
+                    style: AppTheme.black500_14),
                 onTap: () {
                   authState.changeUItoClient();
                   Navigator.of(context).pushNamed("/");
@@ -280,7 +278,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 'assets/svg/exit-to-app.svg',
                 width: 24,
               ),
-              title: const Text('Выйти', style: AppTheme.bodyBlack500_14),
+              title: const Text('Выйти', style: AppTheme.black500_14),
               onTap: () async {
                 authState.logout();
               },

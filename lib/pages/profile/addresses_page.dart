@@ -68,7 +68,7 @@ class _AddressesPageState extends State<AddressesPage> {
             ? const Center(child: CircularProgressIndicator())
             : _addresses.isEmpty
                 ? const Center(
-                    child: Text('Нет данных', style: AppTheme.bodyBlue500_16),
+                    child: Text('Нет данных', style: AppTheme.blue500_16),
                   )
                 : ListView.separated(
                     itemBuilder: (context, index) {
@@ -83,14 +83,13 @@ class _AddressesPageState extends State<AddressesPage> {
         contentPadding: const EdgeInsets.all(16),
         title: TextButton(
           onPressed: () {
-            
-            pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => NewAddressPage()))
-              .then((value) {
-                if (value == true) {
-                  refresh();
-                }
+            pushWithoutNavBar(context,
+                    MaterialPageRoute(builder: (context) => NewAddressPage()))
+                .then((value) {
+              if (value == true) {
+                refresh();
               }
-            );
+            });
           },
           style: ButtonStyle(
             backgroundColor:
@@ -101,7 +100,7 @@ class _AddressesPageState extends State<AddressesPage> {
           ),
           child: const Text(
             'Добавить адресс',
-            style: AppTheme.headingWhite500_16,
+            style: AppTheme.white500_16,
           ),
         ),
       ),
@@ -127,12 +126,12 @@ class AddressTile extends StatelessWidget {
                 : address.name == 'home'
                     ? 'Дом'
                     : address.name,
-            style: AppTheme.bodyBlack500_14,
+            style: AppTheme.black500_14,
           ),
           const SizedBox(height: 4),
           Text(
             address.info,
-            style: AppTheme.bodyDarkgrey500_11,
+            style: AppTheme.darkGrey500_11,
           ),
         ],
       ),
@@ -145,12 +144,14 @@ class AddressTile extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (context) => NewAddressPage(editAddress: address,),
+            context,
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => NewAddressPage(
+                editAddress: address,
               ),
-            );
+            ),
+          );
         },
       ),
     );

@@ -23,12 +23,12 @@ class OrderPage extends StatelessWidget {
             tileColor: AppColors.white,
             title: Text(
               order.orderStatus,
-              style: AppTheme.headingBlue600_16,
+              style: AppTheme.blue600_16,
             ),
             // ignore: prefer_const_constructors
             subtitle: Text(
               'data',
-              style: AppTheme.bodyDarkGrey500_14,
+              style: AppTheme.darkGrey500_14,
             ),
           ),
           if (order.address != null)
@@ -38,11 +38,11 @@ class OrderPage extends StatelessWidget {
                 tileColor: AppColors.white,
                 title: const Text(
                   'Адрес доставки',
-                  style: AppTheme.bodyDarkgrey500_11,
+                  style: AppTheme.darkGrey500_11,
                 ),
                 subtitle: Text(
                   order.address!.info,
-                  style: AppTheme.headingBlack600_14,
+                  style: AppTheme.black600_14,
                 ),
               ),
             ),
@@ -54,7 +54,7 @@ class OrderPage extends StatelessWidget {
             backgroundColor: AppColors.white,
             title: Text(
               order.butchery.name,
-              style: AppTheme.headingBlue600_16,
+              style: AppTheme.blue600_16,
             ),
             children: order.items
                 .map((item) => OrderMenuItemTile(menuItem: item))
@@ -72,11 +72,11 @@ class OrderPage extends StatelessWidget {
                   children: [
                     const Text(
                       'Мясная продукция',
-                      style: AppTheme.bodyBlack500_14,
+                      style: AppTheme.black500_14,
                     ),
                     Text(
                       order.calculatePrice().toString(),
-                      style: AppTheme.bodyBlack500_14,
+                      style: AppTheme.black500_14,
                     ),
                   ],
                 ),
@@ -86,13 +86,13 @@ class OrderPage extends StatelessWidget {
                   children: [
                     const Text(
                       'Доставка',
-                      style: AppTheme.bodyBlack500_14,
+                      style: AppTheme.black500_14,
                     ),
                     Text(
                       order.deliveryPrice == 0
                           ? 'бесплатно'
                           : order.deliveryPrice.toString(),
-                      style: AppTheme.bodyBlack500_14,
+                      style: AppTheme.black500_14,
                     ),
                   ],
                 ),
@@ -103,11 +103,11 @@ class OrderPage extends StatelessWidget {
                     children: [
                       const Text(
                         'На благотворительность',
-                        style: AppTheme.bodyBlack500_14,
+                        style: AppTheme.black500_14,
                       ),
                       Text(
                         '${order.donation.toString()} ₸',
-                        style: AppTheme.bodyBlack500_14,
+                        style: AppTheme.black500_14,
                       ),
                     ],
                   ),
@@ -117,11 +117,11 @@ class OrderPage extends StatelessWidget {
                   children: [
                     const Text(
                       'Общая сумма заказа:',
-                      style: AppTheme.bodyRed500_16,
+                      style: AppTheme.red500_16,
                     ),
                     Text(
                       '${order.totalPrice} ₸',
-                      style: AppTheme.headingRed700_16,
+                      style: AppTheme.red700_16,
                     ),
                   ],
                 ),

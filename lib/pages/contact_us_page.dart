@@ -31,12 +31,15 @@ class ContactUsPage extends StatelessWidget {
               const SizedBox(height: 25),
               const Text(
                 'Связаться с поддержкой',
-                style: AppTheme.headingBlack600_16,
+                style: AppTheme.black600_16,
               ),
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {
-                  pushWithoutNavBar(context, MaterialPageRoute(builder: (context) => const SupportChatPage()));
+                  pushWithoutNavBar(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SupportChatPage()));
                 },
                 style: const ButtonStyle(
                   alignment: Alignment.center,
@@ -45,13 +48,16 @@ class ContactUsPage extends StatelessWidget {
                 ),
                 child: const Text(
                   'Написать в чат',
-                  style: AppTheme.bodyWhite500_14,
+                  style: AppTheme.white500_14,
                 ),
               ),
               const SizedBox(height: 8),
               TextButton(
                 onPressed: () {
-                  pushWithNavBar(context, MaterialPageRoute(builder: (context) => const ChatHistory()));
+                  pushWithNavBar(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChatHistory()));
                 },
                 style: const ButtonStyle(
                   alignment: Alignment.center,
@@ -60,10 +66,9 @@ class ContactUsPage extends StatelessWidget {
                 ),
                 child: const Text(
                   'История',
-                  style: AppTheme.bodyWhite500_14,
+                  style: AppTheme.white500_14,
                 ),
               ),
-              
             ],
           ),
         ),

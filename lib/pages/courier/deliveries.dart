@@ -5,12 +5,14 @@ import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/location.dart';
+import 'package:hiba/entities/menu_item.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:hiba/values/app_colors.dart';
 
 class Deliveries extends StatefulWidget {
-  const Deliveries({super.key});
+  final bool isActive;
+  const Deliveries({super.key, required this.isActive});
 
   @override
   State<StatefulWidget> createState() => _DeliveriesState();
@@ -21,7 +23,7 @@ class _DeliveriesState extends State<Deliveries> {
 
   final City almatyCity = const City(id: 1, name: "Almaty");
 
-  final Butchery butchery = Butchery(
+  final Butchery butchery1 = Butchery(
       id: 1,
       name: "ИП Green farm",
       address: "Райымбек батыра, 147",
@@ -29,18 +31,31 @@ class _DeliveriesState extends State<Deliveries> {
       longitude: 48.2,
       city: const City(id: 1, name: "Almaty"),
       image: null);
-  late Order testOrder;
-  List<Order> _orders = [];
+  final Butchery butchery2 = Butchery(
+      id: 2,
+      name: "ТОО Sweet Meat",
+      address: "Абая, 1",
+      latitude: 47.1,
+      longitude: 48.2,
+      city: const City(id: 1, name: "Almaty"),
+      image: null);
+  late Order testOrder1;
+  late Order testOrder2;
+  late Order testOrder3;
+  final List<Order> _orders = [];
+  final List<Butchery> _butcheries = [];
 
   @override
   void initState() {
     super.initState();
-    butchery.phone = '+7 (747) 755 8819';
-    testOrder = Order(butchery: butchery, charity: false);
-    testOrder.deliveryPrice = 100;
-    testOrder.price = 4000;
-    testOrder.id = 1;
-    testOrder.address = Address(
+    butchery1.phone = '+7 (747) 755 8819';
+    butchery2.phone = '+7 (747) 755 1234';
+
+    testOrder1 = Order(butchery: butchery1, charity: false);
+    testOrder1.deliveryPrice = 100;
+    testOrder1.price = 4000;
+    testOrder1.id = 1;
+    testOrder1.address = Address(
       id: 1,
       name: 'home',
       address: ' Жетысу - 1',
@@ -50,11 +65,76 @@ class _DeliveriesState extends State<Deliveries> {
       floor: '2',
       city: almatyCity,
     );
-    testOrder.user =
-        User(phone: '87775007060', avatar: null, id: 11, name: 'Arman');
+    testOrder1.user = const User(
+      phone: '87775007060',
+      avatar: null,
+      id: 11,
+      name: 'Arman',
+    );
+
+    MenuItem menuItem1 = MenuItem(
+      id: 1,
+      name: 'Казы',
+      weight: 2,
+      isWholeAnimal: false,
+      categoryId: 1,
+      price: 1000,
+    );
+    menuItem1.quantity = 2;
+
+    testOrder1.items.add(menuItem1);
+
+    testOrder2 = Order(butchery: butchery2, charity: true);
+    testOrder2.deliveryPrice = 100;
+    testOrder2.price = 4000;
+    testOrder2.id = 2;
+    testOrder2.status = 'RECIEVED';
+    testOrder2.address = Address(
+      id: 2,
+      name: 'home',
+      address: 'Розыбакиева',
+      building: '28',
+      apartment: '15',
+      entrance: '1',
+      floor: '3',
+      city: almatyCity,
+    );
+    testOrder2.user = const User(
+      phone: '87775007060',
+      avatar: null,
+      id: 11,
+      name: 'Arman',
+    );
+
+    testOrder3 = Order(butchery: butchery2, charity: true);
+    testOrder3.deliveryPrice = 100;
+    testOrder3.price = 4000;
+    testOrder3.id = 2;
+    testOrder3.status = 'ON_THE_WAY';
+    testOrder3.address = Address(
+      id: 2,
+      name: 'home',
+      address: 'Розыбакиева',
+      building: '28',
+      apartment: '15',
+      entrance: '1',
+      floor: '3',
+      city: almatyCity,
+    );
+    testOrder3.user = const User(
+      phone: '87775007060',
+      avatar: null,
+      id: 11,
+      name: 'Arman',
+    );
 
     setState(() {
-      _orders.add(testOrder);
+      _orders.add(testOrder1);
+      _orders.add(testOrder2);
+      _orders.add(testOrder3);
+
+      _butcheries.add(butchery1);
+      _butcheries.add(butchery2);
     });
   }
 
@@ -137,24 +217,22 @@ class _DeliveriesState extends State<Deliveries> {
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: _groupByButchery
-            ? ListView.separated(
+            ? ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return DeliveryButcheryTile(
-                      butchery: butchery, orders: _orders);
+                    butchery: _butcheries[index],
+                    orders: _orders,
+                    isActive: widget.isActive,
+                  );
                 },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(height: 1.0, color: AppColors.darkGrey);
-                },
-                itemCount: 2,
+                itemCount: _butcheries.length,
               )
-            : ListView.separated(
+            : ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  return DeliveryTile(order: testOrder);
+                  return DeliveryTile(
+                      order: _orders[index], isActive: widget.isActive);
                 },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(height: 1.0, color: AppColors.darkGrey);
-                },
-                itemCount: 2,
+                itemCount: _orders.length,
               ),
       ),
     );

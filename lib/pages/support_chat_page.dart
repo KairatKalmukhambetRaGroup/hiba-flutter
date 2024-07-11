@@ -8,7 +8,6 @@ import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:hiba/web_socket_service.dart';
 
-
 class SupportChatPage extends StatefulWidget {
   static const routeName = '/support-chat';
   final String? chatId;
@@ -23,7 +22,6 @@ class _SupportChatPageState extends State<SupportChatPage> {
   late final TextEditingController messageController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<ChatMessage> messages = [];
-
 
   String? _chatId;
 
@@ -41,7 +39,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
     messageController = TextEditingController()
       ..addListener(controllerListener);
     _webSocketService = WebSocketService(onMessageReceived: _onMessageReceived);
-    if(widget.chatId != null){
+    if (widget.chatId != null) {
       _webSocketService.connect(widget.chatId);
       fetchMessages(widget.chatId!);
       setState(() {
@@ -69,8 +67,6 @@ class _SupportChatPageState extends State<SupportChatPage> {
     super.dispose();
   }
 
-
-
   void controllerListener() {
     final phoneNumber = messageController.text;
 
@@ -79,7 +75,7 @@ class _SupportChatPageState extends State<SupportChatPage> {
 
   Future<void> fetchMessages(String id) async {
     final data = await getMessages(id);
-    if(data != null){
+    if (data != null) {
       setState(() {
         messages = data;
       });
@@ -88,20 +84,22 @@ class _SupportChatPageState extends State<SupportChatPage> {
 
   void sendMessage(String message) async {
     if (message.isNotEmpty) {
-      if(_chatId == null){
+      if (_chatId == null) {
         final data = await createChat();
-        if(data!= null){
+        if (data != null) {
           final id = data.id;
           setState(() {
             _chatId = id.toString();
           });
           await _webSocketService.connect(id.toString());
           _webSocketService.activate();
-          ChatMessage cm = ChatMessage(content: message, senderType: 'CLIENT', chat: id.toString());
+          ChatMessage cm = ChatMessage(
+              content: message, senderType: 'CLIENT', chat: id.toString());
           _webSocketService.sendMessage(cm.toString());
         }
-      }else{
-        ChatMessage cm = ChatMessage(content: message, senderType: 'CLIENT', chat: _chatId!);
+      } else {
+        ChatMessage cm =
+            ChatMessage(content: message, senderType: 'CLIENT', chat: _chatId!);
         _webSocketService.sendMessage(cm.toString());
       }
     }
@@ -111,88 +109,84 @@ class _SupportChatPageState extends State<SupportChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppBar(
-        titleText: 'Hiba чат',
-        context: context,
-      ),
-      body: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView.separated(
-                    reverse: true,
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      var message = messages[index];
-                      return ChatMessageBubble(message: message);
-                    },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 12),
-                  ),
+        backgroundColor: AppColors.white,
+        appBar: CustomAppBar(
+          titleText: 'Hiba чат',
+          context: context,
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListView.separated(
+                  reverse: true,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    var message = messages[index];
+                    return ChatMessageBubble(message: message);
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
                 ),
               ),
-
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                decoration: const BoxDecoration(
-                  border: BorderDirectional(
-                    top: BorderSide(
-                        color: Color.fromARGB(255, 14, 11, 11), width: 1),
-                  ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+              decoration: const BoxDecoration(
+                border: BorderDirectional(
+                  top: BorderSide(
+                      color: Color.fromARGB(255, 14, 11, 11), width: 1),
                 ),
-                child: Form(
-                  key: _formKey,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: messageController,
-                          keyboardType: TextInputType.text,
-                          onFieldSubmitted: (text) {
-                            sendMessage(messageController.text);
-                            messageController.clear();
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                            ),
-                            fillColor: AppColors.bgLight,
-                            hintText: 'Сообщение',
-                            hintStyle: AppTheme.bodyDarkGrey500_14,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                          ),
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          style: AppTheme.bodyBlack500_14,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      IconButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            sendMessage(messageController.text);
-                            messageController.clear();
-                          }
+              ),
+              child: Form(
+                key: _formKey,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: messageController,
+                        keyboardType: TextInputType.text,
+                        onFieldSubmitted: (text) {
+                          sendMessage(messageController.text);
+                          messageController.clear();
                         },
-                        icon: SvgPicture.asset(
-                          'assets/svg/send.svg',
-                          width: 32,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                          fillColor: AppColors.bgLight,
+                          hintText: 'Сообщение',
+                          hintStyle: AppTheme.darkGrey500_14,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         ),
-                      )
-                    ],
-                  ),
+                        onTapOutside: (event) =>
+                            FocusScope.of(context).unfocus(),
+                        style: AppTheme.black500_14,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    IconButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          sendMessage(messageController.text);
+                          messageController.clear();
+                        }
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/svg/send.svg',
+                        width: 32,
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          )
-        
-    );
+              ),
+            )
+          ],
+        ));
   }
 }
 
@@ -233,15 +227,15 @@ class ChatMessageBubble extends StatelessWidget {
                 Text(
                   message.content,
                   style: isSentMessage
-                      ? AppTheme.bodyBlack500_14
-                      : AppTheme.bodyWhite500_14,
+                      ? AppTheme.black500_14
+                      : AppTheme.white500_14,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       message.timestamp ?? '',
-                      style: AppTheme.bodyDarkgrey500_11,
+                      style: AppTheme.darkGrey500_11,
                     ),
                   ],
                 )

@@ -24,7 +24,7 @@ class OrderCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 order.orderStatus,
-                style: AppTheme.bodyBlue600_14,
+                style: AppTheme.blue600_14,
               ),
             ),
             const SizedBox(height: 16),
@@ -63,12 +63,12 @@ class OrderCard extends StatelessWidget {
                 children: [
                   Text(
                     'Заказ №${order.id}',
-                    style: AppTheme.bodyBlack500_11,
+                    style: AppTheme.black500_11,
                   ),
                   // ignore: prefer_const_constructors
                   Text(
                     '${order.totalPrice} ₸',
-                    style: AppTheme.bodyBlue700_14,
+                    style: AppTheme.blue700_14,
                   ),
                 ],
               ),
@@ -78,7 +78,7 @@ class OrderCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   order.address!.info,
-                  style: AppTheme.bodyBlack500_11,
+                  style: AppTheme.black500_11,
                 ),
               ),
             const SizedBox(height: 16),
@@ -103,7 +103,7 @@ class OrderCard extends StatelessWidget {
                     children: [
                       const Text(
                         'Детали заказа',
-                        style: AppTheme.bodyBlue500_14,
+                        style: AppTheme.blue500_14,
                       ),
                       SvgPicture.asset(
                         'assets/svg/chevron-right-grey.svg',

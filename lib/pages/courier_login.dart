@@ -40,7 +40,7 @@ class CourierLogin extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         const Text('Я - Покупатель',
-                            style: AppTheme.bodyBlack500_14)
+                            style: AppTheme.black500_14)
                       ],
                     ),
                   ),
@@ -57,8 +57,7 @@ class CourierLogin extends StatelessWidget {
                           height: 120,
                         ),
                         const SizedBox(height: 12),
-                        const Text('Я - Курьер',
-                            style: AppTheme.bodyBlack500_14)
+                        const Text('Я - Курьер', style: AppTheme.black500_14)
                       ],
                     ),
                   ),

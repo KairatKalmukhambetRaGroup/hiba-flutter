@@ -27,7 +27,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
             children: [
               Text(
                 'Сегодня',
-                style: AppTheme.bodyBlue500_14,
+                style: AppTheme.blue500_14,
               )
             ],
           ),
@@ -72,17 +72,17 @@ class NotificationMessage extends StatelessWidget {
             children: [
               Text(
                 'Статус заказа №$orderId изменен',
-                style: AppTheme.bodyDarkgrey500_11,
+                style: AppTheme.darkGrey500_11,
               ),
               const SizedBox(height: 8),
               Text(
                 title,
-                style: AppTheme.headingOrange500_16,
+                style: AppTheme.orange500_16,
               ),
               const SizedBox(height: 8),
               Text(
                 text,
-                style: AppTheme.bodyBlack500_14,
+                style: AppTheme.black500_14,
               ),
             ],
           ),

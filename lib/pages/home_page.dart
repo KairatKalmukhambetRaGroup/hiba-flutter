@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                     addressState.currentAddress == null
                         ? 'Выберите адрес'
                         : addressState.currentAddress!.city.name,
-                    style: AppTheme.bodyBlack500_14,
+                    style: AppTheme.black500_14,
                   ),
                 ],
               ),
@@ -77,43 +77,45 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       'С HIBA легко заказать домой свежее постное мясо и делать благие дела',
-                      style: AppTheme.headingBlack600_14,
+                      style: AppTheme.black600_14,
                     ),
                   ),
                   TextButton(
                     onPressed: () async {
-                      pushWithNavBar(context,
-                        MaterialPageRoute(builder: (context) => const SearchPage(charity: true))
-                      );
+                      pushWithNavBar(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const SearchPage(charity: true)));
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,
-                      minimumSize:
-                          WidgetStatePropertyAll(Size.fromHeight(48)),
+                      minimumSize: WidgetStatePropertyAll(Size.fromHeight(48)),
                       backgroundColor: WidgetStatePropertyAll(AppColors.red),
                     ),
                     child: const Text(
                       'На благотворительность',
-                      style: AppTheme.bodyWhite500_14,
+                      style: AppTheme.white500_14,
                     ),
                   ),
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: () {
-                      pushWithNavBar(context,
-                        MaterialPageRoute(builder: (context) => const SearchPage(charity: false))
-                      );
+                      pushWithNavBar(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const SearchPage(charity: false)));
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,
-                      minimumSize:
-                          WidgetStatePropertyAll(Size.fromHeight(48)),
+                      minimumSize: WidgetStatePropertyAll(Size.fromHeight(48)),
                       backgroundColor:
                           WidgetStatePropertyAll(AppColors.mainBlue),
                     ),
                     child: const Text(
                       'Для себя или близких',
-                      style: AppTheme.bodyWhite500_14,
+                      style: AppTheme.white500_14,
                     ),
                   ),
                 ],
