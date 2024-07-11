@@ -55,6 +55,21 @@ class AuthState extends ChangeNotifier {
     Map<String, dynamic> data = json.decode(userDataString);
     _user = User.fromJson(data);
     _isLoggedIn = true;
+
+    String? isCourierString = await storage.read(key: 'isCourier');
+    if (isCourierString == null || isCourierString == 'false') {
+      _isCourier = false;
+    } else {
+      _isCourier = true;
+    }
+
+    String? uiString = await storage.read(key: 'ui');
+    if (uiString == null || uiString == 'client') {
+      _isClientUI = true;
+    } else {
+      _isClientUI = false;
+    }
+
     notifyListeners();
     return _user;
   }
@@ -99,6 +114,7 @@ class AuthState extends ChangeNotifier {
           } else {
             _isCourier = false;
           }
+          await storage.write(key: 'isCourier', value: _isCourier.toString());
           await storeAuthData(responseData['token'], responseData['user']);
           _user = User.fromJson(responseData['user']);
           notifyListeners();
@@ -113,13 +129,15 @@ class AuthState extends ChangeNotifier {
     }
   }
 
-  void changeUItoClient() {
+  void changeUItoClient() async {
     _isClientUI = true;
+    await storage.write(key: 'ui', value: 'client');
     notifyListeners();
   }
 
-  void changeUItoCourier() {
+  void changeUItoCourier() async {
     _isClientUI = false;
+    await storage.write(key: 'ui', value: 'courier');
     notifyListeners();
   }
 

@@ -1,6 +1,7 @@
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/menu_item.dart';
+import 'package:hiba/entities/user.dart';
 
 class Order {
   Address? address;
@@ -16,6 +17,7 @@ class Order {
   late double donation = 0;
   late DateTime deliveryDate;
   String? senderName;
+  User? user;
 
   Order({required this.butchery, required this.charity});
 
@@ -167,9 +169,9 @@ class Order {
   int calculateWeight() {
     int weight = 0;
     for (MenuItem item in items) {
-      if(item.isWholeAnimal){
+      if (item.isWholeAnimal) {
         weight += item.weight * item.quantity;
-      }else{
+      } else {
         weight += item.quantity;
       }
     }

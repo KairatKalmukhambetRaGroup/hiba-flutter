@@ -12,27 +12,26 @@ class Butchery {
   final String? image;
   late List<ButcheryCategory> categories;
   List<WorkingHour>? workingHours;
+  String? phone;
 
-  Butchery({
-    required this.id,
-    required this.name,
-    required this.address,
-    required this.latitude,
-    required this.longitude,
-    required this.city,
-    required this.image
-  });
+  Butchery(
+      {required this.id,
+      required this.name,
+      required this.address,
+      required this.latitude,
+      required this.longitude,
+      required this.city,
+      required this.image});
 
   factory Butchery.fromJson(Map<String, dynamic> json) {
     Butchery butchery = Butchery(
-      id: json["id"],
-      name: json["name"],
-      address: json["address"],
-      latitude: json["latitude"],
-      longitude: json["longitude"],
-      city: City.fromJson(json['city']),
-      image: json["image"]
-    );
+        id: json["id"],
+        name: json["name"],
+        address: json["address"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        city: City.fromJson(json['city']),
+        image: json["image"]);
     if (json["categories"] != null) {
       butchery.categories = (json["categories"] as List)
           .map((el) => ButcheryCategory.fromJson(el))

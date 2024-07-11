@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hiba/components/courier/delivery_butchery_tile.dart';
 import 'package:hiba/components/courier/delivery_tile.dart';
 import 'package:hiba/components/custom_scaffold.dart';
+import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/location.dart';
 import 'package:hiba/entities/order.dart';
+import 'package:hiba/entities/user.dart';
 import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
 
 class Deliveries extends StatefulWidget {
+  const Deliveries({super.key});
+
   @override
   State<StatefulWidget> createState() => _DeliveriesState();
 }
@@ -15,23 +19,43 @@ class Deliveries extends StatefulWidget {
 class _DeliveriesState extends State<Deliveries> {
   bool _groupByButchery = false;
 
-  final Order testOrder = Order(
-      butchery: Butchery(
-          id: 1,
-          name: "Tesst",
-          address: "Address",
-          latitude: 47.1,
-          longitude: 48.2,
-          city: const City(id: 1, name: "Almaty"),
-          image: null),
-      charity: false);
+  final City almatyCity = const City(id: 1, name: "Almaty");
+
+  final Butchery butchery = Butchery(
+      id: 1,
+      name: "ИП Green farm",
+      address: "Райымбек батыра, 147",
+      latitude: 47.1,
+      longitude: 48.2,
+      city: const City(id: 1, name: "Almaty"),
+      image: null);
+  late Order testOrder;
+  List<Order> _orders = [];
 
   @override
   void initState() {
     super.initState();
+    butchery.phone = '+7 (747) 755 8819';
+    testOrder = Order(butchery: butchery, charity: false);
     testOrder.deliveryPrice = 100;
     testOrder.price = 4000;
     testOrder.id = 1;
+    testOrder.address = Address(
+      id: 1,
+      name: 'home',
+      address: ' Жетысу - 1',
+      building: '25',
+      apartment: '77',
+      entrance: '1',
+      floor: '2',
+      city: almatyCity,
+    );
+    testOrder.user =
+        User(phone: '87775007060', avatar: null, id: 11, name: 'Arman');
+
+    setState(() {
+      _orders.add(testOrder);
+    });
   }
 
   @override
@@ -42,7 +66,7 @@ class _DeliveriesState extends State<Deliveries> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      backgroundColor: AppColors.bgLight,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
         surfaceTintColor: AppColors.white,
@@ -110,17 +134,28 @@ class _DeliveriesState extends State<Deliveries> {
             const Border(bottom: BorderSide(width: 1, color: AppColors.grey)),
         centerTitle: true,
       ),
-      body: Padding(
+      body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) {
-            return DeliveryTile(order: testOrder);
-          },
-          itemBuilder: (BuildContext context, int index) {
-            return const Divider(height: 1.0, color: AppColors.darkGrey);
-          },
-          itemCount: 1,
-        ),
+        child: _groupByButchery
+            ? ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  return DeliveryButcheryTile(
+                      butchery: butchery, orders: _orders);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(height: 1.0, color: AppColors.darkGrey);
+                },
+                itemCount: 2,
+              )
+            : ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  return DeliveryTile(order: testOrder);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(height: 1.0, color: AppColors.darkGrey);
+                },
+                itemCount: 2,
+              ),
       ),
     );
   }

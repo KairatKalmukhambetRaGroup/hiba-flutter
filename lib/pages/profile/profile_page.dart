@@ -93,56 +93,60 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            ListTile(
-              shape: const BorderDirectional(
-                  bottom: BorderSide(
-                color: AppColors.grey,
-                width: 0.5,
-                style: BorderStyle.solid,
-              )),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              tileColor: AppColors.white,
-              leading: SvgPicture.asset(
-                'assets/svg/orders.svg',
-                width: 24,
+            if (authState.isClientUI)
+              ListTile(
+                shape: const BorderDirectional(
+                    bottom: BorderSide(
+                  color: AppColors.grey,
+                  width: 0.5,
+                  style: BorderStyle.solid,
+                )),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                tileColor: AppColors.white,
+                leading: SvgPicture.asset(
+                  'assets/svg/orders.svg',
+                  width: 24,
+                ),
+                title:
+                    const Text('Мои заказы', style: AppTheme.bodyBlack500_14),
+                trailing: SvgPicture.asset(
+                  'assets/svg/chevron-right-grey.svg',
+                  width: 24,
+                ),
+                onTap: () {
+                  pushWithoutNavBar(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OrdersPage()));
+                },
               ),
-              title: const Text('Мои заказы', style: AppTheme.bodyBlack500_14),
-              trailing: SvgPicture.asset(
-                'assets/svg/chevron-right-grey.svg',
-                width: 24,
+            if (authState.isClientUI)
+              ListTile(
+                shape: const BorderDirectional(
+                    bottom: BorderSide(
+                  color: AppColors.grey,
+                  width: 0.5,
+                  style: BorderStyle.solid,
+                )),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                tileColor: AppColors.white,
+                leading: SvgPicture.asset(
+                  'assets/svg/map-marker-outline.svg',
+                  width: 24,
+                ),
+                title:
+                    const Text('Мои адреса', style: AppTheme.bodyBlack500_14),
+                trailing: SvgPicture.asset(
+                  'assets/svg/chevron-right-grey.svg',
+                  width: 24,
+                ),
+                onTap: () {
+                  pushWithoutNavBar(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddressesPage()));
+                },
               ),
-              onTap: () {
-                pushWithoutNavBar(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const OrdersPage()));
-              },
-            ),
-            ListTile(
-              shape: const BorderDirectional(
-                  bottom: BorderSide(
-                color: AppColors.grey,
-                width: 0.5,
-                style: BorderStyle.solid,
-              )),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              tileColor: AppColors.white,
-              leading: SvgPicture.asset(
-                'assets/svg/map-marker-outline.svg',
-                width: 24,
-              ),
-              title: const Text('Мои адреса', style: AppTheme.bodyBlack500_14),
-              trailing: SvgPicture.asset(
-                'assets/svg/chevron-right-grey.svg',
-                width: 24,
-              ),
-              onTap: () {
-                pushWithoutNavBar(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AddressesPage()));
-              },
-            ),
 
             // ListTile(
             //   shape: const BorderDirectional(
@@ -166,6 +170,34 @@ class _ProfilePageState extends State<ProfilePage> {
             //     pushWithNavBar(context, MaterialPageRoute(builder: (context)=> const NotificationsPage()));
             //   },
             // ),
+
+            if (!authState.isClientUI)
+              ListTile(
+                shape: const BorderDirectional(
+                    bottom: BorderSide(
+                  color: AppColors.grey,
+                  width: 0.5,
+                  style: BorderStyle.solid,
+                )),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                tileColor: AppColors.white,
+                leading: SvgPicture.asset(
+                  'assets/svg/orders.svg',
+                  width: 24,
+                ),
+                title: const Text('История доставок',
+                    style: AppTheme.bodyBlack500_14),
+                trailing: SvgPicture.asset(
+                  'assets/svg/chevron-right-grey.svg',
+                  width: 24,
+                ),
+                onTap: () {
+                  pushWithoutNavBar(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddressesPage()));
+                },
+              ),
 
             ListTile(
               shape: const BorderDirectional(
@@ -193,27 +225,48 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: (context) => const ContactUsPage()));
               },
             ),
-            // if (authState.isCourier && authState.isClientUI)
-            ListTile(
-              shape: const BorderDirectional(
-                  bottom: BorderSide(
-                color: AppColors.grey,
-                width: 0.5,
-                style: BorderStyle.solid,
-              )),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              tileColor: AppColors.white,
-              leading: SvgPicture.asset(
-                'assets/svg/truck-delivery-outline.svg',
-                width: 24,
+            if (authState.isCourier && authState.isClientUI)
+              ListTile(
+                shape: const BorderDirectional(
+                    bottom: BorderSide(
+                  color: AppColors.grey,
+                  width: 0.5,
+                  style: BorderStyle.solid,
+                )),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                tileColor: AppColors.white,
+                leading: SvgPicture.asset(
+                  'assets/svg/truck-delivery-outline.svg',
+                  width: 24,
+                ),
+                title: const Text('Войти как курьер',
+                    style: AppTheme.bodyBlack500_14),
+                onTap: () {
+                  authState.changeUItoCourier();
+                  Navigator.of(context).pushNamed("/");
+                },
               ),
-              title: const Text('Войти как курьер',
-                  style: AppTheme.bodyBlack500_14),
-              onTap: () {
-                authState.changeUItoCourier();
-                Navigator.of(context).pushNamed("/");
-              },
-            ),
+            if (authState.isCourier && !authState.isClientUI)
+              ListTile(
+                shape: const BorderDirectional(
+                    bottom: BorderSide(
+                  color: AppColors.grey,
+                  width: 0.5,
+                  style: BorderStyle.solid,
+                )),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                tileColor: AppColors.white,
+                leading: SvgPicture.asset(
+                  'assets/svg/toclient.svg',
+                  width: 24,
+                ),
+                title: const Text('Войти как покупатель',
+                    style: AppTheme.bodyBlack500_14),
+                onTap: () {
+                  authState.changeUItoClient();
+                  Navigator.of(context).pushNamed("/");
+                },
+              ),
             ListTile(
               shape: const BorderDirectional(
                   bottom: BorderSide(
