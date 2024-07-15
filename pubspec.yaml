@@ -63,6 +63,7 @@ dependencies:
   stomp_dart_client: ^2.0.0
   persistent_bottom_nav_bar_v2: ^5.2.3
   internet_connection_checker: ^1.0.0+1
+  flutter_native_splash: ^2.4.1
 
 flutter_launcher_icons:
   image_path: "assets/icons/icon-128x128.png"
