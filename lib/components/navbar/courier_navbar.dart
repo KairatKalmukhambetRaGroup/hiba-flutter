@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hiba/pages/basket_page.dart';
 import 'package:hiba/pages/courier/courier_notifications.dart';
 import 'package:hiba/pages/courier/deliveries.dart';
 import 'package:hiba/pages/profile/profile_page.dart';

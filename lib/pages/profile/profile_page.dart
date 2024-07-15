@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/user.dart';
 import 'package:hiba/pages/contact_us_page.dart';
+import 'package:hiba/pages/courier/delivery_history.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
 import 'package:hiba/pages/orders/orders_page.dart';
 import 'package:hiba/pages/profile/user_info_page.dart';
@@ -193,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   pushWithoutNavBar(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddressesPage()));
+                          builder: (context) => const DeliveryHistory()));
                 },
               ),
 

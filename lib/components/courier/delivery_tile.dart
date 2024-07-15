@@ -12,11 +12,13 @@ class DeliveryTile extends StatelessWidget {
   final Order order;
   bool? fromButchery = false;
   final bool isActive;
+  bool? isDone = false;
   DeliveryTile({
     super.key,
     required this.order,
     this.fromButchery,
     required this.isActive,
+    this.isDone,
   });
 
   @override
@@ -99,36 +101,37 @@ class DeliveryTile extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return DeliveryPopup(status: order.status);
-                },
-              );
-            },
-            child: Container(
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                color: order.status == "ON_THE_WAY"
-                    ? AppColors.red
-                    : AppColors.mainBlue,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                textAlign: TextAlign.center,
-                order.status == 'PREPARING_FOR_DELIVERY'
-                    ? "Принять"
-                    : order.status == 'RECIEVED'
-                        ? "Подтвердить получение"
-                        : "Завершить доставку",
-                style: AppTheme.white600_16,
+          if (isDone == null || isDone == false)
+            TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DeliveryPopup(status: order.status);
+                  },
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.only(top: 16),
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  color: order.status == "ON_THE_WAY"
+                      ? AppColors.red
+                      : AppColors.mainBlue,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  order.status == 'PREPARING_FOR_DELIVERY'
+                      ? "Принять"
+                      : order.status == 'RECIEVED'
+                          ? "Подтвердить получение"
+                          : "Завершить доставку",
+                  style: AppTheme.white600_16,
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
