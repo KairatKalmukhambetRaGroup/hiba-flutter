@@ -22,6 +22,8 @@ class _DeliveryConfirmState extends State<DeliveryConfirm> {
   bool _sendCodeAgain = false;
   int _countdown = 60;
 
+  late Timer countdownTimer;
+
   void controllerListener() {
     final code = codeController.text;
 
@@ -49,11 +51,14 @@ class _DeliveryConfirmState extends State<DeliveryConfirm> {
   void dispose() {
     disposeControllers();
     super.dispose();
+    if (countdownTimer.isActive) {
+      countdownTimer.cancel();
+    }
   }
 
   void _startCountdown() {
     const oneSecond = Duration(seconds: 1);
-    Timer.periodic(oneSecond, (timer) {
+    Timer tm = Timer.periodic(oneSecond, (timer) {
       if (_countdown == 0) {
         setState(() {
           _sendCodeAgain = true;
@@ -64,6 +69,9 @@ class _DeliveryConfirmState extends State<DeliveryConfirm> {
           _countdown--;
         });
       }
+    });
+    setState(() {
+      countdownTimer = tm;
     });
   }
 

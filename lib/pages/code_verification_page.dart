@@ -39,6 +39,8 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   int _countdown = 60;
   String _phone = '';
 
+  late Timer countdownTimer;
+
   void controllerListener() {
     final code = codeController.text;
 
@@ -74,6 +76,9 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   void dispose() {
     disposeControllers();
     super.dispose();
+    if (countdownTimer.isActive) {
+      countdownTimer.cancel();
+    }
   }
 
   // ignore: unused_element
@@ -95,7 +100,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
 
   void _startCountdown() {
     const oneSecond = Duration(seconds: 1);
-    Timer.periodic(oneSecond, (timer) {
+    Timer tm = Timer.periodic(oneSecond, (timer) {
       if (_countdown == 0) {
         setState(() {
           _sendCodeAgain = true;
@@ -106,6 +111,9 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
           _countdown--;
         });
       }
+    });
+    setState(() {
+      countdownTimer = tm;
     });
   }
 
