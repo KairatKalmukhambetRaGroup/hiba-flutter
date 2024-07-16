@@ -7,6 +7,7 @@ import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/location.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/entities/user.dart';
+import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
 
 class ButcheryDeliveries extends StatefulWidget {
@@ -23,44 +24,27 @@ class ButcheryDeliveries extends StatefulWidget {
 }
 
 class _ButcheryDeliveriesState extends State<ButcheryDeliveries> {
-  final City almatyCity = const City(id: 1, name: "Almaty");
-
-  late Order testOrder;
-  final List<Order> _orders = [];
+  List<Order> _orders = [];
 
   @override
   void initState() {
     super.initState();
-
-    testOrder = Order(butchery: widget.butchery, charity: false);
-    testOrder.deliveryPrice = 100;
-    testOrder.price = 4000;
-    testOrder.id = 1;
-    testOrder.address = Address(
-      id: 1,
-      name: 'home',
-      address: ' Жетысу - 1',
-      building: '25',
-      apartment: '77',
-      entrance: '1',
-      floor: '2',
-      city: almatyCity,
-    );
-    testOrder.user = const User(
-      phone: '87775007060',
-      avatar: null,
-      id: 11,
-      name: 'Arman',
-    );
-
-    setState(() {
-      _orders.add(testOrder);
-    });
+    fetchOrders();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> fetchOrders() async {
+    final data =
+        await getCourierOrdersByButcheryId(widget.isActive, widget.butchery.id);
+    if (data != null) {
+      setState(() {
+        _orders = data;
+      });
+    }
   }
 
   @override
@@ -76,12 +60,12 @@ class _ButcheryDeliveriesState extends State<ButcheryDeliveries> {
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return DeliveryTile(
-              order: testOrder,
+              order: _orders[index],
               fromButchery: true,
               isActive: widget.isActive,
             );
           },
-          itemCount: 2,
+          itemCount: _orders.length,
         ),
       ),
     );

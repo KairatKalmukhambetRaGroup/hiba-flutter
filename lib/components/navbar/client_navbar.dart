@@ -13,7 +13,6 @@ class ClientNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return PersistentTabView(
       navBarHeight: 84,
-      stateManagement: false,
       tabs: [
         PersistentTabConfig(
           screen: const HomePage(),

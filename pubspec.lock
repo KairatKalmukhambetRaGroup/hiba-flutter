@@ -917,6 +917,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  rename_app:
+    dependency: "direct main"
+    description:
+      name: rename_app
+      sha256: "0267b7507ca70ede47b1e5a0b391e547d0e0854956a00fad2585fb6c5968dc24"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.1"
   shared_preferences:
     dependency: transitive
     description:
@@ -973,6 +981,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  skeletonizer:
+    dependency: "direct main"
+    description:
+      name: skeletonizer
+      sha256: "9dcaec747d200a299bc457ffe51f135b9856b7f9097e851e277c4c95f563893b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1+1"
   sky_engine:
     dependency: transitive
     description: flutter

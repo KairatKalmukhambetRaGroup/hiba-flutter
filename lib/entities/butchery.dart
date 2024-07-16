@@ -13,6 +13,7 @@ class Butchery {
   late List<ButcheryCategory> categories;
   List<WorkingHour>? workingHours;
   String? phone;
+  int ordersCount = 0;
 
   Butchery(
       {required this.id,

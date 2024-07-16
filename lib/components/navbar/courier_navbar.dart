@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hiba/pages/courier/active_deliveries.dart';
 import 'package:hiba/pages/courier/courier_notifications.dart';
 import 'package:hiba/pages/courier/deliveries.dart';
 import 'package:hiba/pages/profile/profile_page.dart';
@@ -13,10 +14,9 @@ class CourierNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return PersistentTabView(
       navBarHeight: 84,
-      stateManagement: false,
       tabs: [
         PersistentTabConfig(
-          screen: const Deliveries(isActive: true),
+          screen: const ActiveDeliveries(),
           item: ItemConfig(
             activeForegroundColor: AppColors.black,
             inactiveForegroundColor: AppColors.black,
@@ -27,7 +27,7 @@ class CourierNavbar extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: const Deliveries(isActive: false),
+          screen: const Deliveries(),
           item: ItemConfig(
             activeForegroundColor: AppColors.black,
             inactiveForegroundColor: AppColors.black,

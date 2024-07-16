@@ -36,7 +36,6 @@ class AuthState extends ChangeNotifier {
 
   Future<User?> getUserData() async {
     String? userDataString = await storage.read(key: 'user');
-    print('user string: $userDataString');
     if (userDataString == null) {
       logout();
       return null;
@@ -158,7 +157,6 @@ class AuthState extends ChangeNotifier {
       final streamedResponse = await request.send();
       // streamedResponse.headers;
       final response = await http.Response.fromStream(streamedResponse);
-      print(streamedResponse.statusCode);
       if (response.statusCode == 200) {
         final decodedBody = utf8.decode(response.bodyBytes);
         final responseData =

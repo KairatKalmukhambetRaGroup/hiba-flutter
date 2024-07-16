@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:hiba/components/courier/delivery_butchery_tile.dart';
 import 'package:hiba/components/courier/delivery_tile.dart';
 import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/location.dart';
 import 'package:hiba/entities/order.dart';
+import 'package:hiba/pages/courier/deliveries.dart';
 import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
+import 'package:hiba/values/app_theme.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class Deliveries extends StatefulWidget {
-  const Deliveries({super.key});
+class ActiveDeliveries extends StatefulWidget {
+  const ActiveDeliveries({super.key});
 
   @override
-  State<StatefulWidget> createState() => _DeliveriesState();
+  State<StatefulWidget> createState() => _ActiveDeliveriesState();
 }
 
-class _DeliveriesState extends State<Deliveries> {
+class _ActiveDeliveriesState extends State<ActiveDeliveries> {
   bool _groupByButchery = false;
 
   List<Order> _orders = [];
@@ -41,14 +42,14 @@ class _DeliveriesState extends State<Deliveries> {
       _loading = true;
     });
     if (_groupByButchery) {
-      final data = await getCourierOrdersByButchery(false);
+      final data = await getCourierOrdersByButchery(true);
       if (data != null) {
         setState(() {
           _butcheries = data;
         });
       }
     } else {
-      final data = await getCourierOrders(false);
+      final data = await getCourierOrders(true);
       if (data != null) {
         setState(() {
           _orders = data;
@@ -142,31 +143,56 @@ class _DeliveriesState extends State<Deliveries> {
         child: RefreshIndicator(
           onRefresh: fetchOrders,
           child: _loading
-              ? ListView.builder(
+              ? Skeletonizer(
+                  child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     return _groupByButchery
                         ? DeliveryButcheryTile.skeleton()
                         : DeliveryTile.skeleton();
                   },
-                )
+                ))
               : _groupByButchery
-                  ? ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return DeliveryButcheryTile(
-                          butchery: _butcheries[index],
-                          isActive: false,
-                        );
-                      },
-                      itemCount: _butcheries.length,
-                    )
-                  : ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return DeliveryTile(
-                            order: _orders[index], isActive: false);
-                      },
-                      itemCount: _orders.length,
-                    ),
+                  ? _butcheries.isEmpty
+                      ? const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Нет активных заказов",
+                                style: AppTheme.black500_16,
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemBuilder: (BuildContext context, int index) {
+                            return DeliveryButcheryTile(
+                              butchery: _butcheries[index],
+                              isActive: true,
+                            );
+                          },
+                          itemCount: _butcheries.length,
+                        )
+                  : _orders.isEmpty
+                      ? const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Нет активных заказов",
+                                style: AppTheme.black500_16,
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          itemBuilder: (BuildContext context, int index) {
+                            return DeliveryTile(
+                                order: _orders[index], isActive: true);
+                          },
+                          itemCount: _orders.length,
+                        ),
         ),
       ),
     );

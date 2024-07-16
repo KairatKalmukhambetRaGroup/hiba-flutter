@@ -6,6 +6,7 @@ import 'package:hiba/pages/courier/delivery.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 // ignore: must_be_immutable
 class DeliveryTile extends StatelessWidget {
@@ -133,6 +134,80 @@ class DeliveryTile extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  static Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 1, color: AppColors.grey),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Заказ №000001",
+                  style: AppTheme.black600_14,
+                ),
+                Text(
+                  "Подробнее",
+                  style: AppTheme.blue600_14,
+                )
+              ],
+            ),
+            const Text(
+              "от 28.07.2024",
+              style: AppTheme.darkGrey600_11,
+            ),
+            const SizedBox(height: 16),
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  size: 24,
+                ),
+                SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Name Surname",
+                      style: AppTheme.darkGrey500_11,
+                    ),
+                    Text("г. City, Address, дом 1, кв 1")
+                  ],
+                )
+              ],
+            ),
+            Skeleton.leaf(
+              child: Container(
+                margin: const EdgeInsets.only(top: 16),
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  color: AppColors.mainBlue,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  textAlign: TextAlign.center,
+                  "Принять",
+                  style: AppTheme.white600_16,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

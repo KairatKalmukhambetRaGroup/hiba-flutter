@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/order.dart';
 import 'package:hiba/pages/courier/butchery_deliveries.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class DeliveryButcheryTile extends StatelessWidget {
   final Butchery butchery;
-  final List<Order> orders;
   final bool isActive;
 
   const DeliveryButcheryTile({
     super.key,
     required this.butchery,
-    required this.orders,
     required this.isActive,
   });
 
@@ -39,7 +37,7 @@ class DeliveryButcheryTile extends StatelessWidget {
                 style: AppTheme.black600_16,
               ),
               Text(
-                "${orders.length} заказов",
+                "${butchery.ordersCount} заказов",
                 style: AppTheme.darkGrey500_14,
               ),
             ],
@@ -89,6 +87,72 @@ class DeliveryButcheryTile extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+
+  static Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 1, color: AppColors.grey),
+          ),
+        ),
+        child: const Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Butchery",
+                  style: AppTheme.black600_16,
+                ),
+                Text(
+                  "5 заказов",
+                  style: AppTheme.darkGrey500_14,
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  size: 24,
+                ),
+                SizedBox(width: 8),
+                Text("г. City, Address")
+              ],
+            ),
+            SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  size: 24,
+                ),
+                SizedBox(width: 8),
+                Text("8 777 123 4567")
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "Доступные заявки",
+                  style: AppTheme.blue600_14,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

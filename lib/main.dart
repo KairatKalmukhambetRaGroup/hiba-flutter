@@ -105,14 +105,14 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: AppTheme.themeData,
       // initialRoute: '/',
-      home: userConnectionState.connectionStatus == ConnectionStatus.connected
-          ? authState.isClientUI
-              ? const ClientNavbar()
-              : const CourierNavbar()
-          : userConnectionState.connectionStatus == ConnectionStatus.loading
-              ? const ConnectionPage(connectionStatus: ConnectionStatus.loading)
-              : const ConnectionPage(
-                  connectionStatus: ConnectionStatus.disconnected),
+      home:
+          // userConnectionState.connectionStatus == ConnectionStatus.connected
+          //     ?
+          authState.isClientUI ? const ClientNavbar() : const CourierNavbar(),
+      // : userConnectionState.connectionStatus == ConnectionStatus.loading
+      //     ? const ConnectionPage(connectionStatus: ConnectionStatus.loading)
+      //     : const ConnectionPage(
+      //         connectionStatus: ConnectionStatus.disconnected),
       scaffoldMessengerKey: SnackbarHelper.key,
       navigatorKey: NavigationHelper.key,
     );
