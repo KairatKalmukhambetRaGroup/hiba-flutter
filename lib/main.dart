@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -18,7 +17,6 @@ import 'package:hiba/utils/helpers/snackbar_helper.dart';
 import 'package:hiba/values/app_strings.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:hiba/utils/api/auth.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -51,38 +49,8 @@ void main() async {
   ));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late StreamSubscription<InternetConnectionStatus> listener;
-
-  InternetConnectionChecker internetConnectionChecker =
-      InternetConnectionChecker.createInstance(
-    checkTimeout: const Duration(seconds: 10), // Custom check timeout
-    checkInterval: const Duration(seconds: 10), // Custom check interval
-    addresses: [
-      AddressCheckOptions(
-        address:
-            InternetAddress('192.168.68.105', type: InternetAddressType.IPv4),
-      )
-    ],
-  );
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    listener.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

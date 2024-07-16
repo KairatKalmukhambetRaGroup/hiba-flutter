@@ -43,6 +43,7 @@ class _DeliveriesState extends State<Deliveries> {
       if (data != null) {
         setState(() {
           _butcheries = data;
+          _loading = false;
         });
       }
     } else {
@@ -50,12 +51,10 @@ class _DeliveriesState extends State<Deliveries> {
       if (data != null) {
         setState(() {
           _orders = data;
+          _loading = false;
         });
       }
     }
-    setState(() {
-      _loading = false;
-    });
   }
 
   @override

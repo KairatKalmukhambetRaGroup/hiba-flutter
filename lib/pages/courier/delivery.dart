@@ -156,15 +156,15 @@ class Delivery extends StatelessWidget {
             padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
                 EdgeInsets.all(14)),
             backgroundColor: WidgetStatePropertyAll<Color>(
-                order.status == "ON_THE_WAY"
+                order.orderStatus == "ON_THE_WAY"
                     ? AppColors.red
                     : AppColors.mainBlue),
           ),
           onPressed: () {},
           child: Text(
-            order.status == 'PREPARING_FOR_DELIVERY'
+            order.orderStatus == 'PREPARING_FOR_DELIVERY'
                 ? "Принять"
-                : order.status == 'RECIEVED'
+                : order.orderStatus == 'RECIEVED'
                     ? "Подтвердить получение"
                     : "Завершить доставку",
             style: AppTheme.white600_16,

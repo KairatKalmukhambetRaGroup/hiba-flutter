@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:hiba/pages/courier/delivery_confirm.dart';
+import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class DeliveryPopup extends StatelessWidget {
-  final String? status;
-  DeliveryPopup({super.key, required this.status});
+  final String status;
+  final int id;
+  final Function onUpdated;
+  DeliveryPopup(
+      {super.key,
+      required this.id,
+      required this.status,
+      required this.onUpdated});
 
   final Map<String, String> titleTexts = Map.from(<String, String>{
     "PREPARING_FOR_DELIVERY":
         "Вы уверены что хотите принять заявку на доставку?",
-    "RECIEVED": "Вы получили заказ у скотобойни?",
+    "RECEIVED": "Вы получили заказ у скотобойни?",
     "ON_THE_WAY": "Вы доставили заказ клиенту?",
   });
 
   final Map<String, String> contentTexts = Map.from(<String, String>{
     "PREPARING_FOR_DELIVERY":
         "Ознакомитесь с деталями заявки перед нажатием кнопки “Принять”",
-    "RECIEVED":
+    "RECEIVED":
         "Ознакомитесь с деталями заявки перед нажатием кнопки “Подтверждаю” ",
     "ON_THE_WAY":
         "После нажатия кнопки “Доставлено” клиенту будет отправлен код для получения заказа",
   });
   final Map<String, String> buttonTexts = Map.from(<String, String>{
     "PREPARING_FOR_DELIVERY": "Принять",
-    "RECIEVED": "Подтверждаю",
+    "RECEIVED": "Подтверждаю",
     "ON_THE_WAY": "Доставлено",
   });
+
+  Future<int> updateStatus(String newStatus) async {
+    int status = await updateOrderStatus(id, newStatus);
+    return status;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +92,23 @@ class DeliveryPopup extends StatelessWidget {
                     backgroundColor:
                         WidgetStatePropertyAll<Color>(AppColors.mainBlue),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
+                  onPressed: () async {
+                    if (status == 'PREPARING_FOR_DELIVERY') {
+                      int status = await updateStatus("RECEIVED");
+                      if (status == 200) {
+                        onUpdated();
+                      }
+                    } else if (status == 'RECEIVED') {
+                      int status = await updateStatus("ON_THE_WAY");
+                      if (status == 200) {
+                        onUpdated();
+                      }
+                    }
                     if (status == 'ON_THE_WAY') {
-                      pushWithoutNavBar(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DeliveryConfirm(),
-                        ),
-                      );
+                      int status = await updateStatus("DELIVERED");
+                      if (status == 200) {
+                        onUpdated();
+                      }
                     }
                   },
                   child: Text(

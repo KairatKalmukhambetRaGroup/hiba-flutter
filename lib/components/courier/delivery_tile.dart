@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/courier/delivery_popup.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/pages/courier/delivery.dart';
+import 'package:hiba/pages/courier/delivery_confirm.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -108,7 +109,26 @@ class DeliveryTile extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return DeliveryPopup(status: order.status);
+                    return DeliveryPopup(
+                      id: order.id,
+                      status: order.orderStatus,
+                      onUpdated: () {
+                        switch (order.orderStatus) {
+                          case 'ON_THE_WAY':
+                            pushWithoutNavBar(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DeliveryConfirm(),
+                              ),
+                            );
+                            break;
+                          case 'PREPARING_FOR_DELIVERY':
+                          case 'RECEIVED':
+                          default:
+                            Navigator.of(context).pop();
+                        }
+                      },
+                    );
                   },
                 );
               },
@@ -116,7 +136,7 @@ class DeliveryTile extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 16),
                 width: double.maxFinite,
                 decoration: BoxDecoration(
-                  color: order.status == "ON_THE_WAY"
+                  color: order.orderStatus == "ON_THE_WAY"
                       ? AppColors.red
                       : AppColors.mainBlue,
                   borderRadius: BorderRadius.circular(8.0),
@@ -124,9 +144,9 @@ class DeliveryTile extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   textAlign: TextAlign.center,
-                  order.status == 'PREPARING_FOR_DELIVERY'
+                  order.orderStatus == 'PREPARING_FOR_DELIVERY'
                       ? "Принять"
-                      : order.status == 'RECIEVED'
+                      : order.orderStatus == 'RECIEVED'
                           ? "Подтвердить получение"
                           : "Завершить доставку",
                   style: AppTheme.white600_16,

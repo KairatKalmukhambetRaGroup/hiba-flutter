@@ -161,7 +161,7 @@ Future<List<Order>?> getCourierOrdersHistory(
 
 Future<int> updateOrderStatus(int orderId, String orderStatus) async {
   String apiUrl =
-      '${dotenv.get('API_URL')}/courier/orderStatus/$orderId?status=$orderStatus';
+      '${dotenv.get('API_URL')}/order/updateOrderStatus/$orderId?status=$orderStatus';
   try {
     final String? authToken = await AuthState.getAuthToken();
     if (authToken == null) {

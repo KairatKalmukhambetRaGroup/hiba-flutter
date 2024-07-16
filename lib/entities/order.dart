@@ -19,8 +19,6 @@ class Order {
   String? senderName;
   User? user;
 
-  String? status = "PREPARING_FOR_DELIVERY";
-
   Order({required this.butchery, required this.charity});
 
   void setAddress(Address address) {
@@ -79,7 +77,9 @@ class Order {
           Address.fromJson(json['address'] as Map<String, dynamic>));
     }
     order.id = json['id'];
-    order.orderStatus = json['orderStatus'];
+    if (json.containsKey('orderStatus')) {
+      order.orderStatus = json['orderStatus'];
+    }
 
     if (json.containsKey('packages') && json['packages'] != null) {
       order.packages = json['packages'];
