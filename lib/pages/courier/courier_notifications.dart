@@ -15,8 +15,8 @@ class _CourierNotificationsState extends State<CourierNotifications> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: const Column(
+      body: const SafeArea(
+        child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

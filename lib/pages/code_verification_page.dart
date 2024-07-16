@@ -226,7 +226,6 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                             String phone = _phone.split('+')[1];
                             int status =
                                 await authState.confirmCode(phone, pin);
-                            print(status);
                             if (status == 201) {
                               if (authState.isCourier) {
                                 pushWithoutNavBar(

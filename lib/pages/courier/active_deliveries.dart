@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/components/courier/delivery_butchery_tile.dart';
 import 'package:hiba/components/courier/delivery_tile.dart';
+import 'package:hiba/components/custom_refresher.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/order.dart';
-import 'package:hiba/pages/courier/deliveries.dart';
 import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ActiveDeliveries extends StatefulWidget {
@@ -140,7 +139,7 @@ class _ActiveDeliveriesState extends State<ActiveDeliveries> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: RefreshIndicator(
+        child: CustomRefresher(
           onRefresh: fetchOrders,
           child: _loading
               ? Skeletonizer(

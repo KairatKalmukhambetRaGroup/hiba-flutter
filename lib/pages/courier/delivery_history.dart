@@ -13,7 +13,7 @@ import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:intl/intl.dart';
 
-enum DateFilter { MONTH, QUARTER, HALF, YEAR }
+enum DateFilter { month, quarter, half, year }
 
 class DeliveryHistory extends StatefulWidget {
   const DeliveryHistory({super.key});
@@ -27,7 +27,7 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
 
   late DateTime startDate;
   late DateTime endDate;
-  DateFilter _filter = DateFilter.MONTH;
+  DateFilter _filter = DateFilter.month;
 
   final City almatyCity = const City(id: 1, name: "Almaty");
 
@@ -96,16 +96,16 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
       setState(() {
         _filter = newValue;
         switch (newValue) {
-          case DateFilter.MONTH:
+          case DateFilter.month:
             startDate = DateTime(now.year, now.month - 1, now.day, 0, 0);
             break;
-          case DateFilter.QUARTER:
+          case DateFilter.quarter:
             startDate = DateTime(now.year, now.month - 3, now.day, 0, 0);
             break;
-          case DateFilter.HALF:
+          case DateFilter.half:
             startDate = DateTime(now.year, now.month - 6, now.day, 0, 0);
             break;
-          case DateFilter.YEAR:
+          case DateFilter.year:
             startDate = DateTime(now.year - 1, now.month, now.day, 0, 0);
             break;
         }
@@ -149,7 +149,7 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               RadioListTile(
-                                value: DateFilter.MONTH,
+                                value: DateFilter.month,
                                 activeColor: AppColors.mainBlue,
                                 groupValue: _filter,
                                 onChanged: (DateFilter? value) {
@@ -157,13 +157,13 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
                                 },
                                 title: Text(
                                   "За месяц",
-                                  style: _filter == DateFilter.MONTH
+                                  style: _filter == DateFilter.month
                                       ? AppTheme.blue500_14
                                       : AppTheme.black500_14,
                                 ),
                               ),
                               RadioListTile(
-                                value: DateFilter.QUARTER,
+                                value: DateFilter.quarter,
                                 activeColor: AppColors.mainBlue,
                                 groupValue: _filter,
                                 onChanged: (DateFilter? value) {
@@ -171,13 +171,13 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
                                 },
                                 title: Text(
                                   "За три месяца",
-                                  style: _filter == DateFilter.QUARTER
+                                  style: _filter == DateFilter.quarter
                                       ? AppTheme.blue500_14
                                       : AppTheme.black500_14,
                                 ),
                               ),
                               RadioListTile(
-                                value: DateFilter.HALF,
+                                value: DateFilter.half,
                                 activeColor: AppColors.mainBlue,
                                 groupValue: _filter,
                                 onChanged: (DateFilter? value) {
@@ -185,13 +185,13 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
                                 },
                                 title: Text(
                                   "За пол года",
-                                  style: _filter == DateFilter.HALF
+                                  style: _filter == DateFilter.half
                                       ? AppTheme.blue500_14
                                       : AppTheme.black500_14,
                                 ),
                               ),
                               RadioListTile(
-                                value: DateFilter.YEAR,
+                                value: DateFilter.year,
                                 activeColor: AppColors.mainBlue,
                                 groupValue: _filter,
                                 onChanged: (DateFilter? value) {
@@ -199,7 +199,7 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
                                 },
                                 title: Text(
                                   "За год",
-                                  style: _filter == DateFilter.YEAR
+                                  style: _filter == DateFilter.year
                                       ? AppTheme.blue500_14
                                       : AppTheme.black500_14,
                                 ),

@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hiba/components/courier/delivery_tile.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/location.dart';
 import 'package:hiba/entities/order.dart';
-import 'package:hiba/entities/user.dart';
 import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
 

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/components/courier/delivery_butchery_tile.dart';
 import 'package:hiba/components/courier/delivery_tile.dart';
+import 'package:hiba/components/custom_refresher.dart';
 import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/address.dart';
 import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/location.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class Deliveries extends StatefulWidget {
   const Deliveries({super.key});
@@ -139,7 +137,7 @@ class _DeliveriesState extends State<Deliveries> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: RefreshIndicator(
+        child: CustomRefresher(
           onRefresh: fetchOrders,
           child: _loading
               ? ListView.builder(
@@ -152,6 +150,9 @@ class _DeliveriesState extends State<Deliveries> {
                 )
               : _groupByButchery
                   ? ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(
+                        parent: ClampingScrollPhysics(),
+                      ),
                       itemBuilder: (BuildContext context, int index) {
                         return DeliveryButcheryTile(
                           butchery: _butcheries[index],
@@ -161,6 +162,9 @@ class _DeliveriesState extends State<Deliveries> {
                       itemCount: _butcheries.length,
                     )
                   : ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(
+                        parent: ClampingScrollPhysics(),
+                      ),
                       itemBuilder: (BuildContext context, int index) {
                         return DeliveryTile(
                             order: _orders[index], isActive: false);

@@ -59,7 +59,7 @@ class DeliveryTile extends StatelessWidget {
             ],
           ),
           Text(
-            "от 28.07.2024",
+            order.deliveryDate.toString(),
             style: AppTheme.darkGrey600_11,
           ),
           const SizedBox(height: 16),

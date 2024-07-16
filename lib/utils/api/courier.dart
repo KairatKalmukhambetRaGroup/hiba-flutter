@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/order.dart';
 import 'package:hiba/utils/api/auth.dart';
@@ -159,7 +161,7 @@ Future<List<Order>?> getCourierOrdersHistory(
 
 Future<int> updateOrderStatus(int orderId, String orderStatus) async {
   String apiUrl =
-      '${dotenv.get('API_URL')}/courier/orderStatus/${orderId}?status=${orderStatus}';
+      '${dotenv.get('API_URL')}/courier/orderStatus/$orderId?status=$orderStatus';
   try {
     final String? authToken = await AuthState.getAuthToken();
     if (authToken == null) {
@@ -182,7 +184,7 @@ Future<int> updateOrderStatus(int orderId, String orderStatus) async {
 
 Future<int> checkConfirmCode(int orderId, String code) async {
   String apiUrl =
-      '${dotenv.get('API_URL')}/courier/confirmOrder/${orderId}/${code}';
+      '${dotenv.get('API_URL')}/courier/confirmOrder/$orderId/$code';
 
   try {
     final String? authToken = await AuthState.getAuthToken();

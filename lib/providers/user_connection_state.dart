@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -17,7 +18,7 @@ class UserConnectionState extends ChangeNotifier {
     addresses: [
       AddressCheckOptions(
           address:
-              InternetAddress('192.168.68.105', type: InternetAddressType.IPv4),
+              InternetAddress(dotenv.get('IP'), type: InternetAddressType.IPv4),
           port: 8080),
     ],
   );
@@ -30,14 +31,12 @@ class UserConnectionState extends ChangeNotifier {
             connectionStatus = ConnectionStatus.connected;
             notifyListeners();
           }
-          print("CONNECTED");
           break;
         case InternetConnectionStatus.disconnected:
           if (connectionStatus != ConnectionStatus.disconnected) {
             connectionStatus = ConnectionStatus.disconnected;
             notifyListeners();
           }
-          print("DISCONNECTED");
           break;
       }
     });
