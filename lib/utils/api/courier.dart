@@ -184,14 +184,14 @@ Future<int> updateOrderStatus(int orderId, String orderStatus) async {
 
 Future<int> checkConfirmCode(int orderId, String code) async {
   String apiUrl =
-      '${dotenv.get('API_URL')}/courier/confirmOrder/$orderId/$code';
+      '${dotenv.get('API_URL')}/courier/confirmationCode/$orderId?code=$code';
 
   try {
     final String? authToken = await AuthState.getAuthToken();
     if (authToken == null) {
       return 403;
     }
-    final http.Response response = await http.put(
+    final http.Response response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json',

@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
+import 'package:hiba/utils/api/courier.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:pinput/pinput.dart';
 
 class DeliveryConfirm extends StatefulWidget {
-  const DeliveryConfirm({super.key});
+  final int orderId;
+  const DeliveryConfirm({super.key, required this.orderId});
 
   @override
   State<DeliveryConfirm> createState() => _DeliveryConfirmState();
@@ -85,6 +87,11 @@ class _DeliveryConfirmState extends State<DeliveryConfirm> {
   Widget build(BuildContext context) {
     String time = formatTime(_countdown);
 
+    void pop() {
+      Navigator.of(context)
+          .popUntil(ModalRoute.withName(Navigator.defaultRouteName));
+    }
+
     const defaultPinTheme = PinTheme(
       width: 48,
       height: 48,
@@ -128,7 +135,12 @@ class _DeliveryConfirmState extends State<DeliveryConfirm> {
                     return null;
                   },
                   hapticFeedbackType: HapticFeedbackType.lightImpact,
-                  onCompleted: (pin) async {},
+                  onCompleted: (pin) async {
+                    int status = await checkConfirmCode(widget.orderId, pin);
+                    if (status == 200) {
+                      pop();
+                    }
+                  },
                   submittedPinTheme: defaultPinTheme.copyWith(
                     decoration: defaultPinTheme.decoration!.copyWith(
                       border: const Border(

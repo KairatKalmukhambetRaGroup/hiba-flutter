@@ -118,7 +118,8 @@ class DeliveryTile extends StatelessWidget {
                             pushWithoutNavBar(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const DeliveryConfirm(),
+                                builder: (context) =>
+                                    DeliveryConfirm(orderId: order.id),
                               ),
                             );
                             break;
