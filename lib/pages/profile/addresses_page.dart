@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/address.dart';
 import 'package:hiba/pages/profile/new_address_page.dart';
-import 'package:hiba/providers/address_state.dart';
+import 'package:hiba/providers/providers_library.dart';
+
 import 'package:hiba/utils/api/location.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';

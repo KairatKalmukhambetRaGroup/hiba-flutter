@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/code_verification_page.dart';
 import 'package:hiba/pages/courier_login.dart';
 import 'package:hiba/pages/register_profile.dart';
-import 'package:hiba/providers/google_sign_in_provider.dart';
+import 'package:hiba/providers/providers_library.dart';
+
 import 'package:hiba/utils/api/auth.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_regex.dart';

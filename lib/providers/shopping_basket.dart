@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/menu_item.dart';
-import 'package:hiba/entities/order.dart';
+// lib/providers/providers_library.dart
+part of 'providers_library.dart';
 
 /// A provider class for managing shopping basket functionality.
 ///
@@ -18,6 +16,7 @@ import 'package:hiba/entities/order.dart';
 /// The class supports operations such as adding/removing items, creating orders,
 /// and managing the quantities of items.
 
+/// {@category Provider}
 class ShoppingBasket extends ChangeNotifier {
   /// Internal list of orders.
   final List<Order> _orders = [];

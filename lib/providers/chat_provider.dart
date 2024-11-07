@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/entities/chat_message.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'package:socket_io_client/socket_io_client.dart' as io;
+// lib/providers/providers_library.dart
+/// @category Provider
+part of 'providers_library.dart';
 
 /// A provider class for managing chat messages and WebSocket connections.
 ///

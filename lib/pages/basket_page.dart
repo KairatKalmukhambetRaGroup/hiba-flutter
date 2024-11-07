@@ -4,7 +4,8 @@ import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/pages/orders/order_confirm_page.dart';
-import 'package:hiba/providers/shopping_basket.dart';
+import 'package:hiba/providers/providers_library.dart';
+
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';

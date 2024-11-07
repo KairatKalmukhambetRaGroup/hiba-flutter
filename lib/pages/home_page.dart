@@ -5,7 +5,8 @@ import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/promotion_carousel.dart';
 import 'package:hiba/components/show_addresses.dart';
 import 'package:hiba/pages/butchery/search_page.dart';
-import 'package:hiba/providers/address_state.dart';
+import 'package:hiba/providers/providers_library.dart';
+
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';

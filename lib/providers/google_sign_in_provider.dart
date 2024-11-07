@@ -1,4 +1,6 @@
-import 'package:google_sign_in/google_sign_in.dart';
+// lib/providers/providers_library.dart
+/// @category Provider
+part of 'providers_library.dart';
 
 /// A provider class for handling Google Sign-In authentication.
 ///

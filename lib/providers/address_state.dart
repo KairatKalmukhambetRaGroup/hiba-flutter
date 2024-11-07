@@ -1,8 +1,6 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hiba/entities/address.dart';
+// lib/providers/providers_library.dart
+/// @category Provider
+part of 'providers_library.dart';
 
 /// A state management class for handling addresses in the application.
 ///

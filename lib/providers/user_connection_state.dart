@@ -1,9 +1,6 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+// lib/providers/providers_library.dart
+/// @category Provider
+part of 'providers_library.dart';
 
 /// Enum representing the connection status of the user.
 enum ConnectionStatus { loading, connected, disconnected }
