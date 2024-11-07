@@ -9,7 +9,6 @@ import 'package:hiba/pages/splash_page.dart';
 import 'package:hiba/pages/support_chat_page.dart';
 import 'package:hiba/providers/address_state.dart';
 import 'package:hiba/providers/chat_provider.dart';
-import 'package:hiba/providers/navigation_bar_state.dart';
 import 'package:hiba/providers/shopping_basket.dart';
 import 'package:hiba/providers/user_connection_state.dart';
 import 'package:hiba/utils/api/firebase_api.dart';
@@ -46,7 +45,6 @@ void main() async {
   await dotenv.load(fileName: '.env');
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => NavigationBarState()),
       ChangeNotifierProvider(create: (_) => AuthState()),
       ChangeNotifierProvider(create: (_) => UserConnectionState()),
       ChangeNotifierProvider(create: (_) => ShoppingBasket()),
