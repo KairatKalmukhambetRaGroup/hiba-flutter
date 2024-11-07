@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/code_verification_page.dart';
+import 'package:hiba/pages/courier_login.dart';
+import 'package:hiba/pages/register_profile.dart';
+import 'package:hiba/providers/google_sign_in_provider.dart';
+import 'package:hiba/utils/api/auth.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_regex.dart';
 import 'package:hiba/values/app_strings.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
@@ -17,6 +22,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GoogleSignInProvider googleSignInProvider = GoogleSignInProvider();
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -63,6 +70,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    AuthState authState = Provider.of<AuthState>(context);
+
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       key: _scaffoldKey,
@@ -219,7 +228,37 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   // Google Button
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () async {
+                      String? idTokenString =
+                          await googleSignInProvider.signInWithGoogle();
+                      if (idTokenString != null) {
+                        // print("User signed in: $idTokenString");
+
+                        int status =
+                            await authState.loginWithGoogle(idTokenString);
+
+                        if (status == 201) {
+                          if (authState.isCourier) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CourierLogin()));
+                          } else {
+                            Navigator.of(context).pushNamed('/');
+                          }
+                        } else if (status == 200) {
+                          // Navigator.pushReplacement(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => RegisterProfile(
+                          //               phone: phone,
+                          //             )));
+                        }
+                      } else {
+                        print("Sign-in failed");
+                      }
+                    },
                     style: ButtonStyle(
                         shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                           RoundedRectangleBorder(

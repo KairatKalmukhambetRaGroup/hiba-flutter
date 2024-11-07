@@ -29,7 +29,8 @@ class _SupportChatPageState extends State<SupportChatPage> {
 
   void _onMessageReceived(ChatMessage message) {
     setState(() {
-      messages.add(message);
+      print("new message");
+      messages.insert(0, message);
     });
   }
 

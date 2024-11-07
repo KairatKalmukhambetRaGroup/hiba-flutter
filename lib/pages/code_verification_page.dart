@@ -5,12 +5,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/pages/courier_login.dart';
 import 'package:hiba/pages/register_profile.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -143,7 +141,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
       ),
     );
 
-    return CustomScaffold(
+    return Scaffold(
       backgroundColor: AppColors.bgLight,
       key: _scaffoldKey,
       appBar: CustomAppBar(
@@ -173,10 +171,10 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                           pinputAutovalidateMode:
                               PinputAutovalidateMode.onSubmit,
                           validator: (value) {
-                            // int status =
-                            //     await AuthAPI.confirmCode(_phone, value!);
+                            // int status = await AuthAPI.confirmCode(_phone, value!);
+                            // AuthSta
 
-                            // error
+                            // // error
                             // ScaffoldMessenger.of(context).showSnackBar(
                             //   SnackBar(
                             //     backgroundColor: Colors.transparent,
@@ -216,6 +214,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                             //     ),
                             //   ),
                             // );
+
                             // Navigator.of(context)
                             //     .pushNamed(RegisterProfile.routeName);
                             // formKey.currentState!.validate();
@@ -228,7 +227,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                                 await authState.confirmCode(phone, pin);
                             if (status == 201) {
                               if (authState.isCourier) {
-                                pushWithoutNavBar(
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -237,7 +236,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                                 Navigator.of(context).pushNamed('/');
                               }
                             } else if (status == 200) {
-                              pushWithoutNavBar(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => RegisterProfile(

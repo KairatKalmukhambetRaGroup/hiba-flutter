@@ -19,7 +19,7 @@ class UserConnectionState extends ChangeNotifier {
       AddressCheckOptions(
           address:
               InternetAddress(dotenv.get('IP'), type: InternetAddressType.IPv4),
-          port: 8080),
+          port: int.tryParse(dotenv.get('PORT')) ?? 8000),
     ],
   );
 

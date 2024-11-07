@@ -257,7 +257,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
             int status = await authState.completeRegistration(
                 _phone, _usernameController.text, _imageFile);
             if (status == 200) {
-              Navigator.of(context).pushNamed('/');
+              Navigator.of(context).pushReplacementNamed('/');
             }
           },
           style: ButtonStyle(

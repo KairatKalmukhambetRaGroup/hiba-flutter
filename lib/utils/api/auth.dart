@@ -2,10 +2,12 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hiba/entities/user.dart';
+import 'package:hiba/utils/api/firebase_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 
@@ -22,6 +24,35 @@ class AuthState extends ChangeNotifier {
 
   bool _isLoggedIn = false;
   bool get isLoggedIn => _isLoggedIn;
+
+  Future<int> loginWithGoogle(String idToken) async {
+    String apiUrl = '${dotenv.get('API_URL')}/auth/google';
+
+    try {
+      final http.Response response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({"idToken": idToken}),
+      );
+
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty) {
+          loginToSystem(response.body);
+          return 201;
+        }
+        return 200;
+      } else {
+        print(
+            'Backend error on google login with status code ${response.statusCode}');
+      }
+      return response.statusCode;
+    } catch (e) {
+      print('Error: $e');
+      return 500;
+    }
+  }
 
   Future<void> storeAuthData(String token, dynamic userData) async {
     await storage.write(key: 'authToken', value: token);
@@ -107,16 +138,7 @@ class AuthState extends ChangeNotifier {
       );
       if (response.statusCode == 200) {
         if (response.body.isNotEmpty) {
-          final Map<String, dynamic> responseData = json.decode(response.body);
-          if (responseData['role']['name'] == 'ROLE_COURIER') {
-            _isCourier = true;
-          } else {
-            _isCourier = false;
-          }
-          await storage.write(key: 'isCourier', value: _isCourier.toString());
-          await storeAuthData(responseData['token'], responseData['user']);
-          _user = User.fromJson(responseData['user']);
-          notifyListeners();
+          loginToSystem(response.body);
           return 201;
         }
         return 200;
@@ -125,6 +147,63 @@ class AuthState extends ChangeNotifier {
     } catch (e) {
       print('Error 2: $e');
       return 500;
+    }
+  }
+
+  void loginToSystem(data) async {
+    final Map<String, dynamic> responseData = json.decode(data);
+    if (responseData['role']['name'] == 'ROLE_COURIER') {
+      _isCourier = true;
+      _isClientUI = false;
+      await storage.write(key: 'ui', value: 'courier');
+    } else {
+      _isCourier = false;
+      _isClientUI = true;
+      await storage.write(key: 'ui', value: 'client');
+    }
+
+    await storage.write(key: 'isCourier', value: _isCourier.toString());
+    await storeAuthData(responseData['token'], responseData['user']);
+    _user = User.fromJson(responseData['user']);
+    notifyListeners();
+
+    // STORE FCM TOKEN IN DB
+    String apiUrl = '${dotenv.get('API_URL')}/user/saveFcmToken';
+    String? fcmToken = await FirebaseApi().getToken();
+    // print(fcmToken);
+
+    if (fcmToken != null) {
+      try {
+        DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+        String platform = '';
+        String deviceId = '';
+        if (Platform.isAndroid) {
+          platform = 'android';
+          var deviceBuild = await deviceInfo.androidInfo;
+          deviceId = deviceBuild.id;
+        } else if (Platform.isIOS) {
+          platform = 'ios';
+          var deviceBuild = await deviceInfo.iosInfo;
+          deviceId = deviceBuild.identifierForVendor ?? 'unknown';
+        }
+        // print(platform);
+        // print(deviceId);
+        await http.post(
+          Uri.parse(apiUrl),
+          body: jsonEncode({
+            "fcmToken": fcmToken,
+            "userId": responseData['user']['id'],
+            "platform": platform,
+            "deviceId": deviceId
+          }),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${responseData['token']}',
+          },
+        );
+      } catch (e) {
+        print('Error: $e');
+      }
     }
   }
 
@@ -161,7 +240,7 @@ class AuthState extends ChangeNotifier {
         final decodedBody = utf8.decode(response.bodyBytes);
         final responseData =
             Map<String, dynamic>.from(json.decode(decodedBody));
-        storeAuthData(responseData['token'], responseData['user']);
+        await storeAuthData(responseData['token'], responseData['user']);
         _user = User.fromJson(responseData['user']);
         notifyListeners();
         return 200;
@@ -197,7 +276,7 @@ class AuthState extends ChangeNotifier {
           _isCourier = false;
         }
 
-        storeAuthData(responseData['token'], responseData['user']);
+        await storeAuthData(responseData['token'], responseData['user']);
       } else {
         print('Error on post');
       }
@@ -229,7 +308,7 @@ class AuthState extends ChangeNotifier {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
 
-        storeAuthData(responseData['token'], responseData['user']);
+        await storeAuthData(responseData['token'], responseData['user']);
       } else {
         print('Error on post');
       }

@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '98361440646',
     projectId: 'hiba-ccd46',
     storageBucket: 'hiba-ccd46.appspot.com',
+    iosClientId: '98361440646-1f5f1v6iiiu79jku2c5jqfkba3udkd8f.apps.googleusercontent.com',
     iosBundleId: 'com.example.hiba',
   );
+
 }

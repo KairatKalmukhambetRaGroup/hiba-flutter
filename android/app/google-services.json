@@ -12,7 +12,12 @@
           "package_name": "com.example.hiba"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "98361440646-j1qlovemogrkdcd3n369gkkd2issp7n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD3TT-zK2blZf1wLLtcqz1KWs1KAZqodCs"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98361440646-j1qlovemogrkdcd3n369gkkd2issp7n1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "98361440646-1f5f1v6iiiu79jku2c5jqfkba3udkd8f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hiba"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hiba/pages/login_page.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    AuthState authState = Provider.of<AuthState>(context, listen: true);
     if (loading) {
       getUser();
     }
@@ -63,9 +61,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : authState.isLoggedIn
-              ? widget.body
-              : const LoginPage(),
+          : widget.body,
     );
   }
 }
