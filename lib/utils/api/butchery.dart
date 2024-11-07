@@ -10,9 +10,6 @@ import 'package:http/http.dart' as http;
 /// Fetch Butcheries from API.
 Future<List<Map<String, dynamic>>?> getButcheries() async {
   String apiUrl = '${dotenv.get('API_URL')}/butcheries/getAllButcheries';
-
-  // return await rootBundle.loadString(butcheriesPath).then((file) => file);
-
   try {
     final String? authToken = await AuthState.getAuthToken();
     if (authToken == null) {
