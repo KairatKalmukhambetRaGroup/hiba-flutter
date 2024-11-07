@@ -3,17 +3,21 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 // https://youtu.be/k0zGEbiDJcQ?si=xNP2yg35OtMVZX0v
 // link to tutorial to flutter notifications
 
+/// Handle Firebase [message] that was received when app was on background.
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('Title: ${message.notification?.title}');
   print('Body: ${message.notification?.body}');
   print('Payload: ${message.data}');
 }
 
+/// Initialize firebase message handling service.
 class FirebaseApi {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  /// Instance of [FirebaseMessaging].
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
+  /// Initialize message handlers.
   Future<void> initNotifications() async {
-    await _firebaseMessaging.requestPermission();
+    await firebaseMessaging.requestPermission();
 
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
 
@@ -39,8 +43,9 @@ class FirebaseApi {
     //   });
   }
 
+  /// Retreive FCM token.
   Future<String?> getToken() async {
-    String? fCMToken = await _firebaseMessaging.getToken();
+    String? fCMToken = await firebaseMessaging.getToken();
     return fCMToken;
   }
 

@@ -6,6 +6,7 @@ import 'package:hiba/entities/location.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
+/// Call API to add new [Address] to user's address list.
 Future<int> addAddress(Address address) async {
   String apiUrl = '${dotenv.get('API_URL')}/address';
 
@@ -30,6 +31,8 @@ Future<int> addAddress(Address address) async {
     return 500;
   }
 }
+
+/// Call API to edit [Address].
 Future<int> editAddress(Address address) async {
   String apiUrl = '${dotenv.get('API_URL')}/address';
 
@@ -55,8 +58,7 @@ Future<int> editAddress(Address address) async {
   }
 }
 
-
-
+/// Fetch list of [Address] of user from API.
 Future<List<Address>?> getAddresses() async {
   String apiUrl = '${dotenv.get('API_URL')}/address/';
   try {
@@ -92,6 +94,7 @@ Future<List<Address>?> getAddresses() async {
   }
 }
 
+/// Fetch list of all [City].
 Future<List<City>?> getCities() async {
   String apiUrl = '${dotenv.get('API_URL')}/location/getAllCities';
 

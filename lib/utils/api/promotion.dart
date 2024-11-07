@@ -5,6 +5,7 @@ import 'package:hiba/entities/promotion.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
+/// Fetch list of [Promotion] from API.
 Future<List<Promotion>?> getPromotions() async {
   String apiUrl = '${dotenv.get('API_URL')}/promotion/';
 

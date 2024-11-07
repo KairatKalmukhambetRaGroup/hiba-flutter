@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 
+/// Fetch list of [Order] from API for Courier.
+/// [active] determines if list should be of active orders or not.
 Future<List<Order>?> getCourierOrders(bool active) async {
   String apiUrl =
       '${dotenv.get('API_URL')}/courier/${active ? 'activeOrders' : 'waitingOrders'}';
@@ -45,6 +47,8 @@ Future<List<Order>?> getCourierOrders(bool active) async {
   }
 }
 
+/// Fetch list of [Order] from API for Courier, by [butcheryId].
+/// [active] determines if list should be of active orders or not.
 Future<List<Order>?> getCourierOrdersByButcheryId(
     bool active, int butcheryId) async {
   String apiUrl =
@@ -84,6 +88,8 @@ Future<List<Order>?> getCourierOrdersByButcheryId(
   }
 }
 
+/// Fetch list of [Butchery] from API for Courier that has [Order].
+/// [active] determines if list should be of active orders or not.
 Future<List<Butchery>?> getCourierOrdersByButchery(bool active) async {
   String apiUrl =
       '${dotenv.get('API_URL')}/courier/${active ? 'activeOrders' : 'waitingOrders'}/byButchery';
@@ -121,10 +127,11 @@ Future<List<Butchery>?> getCourierOrdersByButchery(bool active) async {
   }
 }
 
+/// Fetch list of [Order] from API for Courier, filtered by [startDate] and [endDate] of order delivery dates.
 Future<List<Order>?> getCourierOrdersHistory(
-    DateTime startDate, DateTime endData) async {
+    DateTime startDate, DateTime endDate) async {
   String apiUrl =
-      '${dotenv.get('API_URL')}/courier/history?start=$startDate&end=$endData';
+      '${dotenv.get('API_URL')}/courier/history?start=$startDate&end=$endDate';
 
   try {
     final String? authToken = await AuthState.getAuthToken();
@@ -159,6 +166,9 @@ Future<List<Order>?> getCourierOrdersHistory(
   }
 }
 
+/// Call API to update [Order]'s status.
+/// [orderId] - id of order to update.
+/// [orderStatus] - new status of order.
 Future<int> updateOrderStatus(int orderId, String orderStatus) async {
   String apiUrl =
       '${dotenv.get('API_URL')}/order/updateOrderStatus/$orderId?status=$orderStatus';
@@ -182,6 +192,7 @@ Future<int> updateOrderStatus(int orderId, String orderStatus) async {
   }
 }
 
+/// Call API to check confirmation [code] of [Order] by [orderId].
 Future<int> checkConfirmCode(int orderId, String code) async {
   String apiUrl =
       '${dotenv.get('API_URL')}/courier/confirmationCode/$orderId?code=$code';

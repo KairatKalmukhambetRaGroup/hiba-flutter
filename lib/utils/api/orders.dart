@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
+/// Call API to create new [Order].
 Future<int> createOrder(Order order) async {
   String apiUrl = '${dotenv.get('API_URL')}/order';
   final Map<String, dynamic> reqData = order.toJson();
@@ -30,6 +31,7 @@ Future<int> createOrder(Order order) async {
   }
 }
 
+/// Fetch list of user's [Order] from API.
 Future<List<Order>?> getMyOrders() async {
   String apiUrl = '${dotenv.get('API_URL')}/order/getMyOrders';
 
@@ -66,6 +68,7 @@ Future<List<Order>?> getMyOrders() async {
   }
 }
 
+/// Fetch list of user's active [Order] from API.
 Future<List<Order>?> getMyActiveOrders() async {
   // TO DO: change to getMyActiveOrders
   String apiUrl = '${dotenv.get('API_URL')}/order/getMyActiveOrders';

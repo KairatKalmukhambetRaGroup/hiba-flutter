@@ -7,10 +7,7 @@ import 'package:hiba/entities/working_hour.dart';
 import 'package:hiba/utils/api/auth.dart';
 import 'package:http/http.dart' as http;
 
-const butcheriesPath = 'assets/butcheries.json';
-
-// _butcheries = List<Map<String, dynamic>>.from(json.decode(jsonString));
-
+/// Fetch Butcheries from API.
 Future<List<Map<String, dynamic>>?> getButcheries() async {
   String apiUrl = '${dotenv.get('API_URL')}/butcheries/getAllButcheries';
 
@@ -42,6 +39,7 @@ Future<List<Map<String, dynamic>>?> getButcheries() async {
   }
 }
 
+/// Fetch [Butchery] from API with [id] as parameter.
 Future<Butchery?> getButcheryById(String? id) async {
   if (id == null) return null;
 
@@ -65,8 +63,9 @@ Future<Butchery?> getButcheryById(String? id) async {
       final decodedBody = utf8.decode(response.bodyBytes);
       final responseData = Map<String, dynamic>.from(json.decode(decodedBody));
       Butchery butchery = Butchery.fromJson(responseData['butchery']);
-      if(responseData['workingHours'] != null){
-        butchery.workingHours = WorkingHour.workingHourListFromJson(responseData["workingHours"]);
+      if (responseData['workingHours'] != null) {
+        butchery.workingHours =
+            WorkingHour.workingHourListFromJson(responseData["workingHours"]);
       }
       butchery.categories = (responseData["categories"] as List)
           .map((el) => ButcheryCategory.fromJson(el))
