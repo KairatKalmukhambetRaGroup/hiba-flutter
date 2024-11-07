@@ -1,3 +1,6 @@
+import 'package:hiba/entities/butchery.dart';
+
+/// A `ButcherySmall` object represents a [Butchery] with only id and name.
 class ButcherySmall {
   final int id;
   final String name;

@@ -53,7 +53,7 @@ class _NewAddressPage extends State<NewAddressPage> {
       ..addListener(controllerListener);
 
     if (widget.editAddress != null) {
-      addressController.setText(widget.editAddress!.address);
+      addressController.setText(widget.editAddress!.street);
       houseController.setText(widget.editAddress!.building);
       apartmentController.setText(widget.editAddress!.apartment);
       entranceController.setText(widget.editAddress!.entrance);
@@ -107,7 +107,7 @@ class _NewAddressPage extends State<NewAddressPage> {
         Address address = Address(
           id: 0,
           name: addressNameController.text,
-          address: addressController.text,
+          street: addressController.text,
           building: houseController.text,
           apartment: apartmentController.text,
           entrance: entranceController.text,

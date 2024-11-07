@@ -1,20 +1,45 @@
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/entities/location.dart';
+import 'package:hiba/entities/user.dart';
 import 'package:hiba/entities/working_hour.dart';
 
+/// A `Butchery` object represents a butchery with specific details.
+/// Company selling products is named as `Butchery`
 class Butchery {
+  /// Unique identifier of this butchery.
   final int id;
+
+  /// Name of this butchery.
   final String name;
+
+  /// Addres of this butchery.
   final String address;
+
+  /// Latitude of address of this butchery.
   final double latitude;
+
+  /// Longitude of address of this butchery.
   final double longitude;
+
+  /// City of this butchery.
   final City? city;
+
+  /// A base64-encoded image representing this butchery's image.
   final String? image;
+
+  /// List of `Categories` of this `Butchery`.
   late List<ButcheryCategory> categories;
+
+  ///List of `WorkingHours` of this `Butchery`.
   List<WorkingHour>? workingHours;
+
+  /// Phone of this butchery.
   String? phone;
+
+  /// Count of orders plased by [User] to this butchery.
   int ordersCount = 0;
 
+  /// Creates new `Butchery` instance.
   Butchery(
       {required this.id,
       required this.name,
@@ -24,6 +49,7 @@ class Butchery {
       required this.city,
       required this.image});
 
+  /// Creates new instance of `Butchery` from JSON object.
   factory Butchery.fromJson(Map<String, dynamic> json) {
     Butchery butchery = Butchery(
         id: json["id"],
@@ -47,58 +73,3 @@ class Butchery {
     return '$name: $address';
   }
 }
-
-// {
-//   "id": 2,
-//   "name": "John's Butchery",
-//   "latitude": 105,
-//   "longitude": 105,
-//   "address": "г. Алматы",
-//   "city": {
-//     "id": 2,
-//     "name": "Almaty",
-//     "region": null,
-//     "country": {
-//       "id": 1,
-//       "name": "Kazakhstan"
-//     }
-//   },
-//   "categories": [
-//     {
-//       "id": 3,
-//       "category": {
-//         "id": 2,
-//         "name": "cow",
-//         "parentCategoryId": null
-//       },
-//       "menuItems": [
-//         {
-//           "id": 4,
-//           "name": "Omyrtqa",
-//           "weight": 1,
-//           "isWholeAnimal": false,
-//           "butcheryCategoryId": 3,
-//           "categoryId": 6
-//         }
-//       ]
-//     },
-//     {
-//       "id": 4,
-//       "category": {
-//         "id": 1,
-//         "name": "horse",
-//         "parentCategoryId": null
-//       },
-//       "menuItems": [
-//         {
-//           "id": 3,
-//           "name": "Omyrtqa",
-//           "weight": 1,
-//           "isWholeAnimal": false,
-//           "butcheryCategoryId": 4,
-//           "categoryId": 1
-//         }
-//       ]
-//     }
-//   ]
-// }

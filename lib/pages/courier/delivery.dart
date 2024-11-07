@@ -93,7 +93,7 @@ class Delivery extends StatelessWidget {
                     width: 24, height: 24),
                 const SizedBox(width: 8),
                 Text(
-                  "г. ${order.address?.city.name}, ${order.address?.address}, дом ${order.address?.building}, кв ${order.address?.apartment}",
+                  "г. ${order.address?.city.name}, ${order.address?.street}, дом ${order.address?.building}, кв ${order.address?.apartment}",
                   style: AppTheme.black500_14,
                 )
               ],

@@ -11,24 +11,39 @@ import 'package:hiba/utils/api/firebase_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+// TODO: add loggin in with Apple account
+/// State Management Class for User authentification
 class AuthState extends ChangeNotifier {
+  /// Secure storage to store user data in app.
   static const storage = FlutterSecureStorage();
+
   User? _user;
+
+  /// Stored User data.
   User? get user => _user;
 
   bool _isCourier = false;
+
+  /// Determines whether [user] is courier or not.
   bool get isCourier => _isCourier;
 
   bool _isClientUI = true;
+
+  /// Determines whether current used UI is clien's UI or courier's UI.
   bool get isClientUI => _isClientUI;
 
   bool _isLoggedIn = false;
+
+  /// Determines whether [user] is loggen to system in or not.
   bool get isLoggedIn => _isLoggedIn;
 
+  /// Logs in [User] with Google account's [idToken] as parameter.
+  /// Returns status of API call.
   Future<int> loginWithGoogle(String idToken) async {
+    // url of API call
     String apiUrl = '${dotenv.get('API_URL')}/auth/google';
-
     try {
+      // API call to find existsing user.
       final http.Response response = await http.post(
         Uri.parse(apiUrl),
         headers: <String, String>{
@@ -37,16 +52,20 @@ class AuthState extends ChangeNotifier {
         body: jsonEncode({"idToken": idToken}),
       );
 
+      // checks if return status is successfull.
       if (response.statusCode == 200) {
+        // Logs in existing user to system.
         if (response.body.isNotEmpty) {
           loginToSystem(response.body);
           return 201;
         }
+        // Returns status 200, meaning User does not exists, and needs to register.
         return 200;
       } else {
         print(
             'Backend error on google login with status code ${response.statusCode}');
       }
+      // Returns status code of response to handle errors.
       return response.statusCode;
     } catch (e) {
       print('Error: $e');
@@ -54,25 +73,32 @@ class AuthState extends ChangeNotifier {
     }
   }
 
+  /// Stores [User] to storage.
   Future<void> storeAuthData(String token, dynamic userData) async {
     await storage.write(key: 'authToken', value: token);
     await storage.write(key: 'user', value: json.encode(userData));
     _isLoggedIn = true;
   }
 
+  /// Auth token of [user].
   static Future<String?> getAuthToken() async {
     const storage = FlutterSecureStorage();
     return await storage.read(key: 'authToken');
   }
 
+  /// [User] from storage.
   Future<User?> getUserData() async {
+    // User data from storage, may be null
     String? userDataString = await storage.read(key: 'user');
+    // Logout if user is null
     if (userDataString == null) {
       logout();
       return null;
     }
+    // Get token from storage
     String? token = await storage.read(key: 'authToken');
 
+    // Logout if token is null or expired.
     if (token == null) {
       logout();
       return null;
@@ -82,36 +108,32 @@ class AuthState extends ChangeNotifier {
       logout();
       return null;
     }
+
+    /// Inits _user and _isLoggedIn
     Map<String, dynamic> data = json.decode(userDataString);
     _user = User.fromJson(data);
     _isLoggedIn = true;
 
+    /// Sets current user as courier depending of storage data.
     String? isCourierString = await storage.read(key: 'isCourier');
-    if (isCourierString == null || isCourierString == 'false') {
-      _isCourier = false;
-    } else {
-      _isCourier = true;
-    }
+    _isCourier = !(isCourierString == null || isCourierString == 'false');
 
+    /// Sets current UI depending of storage data.
     String? uiString = await storage.read(key: 'ui');
-    if (uiString == null || uiString == 'client') {
-      _isClientUI = true;
-    } else {
-      _isClientUI = false;
-    }
+    _isClientUI = uiString == null || uiString == 'client';
 
     notifyListeners();
     return _user;
   }
 
-  // 192.168.68.101:8000
-
+  /// Rewrite stored [User] and [user]
   void updateUserData(String token, dynamic user) {
     storeAuthData(token, user);
     _user = User.fromJson(user);
     notifyListeners();
   }
 
+  /// Log out [User] from system.
   Future<void> logout() async {
     _user = null;
     await storage.delete(key: 'authToken');
@@ -120,7 +142,9 @@ class AuthState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Logs in User to system when code given from telegram bot confirmed on backend.
   Future<int> confirmCode(String phone, String code) async {
+    // url of API call
     String apiUrl = '${dotenv.get('API_URL')}/auth/confirmCode';
 
     final Map<String, String> reqData = {
@@ -129,6 +153,7 @@ class AuthState extends ChangeNotifier {
     };
 
     try {
+      // API call to find existsing user.
       final http.Response response = await http.post(
         Uri.parse(apiUrl),
         body: json.encode(reqData),
@@ -136,22 +161,31 @@ class AuthState extends ChangeNotifier {
           'Content-Type': 'application/json',
         },
       );
+
+      // checks if return status is successfull.
       if (response.statusCode == 200) {
+        // Logs in existing user to system.
         if (response.body.isNotEmpty) {
           loginToSystem(response.body);
           return 201;
         }
+        // Returns status 200, meaning User does not exists, and needs to register.
         return 200;
       }
+      // Returns status code of response to handle errors.
       return response.statusCode;
     } catch (e) {
-      print('Error 2: $e');
+      print('Error: $e');
       return 500;
     }
   }
 
+  /// Login [User] to system.
   void loginToSystem(data) async {
+    // Decode json object received from api call.
     final Map<String, dynamic> responseData = json.decode(data);
+
+    /// Determine if user registered as courier.
     if (responseData['role']['name'] == 'ROLE_COURIER') {
       _isCourier = true;
       _isClientUI = false;
@@ -162,6 +196,7 @@ class AuthState extends ChangeNotifier {
       await storage.write(key: 'ui', value: 'client');
     }
 
+    // Save user data in storage.
     await storage.write(key: 'isCourier', value: _isCourier.toString());
     await storeAuthData(responseData['token'], responseData['user']);
     _user = User.fromJson(responseData['user']);
@@ -169,11 +204,12 @@ class AuthState extends ChangeNotifier {
 
     // STORE FCM TOKEN IN DB
     String apiUrl = '${dotenv.get('API_URL')}/user/saveFcmToken';
+    // Get FCM token
     String? fcmToken = await FirebaseApi().getToken();
-    // print(fcmToken);
 
     if (fcmToken != null) {
       try {
+        // Get device data: platform, device ID
         DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
         String platform = '';
         String deviceId = '';
@@ -186,8 +222,9 @@ class AuthState extends ChangeNotifier {
           var deviceBuild = await deviceInfo.iosInfo;
           deviceId = deviceBuild.identifierForVendor ?? 'unknown';
         }
-        // print(platform);
-        // print(deviceId);
+
+        // Send  device data and FCM token to backend to save to coresponding user,
+        // for future firebase notifications.
         await http.post(
           Uri.parse(apiUrl),
           body: jsonEncode({
@@ -219,6 +256,8 @@ class AuthState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Register [User] in backend with parameters [phone], [name], and [photo] if given.
+  /// Registration of `user` already started when [confirmCode] or [loginWithGoogle] where called with parameters of not existing user.
   Future<int> completeRegistration(
       String phone, String name, File? photo) async {
     String apiUrl = '${dotenv.get('API_URL')}/auth/completeRegistration';
@@ -234,7 +273,6 @@ class AuthState extends ChangeNotifier {
       request.fields['phoneNumber'] = phone;
 
       final streamedResponse = await request.send();
-      // streamedResponse.headers;
       final response = await http.Response.fromStream(streamedResponse);
       if (response.statusCode == 200) {
         final decodedBody = utf8.decode(response.bodyBytes);
@@ -252,6 +290,8 @@ class AuthState extends ChangeNotifier {
     }
   }
 
+  /// Use [confirmCode] or [loginWithGoogle] to login, as logging in with other parameters is no longer acceptable.
+  @Deprecated('Loggin in with phone in not acceptable')
   Future<int> loginUser(String phone) async {
     String apiUrl = '${dotenv.get('API_URL')}/auth/login';
 
@@ -287,6 +327,7 @@ class AuthState extends ChangeNotifier {
     }
   }
 
+  /// Registers [User] to system
   Future<int> registerUser(
       String username, String phone, String password) async {
     String apiUrl = '${dotenv.get('API_URL')}/auth/signup';

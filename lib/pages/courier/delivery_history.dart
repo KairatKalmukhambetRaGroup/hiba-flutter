@@ -60,7 +60,7 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
     testOrder.address = Address(
       id: 1,
       name: 'home',
-      address: ' Жетысу - 1',
+      street: ' Жетысу - 1',
       building: '25',
       apartment: '77',
       entrance: '1',

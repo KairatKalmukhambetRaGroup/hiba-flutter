@@ -1,44 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/components/navbar/client_navbar.dart';
 import 'package:hiba/components/navbar/courier_navbar.dart';
-import 'package:hiba/pages/connection_page.dart';
-import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/login_page.dart';
 import 'package:hiba/providers/user_connection_state.dart';
 import 'package:hiba/utils/api/auth.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
-class SplashPage extends StatelessWidget {
+/// Initial screen of app, indicates that app is loading.
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const _Splash();
-  }
+  State<StatefulWidget> createState() => SplashPageState();
 }
 
-class _Splash extends StatefulWidget {
-  const _Splash({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _SplashState();
-}
-
-class _SplashState extends State<_Splash> {
+/// [SplashPage] state class
+class SplashPageState extends State<SplashPage> {
+  AuthState? authState;
   @override
   void initState() {
     super.initState();
+    authState = Provider.of<AuthState>(context);
   }
 
-// userConnectionState.connectionStatus == ConnectionStatus.connected
-//           ? authState.isClientUI
-//               ? const ClientNavbar()
-//               : const CourierNavbar()
-//           : userConnectionState.connectionStatus == ConnectionStatus.loading
-//               ? const ConnectionPage(connectionStatus: ConnectionStatus.loading)
-//               : const ConnectionPage(
-//                   connectionStatus: ConnectionStatus.disconnected),
   @override
   Widget build(BuildContext context) {
     AuthState authState = Provider.of<AuthState>(context);
@@ -47,24 +31,21 @@ class _SplashState extends State<_Splash> {
     userConnectionState.checkConnection();
 
     if (userConnectionState.connectionStatus == ConnectionStatus.connected) {
+      // Check if client is loggen in.
       if (authState.isLoggedIn) {
         if (authState.isClientUI) {
+          // Renavigate to Client UI.
           return const ClientNavbar();
         } else {
+          // Renavigate to Courier UI.
           return const CourierNavbar();
         }
       } else {
+        // Renavigate to Login page.
         return const LoginPage();
       }
     } else {
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (ctx) => ConnectionPage(
-      //       connectionStatus: userConnectionState.connectionStatus,
-      //     ),
-      //   ),
-      // );
+      // Show splash screen.
       return Scaffold(
         body: SizedBox(
           width: MediaQuery.sizeOf(context).width,

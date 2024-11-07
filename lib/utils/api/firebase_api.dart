@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 // https://youtu.be/k0zGEbiDJcQ?si=xNP2yg35OtMVZX0v
 // link to tutorial to flutter notifications
@@ -63,5 +62,3 @@ class FirebaseApi {
   //   }
   // }
 }
-
-// f0UD93UXRumWLnf3Ogu77h:APA91bETUa3om_vNdD_mz6prISQPIvRwGteiAX61bhsXoHtgqDCftNgdaYEel58VTgMjfN6U4_lUbXVmieJWvVsqmAg48KIVNw1m0St-jXPCPYLj0bSKZ1rPIrSs_Ix33JLmLi3889bT

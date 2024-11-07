@@ -98,7 +98,7 @@ class DeliveryTile extends StatelessWidget {
                     style: AppTheme.darkGrey500_11,
                   ),
                   Text(
-                      "г. ${order.address?.city.name}, ${order.address?.address}, дом ${order.address?.building}, кв ${order.address?.apartment}")
+                      "г. ${order.address?.city.name}, ${order.address?.street}, дом ${order.address?.building}, кв ${order.address?.apartment}")
                 ],
               )
             ],

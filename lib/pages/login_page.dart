@@ -224,20 +224,22 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Google Button
+                  /// Login with Google Button.
                   TextButton.icon(
                     onPressed: () async {
+                      /// [idTokenString] is token given from google.
                       String? idTokenString =
                           await googleSignInProvider.signInWithGoogle();
-                      if (idTokenString != null) {
-                        // print("User signed in: $idTokenString");
 
+                      if (idTokenString != null) {
+                        /// Get status if user exists with google account coresponding to [idTokenString].
                         int status =
                             await authState.loginWithGoogle(idTokenString);
 
+                        /// Status 201 means user exists.
                         if (status == 201) {
+                          /// Renavigate client to Courier or Client UI depending if user registered as Courier.
                           if (authState.isCourier) {
                             Navigator.pushReplacement(
                                 context,
@@ -245,9 +247,14 @@ class _LoginPageState extends State<LoginPage> {
                                     builder: (context) =>
                                         const CourierLogin()));
                           } else {
-                            Navigator.of(context).pushNamed('/');
+                            Navigator.of(context).pushReplacementNamed('/');
                           }
-                        } else if (status == 200) {
+                        }
+
+                        /// Status 200 means user does not exists, and reroutes client to registration page.
+                        else if (status == 200) {
+                          // TODO: Add gmail option to registration
+
                           // Navigator.pushReplacement(
                           //     context,
                           //     MaterialPageRoute(
@@ -256,6 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                           //             )));
                         }
                       } else {
+                        // TODO: Add login error handler
                         print("Sign-in failed");
                       }
                     },
@@ -287,7 +295,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Apple Button
+
+                  /// Login with Apple Account Button.
                   TextButton.icon(
                     onPressed: () {},
                     style: ButtonStyle(

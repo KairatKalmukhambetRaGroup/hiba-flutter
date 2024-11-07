@@ -27,17 +27,22 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Set Portrait Up orientation for all platforms.
   if (Platform.isAndroid) {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   } else {
-    // Set orientation in Info.plist for iOS (manual step)
+    // TODO: Set orientation in Info.plist for iOS (manual step).
   }
 
+  // Initiaalize Firebase.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Initialize Firebase Notifications.
   await FirebaseApi().initNotifications();
 
+  // Load environmental variables.
   await dotenv.load(fileName: '.env');
   runApp(MultiProvider(
     providers: [
@@ -52,51 +57,58 @@ void main() async {
   ));
 }
 
+/// Main class of application.
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MyAppState();
+  State<StatefulWidget> createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  late final FirebaseMessaging _firebaseMessaging;
+/// Main State class, responsible for initialization of Firebase Notification functions and more.
+class MyAppState extends State<MyApp> {
+  /// Responsible for handling messages/notifications from firebase.
+  late final FirebaseMessaging firebaseMessaging;
 
+  /// Init [firebaseMessaging] and it's functions for handling messages.
   @override
   void initState() {
     super.initState();
 
-    // FirebaseMessaging.onBackgroundMessage( (remoteMessage) => handleFirebaseMessage(remoteMessage));
-    _firebaseMessaging = FirebaseMessaging.instance;
+    // Get instance of [FirebaseMessaging] when app is opened.
+    firebaseMessaging = FirebaseMessaging.instance;
 
-    // Request permission for iOS
-    _firebaseMessaging.requestPermission();
+    // Request permission for notifications.
+    firebaseMessaging.requestPermission();
 
-    // Get the initial message if the app is opened from a terminated state
-    _firebaseMessaging.getInitialMessage().then((RemoteMessage? remoteMessage) {
+    // Get the initial message if the app is opened from a terminated state.
+    firebaseMessaging.getInitialMessage().then((RemoteMessage? remoteMessage) {
       if (remoteMessage != null) {
         handleFirebaseMessage(remoteMessage);
       }
     });
-    // Listen for foreground messages
+    // Listen for foreground messages.
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
-      print('Received a message while in the foreground!');
+      // print('Received a message while in the foreground!');
       handleFirebaseMessage(remoteMessage);
     });
-    // Listen for when the app is in the background
+    // Listen for when the app is in the background.
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
-      print('Message clicked!');
+      // print('Message clicked!');
       handleFirebaseMessage(remoteMessage);
     });
   }
 
+  /// Handle messages from [FirebaseMessaging], accepts [RemoteMessage] as parameter.
+  /// Renavigates to respected page based on 'type' and 'id' inside of 'data' received from [remoteMessage].
   void handleFirebaseMessage(RemoteMessage remoteMessage) {
     // Access data payload
     if (remoteMessage.data.isNotEmpty) {
-      // Handle your custom data as needed
+      // Get type and id from data
       String? type = remoteMessage.data['type'];
       String? id = remoteMessage.data['id'];
 
+      // Renavigates to respected page based on [type] of message, and passes [id] to determine exact content of page.
       if (type != null && type == 'USER_MESSAGES' && id != null) {
         if (NavigationHelper.key.currentContext != null) {
           pushWithoutNavBar(
@@ -117,6 +129,7 @@ class _MyAppState extends State<MyApp> {
     // userConnectionState.checkConnection();
 
     return MaterialApp(
+      // Turn off banner of debug mode.
       debugShowCheckedModeBanner: false,
       title: AppStrings.loginAndRegister,
       localizationsDelegates: const [
@@ -124,6 +137,7 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
+      //TODO: Add multilanguage support: kazakh and russian.
       supportedLocales: const [
         Locale('ru'),
         Locale('kk'),

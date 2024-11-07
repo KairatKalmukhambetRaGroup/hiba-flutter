@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 class RegisterProfile extends StatefulWidget {
   static const routeName = '/register-profile';
   const RegisterProfile({super.key, required this.phone});
+
+  /// Phone number to register new [User]
   final String phone;
 
   @override

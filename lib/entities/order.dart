@@ -3,28 +3,60 @@ import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/menu_item.dart';
 import 'package:hiba/entities/user.dart';
 
+/// An `Order` object represents an order taken by [User] to [Butchery], with all specific details.
 class Order {
+  /// Destination address of this order.
+  /// Typically address of an [User].
   Address? address;
+
+  /// Butchery this order taken to.
   final Butchery butchery;
+
+  /// Whether this order is for charity or not.
   final bool charity;
+
+  /// List of `menu items` this order containing.
   final List<MenuItem> items = [];
+
+  /// Status of this order.
   late String orderStatus;
+
+  /// Unique identifier of this order.
   late int id;
+
+  /// Number of packages of this order.
   int packages = 1;
+
+  /// Price of [MenuItem]s of this order.
   late double price = 0;
-  late double totalPrice = 0;
+
+  /// Delivery price of this order.
   late double deliveryPrice = 0;
+
+  /// Total price of this order.
+  late double totalPrice = 0;
+
+  /// Donated sum of money with this order.
   late double donation = 0;
+
+  /// Date of delivery of this order.
   late DateTime deliveryDate;
-  String? senderName;
+
+  /// User this order belongs to.
   User? user;
 
+  /// Name of sender this order belongs to.
+  /// [senderName] can be different than [user]'s name, as order can be anonymous in case of charity order.
+  String? senderName;
+
+  /// Create new `Order` instance.
   Order({required this.butchery, required this.charity});
 
   void setAddress(Address address) {
     this.address = address;
   }
 
+  /// Create new `Order` instance from JSON object.
   factory Order.fromJson(Map<String, dynamic> json) {
     Order order = Order(
       butchery: Butchery.fromJson(json['butchery'] as Map<String, dynamic>),
@@ -63,6 +95,7 @@ class Order {
     return order;
   }
 
+  /// Create new `Order` instance from JSON object. Different from [Order.fromJson], JSON object contains different fields.
   factory Order.fromJsonOrderResponse(Map<String, dynamic> data) {
     var json = data['order'];
     var list = data['menuList'];
@@ -115,10 +148,13 @@ class Order {
     calculateTotalPrice();
   }
 
+  /// Calculates total price of this order.
+  /// Total price is equal to sum of price, delivery price and donation.
   void calculateTotalPrice() {
     totalPrice = price + deliveryPrice + donation;
   }
 
+  /// Sets menu items from JSON object.
   void setMenuItemsFromJson(Map<String, dynamic> json) {
     items.clear();
     for (final key in json.keys) {
@@ -152,9 +188,9 @@ class Order {
           'true'; // Assuming string values for true/false
       final price = int.parse(priceString);
       final categoryId = int.parse(categoryIdString);
-// ... (similarly parse other values)
+      // ... (similarly parse other values)
 
-// Create the Menu object
+      // Create the Menu object
       final menu = MenuItem(
         id: id,
         name: name,
@@ -168,6 +204,8 @@ class Order {
     }
   }
 
+  /// Calculates total weight of this order.
+  /// Weight is sum of weights of menu items in this order.
   int calculateWeight() {
     int weight = 0;
     for (MenuItem item in items) {
@@ -180,6 +218,8 @@ class Order {
     return weight;
   }
 
+  /// Calculates price of this order.
+  /// Weight is sum of prices of menu items in this order.
   int calculatePrice() {
     int price = 0;
     for (MenuItem item in items) {
@@ -190,6 +230,7 @@ class Order {
     return price;
   }
 
+  /// JSON object from this order.
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
 
