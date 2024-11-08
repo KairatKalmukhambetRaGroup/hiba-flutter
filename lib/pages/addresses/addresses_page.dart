@@ -1,8 +1,29 @@
 // lib/pages/addresses/addresses_library.dart
 part of 'addresses_library.dart';
 
+/// `AddressesPage` is a stateful widget that displays a list of user addresses,
+/// allowing the user to view and select an address, or add a new one.
+///
+/// ### Structure:
+/// - `_addresses`: Stores a list of `Address` objects to be displayed in the UI.
+/// - `_loading`: A flag to indicate if the addresses are still loading.
+/// - `loadAddresses`: An asynchronous method that retrieves the list of addresses
+///   from the backend and updates `_addresses`.
+///
+/// ### Features:
+/// - Retrieves and displays user addresses on the screen.
+/// - Shows a loading indicator while fetching data.
+/// - Displays a "No data" message if no addresses are available.
+/// - Provides an option to add a new address, which opens the `NewAddressPage`.
+///
+/// ### Usage:
+/// - This widget relies on [Provider] to update and display the addresses list,
+///   as well as to set the currently selected address.
+///
+/// ### Bottom Navigation:
+/// - Contains a `TextButton` at the bottom, enabling the user to add a new address.
+///   After adding, it refreshes the list of addresses.
 class AddressesPage extends StatefulWidget {
-  static const routeName = '/addresses';
   const AddressesPage({super.key});
 
   @override
@@ -20,6 +41,8 @@ class _AddressesPageState extends State<AddressesPage> {
     super.initState();
   }
 
+  /// Loads the list of addresses asynchronously from a backend service.
+  /// Updates `_addresses` with the retrieved data and refreshes the UI.
   Future<void> loadAddresses() async {
     setState(() {
       _loading = true;
@@ -36,6 +59,7 @@ class _AddressesPageState extends State<AddressesPage> {
     });
   }
 
+  /// Refreshes the addresses by reloading them.
   void refresh() async {
     await loadAddresses();
   }
@@ -94,56 +118,6 @@ class _AddressesPageState extends State<AddressesPage> {
             style: AppTheme.white500_16,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class AddressTile extends StatelessWidget {
-  final Address address;
-  const AddressTile({super.key, required this.address});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      leading: Address.getIconByType(address.name),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            address.name == 'work'
-                ? 'Работа'
-                : address.name == 'home'
-                    ? 'Дом'
-                    : address.name,
-            style: AppTheme.black500_14,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            address.info,
-            style: AppTheme.darkGrey500_11,
-          ),
-        ],
-      ),
-      trailing: IconButton(
-        padding: EdgeInsets.zero,
-        iconSize: 24,
-        icon: SvgPicture.asset(
-          'assets/svg/pencil-outline.svg',
-          width: 24,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (context) => NewAddressPage(
-                editAddress: address,
-              ),
-            ),
-          );
-        },
       ),
     );
   }

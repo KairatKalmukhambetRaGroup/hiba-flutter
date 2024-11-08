@@ -1,6 +1,26 @@
 // lib/pages/addresses/addresses_library.dart
 part of '../addresses_library.dart';
 
+/// `ShowAddresses` is a stateful widget responsible for displaying a list
+/// of user addresses in a scrollable, draggable sheet. This widget allows users
+/// to view their saved addresses and select one as the current delivery address.
+/// It also provides an option to add a new address.
+///
+/// This widget includes the following functionalities:
+/// - Loading addresses asynchronously from the backend via `loadAddresses`.
+/// - Refreshing the address list.
+/// - Displaying a loading indicator while fetching data.
+/// - Displaying each address as a `ListTile` using the `addressTile` helper method.
+///
+/// ### Structure:
+/// - `_addresses`: Stores a list of `Address` objects to be displayed in the UI.
+/// - `_sheet`: A `GlobalKey` used to reference the `DraggableScrollableSheet`.
+/// - `_controller`: A `DraggableScrollableController` to control the sheet's size and position.
+/// - `_loading`: A boolean flag indicating if addresses are currently being loaded.
+///
+/// ### Usage:
+/// - Displayed in a parent container or page that requires address selection functionality.
+/// - Uses `Provider` to update and retrieve the current address.
 class ShowAddresses extends StatefulWidget {
   const ShowAddresses({super.key});
 
@@ -10,9 +30,11 @@ class ShowAddresses extends StatefulWidget {
 
 class _ShowAddressesState extends State<ShowAddresses> {
   final _sheet = GlobalKey();
+
   final _controller = DraggableScrollableController();
 
   List<Address> _addresses = [];
+
   bool _loading = true;
 
   @override
@@ -22,6 +44,8 @@ class _ShowAddressesState extends State<ShowAddresses> {
     _controller.addListener(_onChanged);
   }
 
+  /// Loads the list of addresses asynchronously from a backend service.
+  /// Sets the `_loading` state to `true` during the loading process and `false` afterward.
   Future<void> loadAddresses() async {
     setState(() {
       _loading = true;
@@ -38,6 +62,7 @@ class _ShowAddressesState extends State<ShowAddresses> {
     });
   }
 
+  /// Refreshes the address list by calling `loadAddresses` again.
   void refresh() async {
     await loadAddresses();
   }
@@ -48,6 +73,7 @@ class _ShowAddressesState extends State<ShowAddresses> {
     _controller.dispose();
   }
 
+  /// Listener method for changes in the sheet size, used to handle UI updates or animations.
   void _onChanged() {
     // ignore: unused_local_variable
     final currentSize = _controller.size;
@@ -71,6 +97,7 @@ class _ShowAddressesState extends State<ShowAddresses> {
   //   );
   // }
 
+  /// Provides the reference to the current [DraggableScrollableSheet] widget.
   DraggableScrollableSheet get sheet =>
       (_sheet.currentWidget as DraggableScrollableSheet);
 
@@ -151,6 +178,8 @@ class _ShowAddressesState extends State<ShowAddresses> {
     });
   }
 
+  /// Builds a `ListTile` widget for each address item in the `_addresses` list.
+  /// Allows the user to select an address by updating the current address in `AddressState`.
   Widget addressTile(Address address) {
     AddressState addressState =
         Provider.of<AddressState>(context, listen: true);

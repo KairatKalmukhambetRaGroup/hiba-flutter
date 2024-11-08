@@ -2,9 +2,14 @@
 // lib/pages/addresses/addresses_library.dart
 part of 'addresses_library.dart';
 
+/// `NewAddressPage` is a stateful widget that allows user to create new address.
+///
+/// ### Structure:
+/// - `_selectedCityId`:
+/// - `_cities`:
+/// - `_addressType`:
 // ignore: must_be_immutable
 class NewAddressPage extends StatefulWidget {
-  static const routeName = '/new-adress';
   NewAddressPage({super.key, this.editAddress});
   Address? editAddress;
 
