@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:intl/intl.dart';
+part of 'butchery_library.dart';
 
 class ButcheryDetails extends StatefulWidget {
   const ButcheryDetails({super.key, required this.butchery});

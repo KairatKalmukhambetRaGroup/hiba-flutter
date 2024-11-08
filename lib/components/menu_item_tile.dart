@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/butchery/menu_item_page.dart';
+import 'package:hiba/pages/butchery/butchery_library.dart' show MenuItemPage;
 import 'package:hiba/providers/providers_library.dart';
 
 import 'package:hiba/values/app_colors.dart';

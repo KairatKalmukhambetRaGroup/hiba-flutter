@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../butchery_library.dart';
 
 class ButcheryCardSmall extends StatelessWidget {
   const ButcheryCardSmall({super.key, required this.title});

@@ -4,8 +4,9 @@ import 'package:hiba/components/active_orders.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/promotion_carousel.dart';
 import 'package:hiba/pages/addresses/addresses_library.dart' show ShowAddresses;
-import 'package:hiba/pages/butchery/search_page.dart';
 import 'package:hiba/providers/providers_library.dart';
+import 'package:hiba/pages/butchery/butchery_library.dart'
+    show ButcherySearchPage;
 
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
@@ -87,7 +88,7 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const SearchPage(charity: true)));
+                                  const ButcherySearchPage(charity: true)));
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,
@@ -106,7 +107,7 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const SearchPage(charity: false)));
+                                  const ButcherySearchPage(charity: false)));
                     },
                     style: const ButtonStyle(
                       alignment: Alignment.center,

@@ -1,13 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/components/menu_item_tile.dart';
-import 'package:hiba/pages/butchery/butchery_details.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+part of 'butchery_library.dart';
 
 class ButcheryPage extends StatefulWidget {
   static const routeName = '/butchery';

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/butchery/butchery_page.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+part of '../butchery_library.dart';
 
 class ButcheryCard extends StatelessWidget {
   const ButcheryCard({super.key, required this.butchery});

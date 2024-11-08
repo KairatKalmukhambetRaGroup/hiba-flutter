@@ -1,26 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/butchery/butchery_page.dart';
-import 'package:hiba/utils/api/api_library.dart';
+part of 'butchery_library.dart';
 
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
-class SearchPage extends StatefulWidget {
-  static const routeName = '/search';
-
-  const SearchPage({super.key, required this.charity});
+class ButcherySearchPage extends StatefulWidget {
+  const ButcherySearchPage({super.key, required this.charity});
   final bool charity;
 
   @override
-  State<StatefulWidget> createState() => _SearchPageState();
+  State<StatefulWidget> createState() => _ButcherySearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _ButcherySearchPageState extends State<ButcherySearchPage> {
   List<Map<String, dynamic>> _butcheries = [];
   bool isCharity = false;
 

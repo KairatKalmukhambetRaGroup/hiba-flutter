@@ -1,4 +1,4 @@
-/// lib/pages/auth/auth_library.dart
+// lib/pages/auth/auth_library.dart
 library auth;
 
 import 'dart:async';
