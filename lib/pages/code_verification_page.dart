@@ -13,7 +13,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:hiba/utils/api/auth.dart';
+import 'package:hiba/utils/api/api_library.dart';
 
 class CodeVerificationPage extends StatefulWidget {
   static const routeName = '/code-verification';

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/utils/api/auth.dart';
+import 'package:hiba/utils/api/api_library.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 import 'package:image_picker/image_picker.dart';

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hiba/entities/chat_message.dart';
-import 'package:hiba/utils/api/auth.dart';
+import 'package:hiba/utils/api/api_library.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
 class WebSocketService {

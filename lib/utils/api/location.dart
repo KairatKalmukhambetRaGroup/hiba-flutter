@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// lib/utils/api/api_library.dart
 
-import 'package:hiba/entities/address.dart';
-import 'package:hiba/entities/location.dart';
-import 'package:hiba/utils/api/auth.dart';
-import 'package:http/http.dart' as http;
+part of 'api_library.dart';
 
 /// Call API to add new [Address] to user's address list.
 Future<int> addAddress(Address address) async {

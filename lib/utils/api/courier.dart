@@ -1,11 +1,7 @@
 // ignore_for_file: avoid_print
+// lib/utils/api/api_library.dart
 
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/order.dart';
-import 'package:hiba/utils/api/auth.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'dart:convert';
+part of 'api_library.dart';
 
 /// Fetch list of [Order] from API for Courier.
 /// [active] determines if list should be of active orders or not.

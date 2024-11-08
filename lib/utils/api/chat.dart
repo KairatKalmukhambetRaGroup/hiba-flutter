@@ -1,12 +1,6 @@
-import 'dart:convert';
+// lib/utils/api/api_library.dart
 
-import 'package:hiba/entities/chat_message.dart';
-import 'package:hiba/entities/hiba_chat.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:hiba/entities/order.dart';
-import 'package:hiba/pages/support_chat_page.dart';
-import 'package:hiba/utils/api/auth.dart';
-import 'package:http/http.dart' as http;
+part of 'api_library.dart';
 
 /// API call to create [HibaChat].
 Future<HibaChat?> createChat() async {

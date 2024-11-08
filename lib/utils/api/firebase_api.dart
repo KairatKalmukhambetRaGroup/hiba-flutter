@@ -1,4 +1,5 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+// lib/utils/api/api_library.dart
+part of 'api_library.dart';
 
 // https://youtu.be/k0zGEbiDJcQ?si=xNP2yg35OtMVZX0v
 // link to tutorial to flutter notifications

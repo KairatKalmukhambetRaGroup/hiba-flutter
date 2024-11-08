@@ -1,11 +1,6 @@
-import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// lib/utils/api/api_library.dart
 
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/butchery_category.dart';
-import 'package:hiba/entities/working_hour.dart';
-import 'package:hiba/utils/api/auth.dart';
-import 'package:http/http.dart' as http;
+part of 'api_library.dart';
 
 /// Fetch Butcheries from API.
 Future<List<Map<String, dynamic>>?> getButcheries() async {

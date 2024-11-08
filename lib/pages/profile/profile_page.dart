@@ -12,7 +12,7 @@ import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 
-import 'package:hiba/utils/api/auth.dart';
+import 'package:hiba/utils/api/api_library.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 

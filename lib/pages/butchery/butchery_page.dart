@@ -6,7 +6,7 @@ import 'package:hiba/entities/butchery.dart';
 import 'package:hiba/entities/butchery_category.dart';
 import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/pages/butchery/butchery_details.dart';
-import 'package:hiba/utils/api/butchery.dart';
+import 'package:hiba/utils/api/api_library.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 

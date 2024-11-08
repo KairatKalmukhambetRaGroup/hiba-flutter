@@ -4,7 +4,7 @@ import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:hiba/entities/promotion.dart';
 import 'package:hiba/pages/promotion_page.dart';
-import 'package:hiba/utils/api/promotion.dart';
+import 'package:hiba/utils/api/api_library.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 

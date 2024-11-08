@@ -1,15 +1,7 @@
 // ignore_for_file: avoid_print
+// lib/utils/api/api_library.dart
 
-import 'dart:convert';
-import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hiba/entities/user.dart';
-import 'package:hiba/utils/api/firebase_api.dart';
-import 'package:http/http.dart' as http;
-import 'package:jwt_decoder/jwt_decoder.dart';
+part of 'api_library.dart';
 
 // TODO: add loggin in with Apple account
 /// State Management Class for User authentification

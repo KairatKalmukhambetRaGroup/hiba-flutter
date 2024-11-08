@@ -4,7 +4,7 @@ import 'package:hiba/components/navbar/courier_navbar.dart';
 import 'package:hiba/pages/login_page.dart';
 import 'package:hiba/providers/providers_library.dart';
 
-import 'package:hiba/utils/api/auth.dart';
+import 'package:hiba/utils/api/api_library.dart';
 import 'package:provider/provider.dart';
 
 /// Initial screen of app, indicates that app is loading.

@@ -1,9 +1,6 @@
-import 'dart:convert';
+// lib/utils/api/api_library.dart
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:hiba/entities/promotion.dart';
-import 'package:hiba/utils/api/auth.dart';
-import 'package:http/http.dart' as http;
+part of 'api_library.dart';
 
 /// Fetch list of [Promotion] from API.
 Future<List<Promotion>?> getPromotions() async {
