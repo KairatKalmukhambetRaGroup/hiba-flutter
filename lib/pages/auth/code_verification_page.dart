@@ -1,19 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/pages/courier_login.dart';
-import 'package:hiba/pages/register_profile.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import 'package:hiba/utils/api/api_library.dart';
+/// lib/pages/auth/auth_library.dart
+part of 'auth_library.dart';
 
 class CodeVerificationPage extends StatefulWidget {
   static const routeName = '/code-verification';

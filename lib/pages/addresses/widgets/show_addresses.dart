@@ -1,14 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/profile/new_address_page.dart';
-import 'package:hiba/providers/providers_library.dart';
-
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:provider/provider.dart';
+// lib/pages/addresses/addresses_library.dart
+part of '../addresses_library.dart';
 
 class ShowAddresses extends StatefulWidget {
   const ShowAddresses({super.key});

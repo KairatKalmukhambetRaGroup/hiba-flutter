@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:provider/provider.dart';
+/// lib/pages/auth/auth_library.dart
+part of 'auth_library.dart';
 
 class CourierLogin extends StatelessWidget {
   const CourierLogin({super.key});

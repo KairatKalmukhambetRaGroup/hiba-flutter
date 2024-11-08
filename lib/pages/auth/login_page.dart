@@ -1,18 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/pages/code_verification_page.dart';
-import 'package:hiba/pages/courier_login.dart';
-import 'package:hiba/pages/register_profile.dart';
-import 'package:hiba/providers/providers_library.dart';
-
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_regex.dart';
-import 'package:hiba/values/app_strings.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:provider/provider.dart';
+/// lib/pages/auth/auth_library.dart
+part of 'auth_library.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';

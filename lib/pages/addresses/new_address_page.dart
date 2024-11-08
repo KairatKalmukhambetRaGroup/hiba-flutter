@@ -1,14 +1,6 @@
 // ignore_for_file: avoid_print
-
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/app_text_form_field.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:pinput/pinput.dart';
+// lib/pages/addresses/addresses_library.dart
+part of 'addresses_library.dart';
 
 // ignore: must_be_immutable
 class NewAddressPage extends StatefulWidget {

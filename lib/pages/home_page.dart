@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/active_orders.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/promotion_carousel.dart';
-import 'package:hiba/components/show_addresses.dart';
+import 'package:hiba/pages/addresses/addresses_library.dart' show ShowAddresses;
 import 'package:hiba/pages/butchery/search_page.dart';
 import 'package:hiba/providers/providers_library.dart';
 

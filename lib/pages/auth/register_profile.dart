@@ -1,16 +1,6 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
-
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
+/// lib/pages/auth/auth_library.dart
+part of 'auth_library.dart';
 
 class RegisterProfile extends StatefulWidget {
   static const routeName = '/register-profile';

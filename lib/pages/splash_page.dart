@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/components/navbar/client_navbar.dart';
 import 'package:hiba/components/navbar/courier_navbar.dart';
-import 'package:hiba/pages/login_page.dart';
+import 'package:hiba/pages/auth/auth_library.dart' show LoginPage;
 import 'package:hiba/providers/providers_library.dart';
 
 import 'package:hiba/utils/api/api_library.dart';

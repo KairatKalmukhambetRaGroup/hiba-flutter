@@ -1,12 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/components/app_text_form_field.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/utils/utils_library.dart';
-import 'package:hiba/values/app_constants.dart';
-import 'package:hiba/values/app_regex.dart';
-import 'package:hiba/values/app_strings.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:provider/provider.dart';
+/// lib/pages/auth/auth_library.dart
+part of 'auth_library.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
