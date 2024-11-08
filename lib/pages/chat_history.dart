@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/hiba_chat.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/support_chat_page.dart';
 import 'package:hiba/utils/api/api_library.dart';
 import 'package:hiba/values/app_colors.dart';

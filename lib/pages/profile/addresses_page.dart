@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/address.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/profile/new_address_page.dart';
 import 'package:hiba/providers/providers_library.dart';
 

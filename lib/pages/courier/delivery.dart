@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/menu_item.dart';
-import 'package:hiba/entities/order.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 

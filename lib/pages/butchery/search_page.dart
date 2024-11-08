@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/butchery_small.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/butchery/butchery_page.dart';
 import 'package:hiba/utils/api/api_library.dart';
 

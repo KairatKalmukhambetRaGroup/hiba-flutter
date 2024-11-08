@@ -1,4 +1,5 @@
-import 'package:hiba/entities/menu_item.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// A `Category` object represents a categories of [MenuItem]s.
 class Category {

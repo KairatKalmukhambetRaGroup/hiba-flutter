@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hiba/entities/menu_item.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';
 

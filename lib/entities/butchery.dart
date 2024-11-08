@@ -1,7 +1,5 @@
-import 'package:hiba/entities/butchery_category.dart';
-import 'package:hiba/entities/location.dart';
-import 'package:hiba/entities/user.dart';
-import 'package:hiba/entities/working_hour.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// A `Butchery` object represents a butchery with specific details.
 /// Company selling products is named as `Butchery`
@@ -72,4 +70,23 @@ class Butchery {
   String toString() {
     return '$name: $address';
   }
+}
+
+/// A `ButcherySmall` object represents a [Butchery] with only id and name.
+class ButcherySmall {
+  final int id;
+  final String name;
+
+  const ButcherySmall({
+    required this.id,
+    required this.name,
+  });
+
+  factory ButcherySmall.fromJson(Map<String, dynamic> json) => ButcherySmall(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  @override
+  String toString() => name;
 }

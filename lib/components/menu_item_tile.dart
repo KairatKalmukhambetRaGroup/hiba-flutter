@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/menu_item.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/butchery/menu_item_page.dart';
 import 'package:hiba/providers/providers_library.dart';
 

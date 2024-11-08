@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/location.dart';
-import 'package:hiba/entities/user.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// An `Address` object represents Address of [User]
 class Address {

@@ -1,5 +1,5 @@
-import 'package:hiba/entities/butchery_category.dart';
-import 'package:hiba/entities/category.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// A `MenuItem` object represents a menu item of [ButcheryCategory].
 class MenuItem {

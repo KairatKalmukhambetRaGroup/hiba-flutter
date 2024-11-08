@@ -1,3 +1,6 @@
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
+
 /// An `User` object represents an user with specific details.
 class User {
   /// The unique identifier of this user.

@@ -1,4 +1,5 @@
-import 'package:hiba/entities/hiba_chat.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 enum ChatMessageType {
   received,

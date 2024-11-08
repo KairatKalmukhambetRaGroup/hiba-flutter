@@ -1,7 +1,5 @@
-import 'package:hiba/entities/address.dart';
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/menu_item.dart';
-import 'package:hiba/entities/user.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// An `Order` object represents an order taken by [User] to [Butchery], with all specific details.
 class Order {

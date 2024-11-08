@@ -1,3 +1,6 @@
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
+
 /// a `Promotion` object represents a promotion news.
 class Promotion {
   /// Unique identifier of this promotion.

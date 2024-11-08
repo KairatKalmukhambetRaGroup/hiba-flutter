@@ -1,4 +1,5 @@
-import 'package:hiba/entities/butchery.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// A `WorkingHour` object represents a working hour of a [Butchery].
 class WorkingHour {

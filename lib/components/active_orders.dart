@@ -1,6 +1,6 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:hiba/entities/order.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/orders/order_page.dart';
 import 'package:hiba/utils/api/api_library.dart';
 import 'package:hiba/values/app_colors.dart';

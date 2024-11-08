@@ -1,3 +1,6 @@
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
+
 /// A `Country` object represents a country.
 class Country {
   /// Unique identifier of this country.

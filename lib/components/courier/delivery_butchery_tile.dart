@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/butchery.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/courier/butchery_deliveries.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';

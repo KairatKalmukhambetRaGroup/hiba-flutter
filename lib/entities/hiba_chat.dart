@@ -1,4 +1,5 @@
-import 'package:hiba/entities/user.dart';
+/// lib/entities/entities_library.dart
+part of 'entities_library.dart';
 
 /// a `HibaChat` object represents a chat with details.
 class HibaChat {

@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/butchery_category.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/components/menu_item_tile.dart';
 import 'package:hiba/pages/butchery/butchery_details.dart';
 import 'package:hiba/utils/api/api_library.dart';

@@ -15,11 +15,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-import 'package:hiba/entities/address.dart';
-import 'package:hiba/entities/butchery.dart';
-import 'package:hiba/entities/menu_item.dart';
-import 'package:hiba/entities/order.dart';
-import 'package:hiba/entities/chat_message.dart';
+import 'package:hiba/entities/entities_library.dart';
 
 part 'address_state.dart';
 part 'chat_provider.dart';

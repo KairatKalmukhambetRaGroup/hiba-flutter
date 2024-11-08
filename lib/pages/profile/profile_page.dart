@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/user.dart';
+import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/courier/delivery_history.dart';
 import 'package:hiba/pages/profile/addresses_page.dart';
