@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+/// lib/utils/utils_library.dart
+part of 'utils_library.dart';
 
 /// An extension on [BuildContext] that provides convenience methods
 /// for obtaining fractional heights and widths based on the screen size.

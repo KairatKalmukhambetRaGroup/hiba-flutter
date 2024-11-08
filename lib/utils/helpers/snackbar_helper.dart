@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+/// lib/utils/utils_library.dart
+part of '../utils_library.dart';
 
 /// A helper class for displaying [SnackBar] in a Flutter application.
 ///

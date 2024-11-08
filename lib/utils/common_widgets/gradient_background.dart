@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-
-import '../../values/app_colors.dart';
-import '../extensions.dart';
+/// lib/utils/utils_library.dart
+part of '../utils_library.dart';
 
 //// A widget that provides a gradient background for its child widgets.
 ///
