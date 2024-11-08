@@ -11,7 +11,7 @@ import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/courier/delivery_history.dart';
 import 'package:hiba/pages/addresses/addresses_library.dart' show AddressesPage;
-import 'package:hiba/pages/orders/orders_page.dart';
+import 'package:hiba/pages/orders/order_library.dart' show OrdersPage;
 import 'package:hiba/pages/profile/user_info_page.dart';
 import 'package:hiba/values/app_colors.dart';
 import 'package:hiba/values/app_theme.dart';

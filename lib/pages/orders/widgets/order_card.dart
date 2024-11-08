@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/orders/order_page.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+part of '../order_library.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.order});

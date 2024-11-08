@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/components/menu_item_tile.dart';
-import 'package:hiba/pages/orders/order_confirm_page.dart';
+import 'package:hiba/pages/orders/order_library.dart' show OrderConfirmPage;
 import 'package:hiba/providers/providers_library.dart';
 
 import 'package:hiba/values/app_colors.dart';

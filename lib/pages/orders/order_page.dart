@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/components/order_menu_item_tile.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+part of 'order_library.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key, required this.order});

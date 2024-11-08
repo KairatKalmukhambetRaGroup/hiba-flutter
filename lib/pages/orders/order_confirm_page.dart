@@ -1,16 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/app_text_form_field.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/components/order_menu_item_tile.dart';
-import 'package:hiba/pages/addresses/addresses_library.dart' show ShowAddresses;
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/providers/providers_library.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+part of 'order_library.dart';
 
 class OrderConfirmPage extends StatefulWidget {
   const OrderConfirmPage({super.key, required this.order});

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+part of '../order_library.dart';
 
 class OrderMenuItemTile extends StatelessWidget {
   final MenuItem menuItem;
