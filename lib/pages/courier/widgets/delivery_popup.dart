@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+part of '../courier_library.dart';
 
 class DeliveryPopup extends StatelessWidget {
   final String status;

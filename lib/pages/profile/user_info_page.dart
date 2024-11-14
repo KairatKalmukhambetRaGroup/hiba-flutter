@@ -1,23 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
+part of 'profile_library.dart';
 
 class UserInfoPage extends StatefulWidget {
   static const routeName = '/user-info';

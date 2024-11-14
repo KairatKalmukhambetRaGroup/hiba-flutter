@@ -11,6 +11,7 @@
 /// in a unified context.
 
 // lib/pages/addresses/addresses_library.dart
+///{@category Profile}
 library addresses;
 
 import 'package:flutter/material.dart';

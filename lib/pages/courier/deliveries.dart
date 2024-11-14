@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/components/courier/delivery_butchery_tile.dart';
-import 'package:hiba/components/courier/delivery_tile.dart';
-import 'package:hiba/components/custom_refresher.dart';
-import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
+part of 'courier_library.dart';
 
 class Deliveries extends StatefulWidget {
   const Deliveries({super.key});

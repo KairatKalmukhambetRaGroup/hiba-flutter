@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+part of '../courier_library.dart';
 
 class CourierNotifications extends StatefulWidget {
   const CourierNotifications({super.key});

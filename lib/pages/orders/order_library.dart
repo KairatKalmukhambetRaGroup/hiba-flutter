@@ -18,11 +18,12 @@ import 'package:provider/provider.dart';
 
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 
+/// ## Pages
 part 'order_page.dart';
 part 'order_confirm_page.dart';
 part 'orders_page.dart';
 
-///Widgets
+/// ## Widgets
 part 'widgets/order_card.dart';
 part 'widgets/order_menu_item_tile.dart';
 part 'widgets/active_orders.dart';

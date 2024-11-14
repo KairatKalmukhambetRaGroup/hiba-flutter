@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/courier/butchery_deliveries.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+part of '../courier_library.dart';
 
 class DeliveryButcheryTile extends StatelessWidget {
   final Butchery butchery;
