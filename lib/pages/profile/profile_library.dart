@@ -12,8 +12,7 @@ import 'package:hiba/pages/contact_us_page.dart';
 import 'package:hiba/pages/courier/courier_library.dart' show DeliveryHistory;
 import 'package:hiba/pages/addresses/addresses_library.dart' show AddressesPage;
 import 'package:hiba/pages/orders/order_library.dart' show OrdersPage;
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+import 'package:hiba/core_library.dart' show AppColors, AppTheme;
 
 import 'package:hiba/utils/api/api_library.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';

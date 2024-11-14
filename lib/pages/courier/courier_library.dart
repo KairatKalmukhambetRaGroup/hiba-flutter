@@ -10,10 +10,10 @@ import 'package:hiba/components/custom_refresher.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/values/app_theme.dart';
+import 'package:hiba/core_library.dart' show AppColors, AppTheme;
 import 'package:pinput/pinput.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:skeletonizer/skeletonizer.dart';

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import 'app_colors.dart';
+part of '../core_library.dart';
 
 class AppTheme {
   static const textFormFieldBorder = OutlineInputBorder(

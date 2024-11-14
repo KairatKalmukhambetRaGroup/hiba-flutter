@@ -152,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (value) {
                           return value!.isEmpty
                               ? AppStrings.pleaseEnterPassword
-                              : AppConstants.passwordRegex.hasMatch(value)
+                              : AppRegex.passwordRegex.hasMatch(value)
                                   ? null
                                   : AppStrings.invalidPassword;
                         },
@@ -189,7 +189,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (value) {
                           return value!.isEmpty
                               ? AppStrings.pleaseEnterPassword
-                              : AppConstants.passwordRegex.hasMatch(value)
+                              : AppRegex.passwordRegex.hasMatch(value)
                                   ? passwordController.text ==
                                           confirmPasswordController.text
                                       ? null

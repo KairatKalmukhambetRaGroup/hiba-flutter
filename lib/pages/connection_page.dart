@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiba/providers/providers_library.dart';
 
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+import 'package:hiba/core_library.dart' show AppColors, AppTheme;
 
 class ConnectionPage extends StatefulWidget {
   final ConnectionStatus connectionStatus;

@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+
 import 'package:hiba/core_library.dart' show WebSocketService;
 
 class SupportChatPage extends StatefulWidget {

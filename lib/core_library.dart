@@ -18,8 +18,6 @@ import 'package:hiba/pages/splash_page.dart';
 import 'package:hiba/pages/support_chat_page.dart';
 import 'package:hiba/providers/providers_library.dart';
 import 'package:hiba/utils/utils_library.dart';
-import 'package:hiba/values/app_strings.dart';
-import 'package:hiba/values/app_theme.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,3 +25,9 @@ import 'package:firebase_core/firebase_core.dart';
 part 'web_socket_service.dart';
 part 'firebase_options.dart';
 part 'main.dart';
+
+/// Custom App Values
+part 'values/app_colors.dart';
+part 'values/app_regex.dart';
+part 'values/app_strings.dart';
+part 'values/app_theme.dart';

@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/pages/chat_history.dart';
 import 'package:hiba/pages/support_chat_page.dart';
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class ContactUsPage extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../core_library.dart';
 
 class AppColors {
   const AppColors._();

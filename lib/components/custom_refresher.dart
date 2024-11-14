@@ -1,7 +1,7 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hiba/values/app_colors.dart';
+import 'package:hiba/core_library.dart' show AppColors;
 
 class CustomRefresher extends StatefulWidget {
   final Widget child;

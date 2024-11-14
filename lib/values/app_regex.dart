@@ -1,3 +1,5 @@
+part of '../core_library.dart';
+
 class AppRegex {
   const AppRegex._();
 

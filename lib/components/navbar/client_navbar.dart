@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hiba/pages/basket_page.dart';
 import 'package:hiba/pages/home_page.dart';
 import 'package:hiba/pages/profile/profile_library.dart' show ProfilePage;
-import 'package:hiba/values/app_colors.dart';
+import 'package:hiba/core_library.dart' show AppColors;
+
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class ClientNavbar extends StatelessWidget {

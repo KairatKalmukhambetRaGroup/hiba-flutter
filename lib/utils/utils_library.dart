@@ -3,8 +3,7 @@
 library utils;
 
 import 'package:flutter/material.dart';
-
-import '../../values/app_colors.dart';
+import 'package:hiba/core_library.dart' show AppColors;
 
 part 'extensions.dart';
 part 'common_widgets/gradient_background.dart';

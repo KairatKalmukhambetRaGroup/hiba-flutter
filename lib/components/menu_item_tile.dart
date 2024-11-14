@@ -6,8 +6,8 @@ import 'package:hiba/entities/entities_library.dart';
 import 'package:hiba/pages/butchery/butchery_library.dart' show MenuItemPage;
 import 'package:hiba/providers/providers_library.dart';
 
-import 'package:hiba/values/app_colors.dart';
-import 'package:hiba/values/app_theme.dart';
+import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
