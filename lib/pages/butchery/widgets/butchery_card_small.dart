@@ -1,8 +1,17 @@
 part of '../butchery_library.dart';
 
+/// A small card widget representing a butchery.
+///
+/// The [ButcheryCardSmall] displays an image and a title, designed for compact layouts
+/// where a simple representation of a butchery is needed.
 class ButcheryCardSmall extends StatelessWidget {
-  const ButcheryCardSmall({super.key, required this.title});
+  /// The title to display on the card.
   final String title;
+
+  /// Creates a [ButcheryCardSmall].
+  ///
+  /// - [title]: The title to display at the bottom of the card.
+  const ButcheryCardSmall({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

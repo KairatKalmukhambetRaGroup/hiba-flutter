@@ -12,6 +12,7 @@ import 'package:hiba/core_library.dart' show AppColors, AppTheme;
 
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_scaffold.dart';
+import 'package:hiba/utils/utils_library.dart';
 import 'package:intl/intl.dart';
 
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -27,3 +28,5 @@ part 'menu_item_page.dart';
 ///Widgets
 part 'widgets/butchery_card.dart';
 part 'widgets/butchery_card_small.dart';
+part 'widgets/butchery_tile.dart';
+part 'widgets/category_tile.dart';

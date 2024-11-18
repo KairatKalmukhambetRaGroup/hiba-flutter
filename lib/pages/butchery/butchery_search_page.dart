@@ -1,15 +1,38 @@
 part of 'butchery_library.dart';
 
+/// A page for searching and browsing butcheries.
+///
+/// The [ButcherySearchPage] displays a list of butcheries retrieved from a data source.
+/// It supports filtering by categories and differentiates between charity and personal shopping modes.
+///
+/// ### Example Usage
+/// ```dart
+/// ButcherySearchPage(
+///   charity: true,
+/// );
+/// ```
 class ButcherySearchPage extends StatefulWidget {
-  const ButcherySearchPage({super.key, required this.charity});
+  /// Indicates whether the search is for charity-related orders.
   final bool charity;
+
+  /// Creates a [ButcherySearchPage].
+  ///
+  /// - [charity]: If `true`, the page is used for charity-related searches.
+  const ButcherySearchPage({super.key, required this.charity});
 
   @override
   State<StatefulWidget> createState() => _ButcherySearchPageState();
 }
 
+/// The state implementation for [ButcherySearchPage].
+///
+/// Responsible for fetching butcheries, handling user interactions,
+/// and managing the display of the list.
 class _ButcherySearchPageState extends State<ButcherySearchPage> {
+  /// List of butcheries retrieved from the data source.
   List<Map<String, dynamic>> _butcheries = [];
+
+  /// Indicates whether the search is for charity-related orders.
   bool isCharity = false;
 
   @override
@@ -26,6 +49,9 @@ class _ButcherySearchPageState extends State<ButcherySearchPage> {
     super.dispose();
   }
 
+  /// Fetches the list of butcheries from the data source.
+  ///
+  /// Populates the [_butcheries] list with the retrieved data.
   Future<void> loadJsonData() async {
     final data = await getButcheries();
     if (data != null) {
@@ -62,61 +88,6 @@ class _ButcherySearchPageState extends State<ButcherySearchPage> {
                     const Divider(height: 1, color: AppColors.grey),
               ),
       ),
-    );
-  }
-}
-
-class CategoryTile extends StatelessWidget {
-  const CategoryTile({super.key, required this.name, required this.route});
-  final String name;
-  final String route;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: AppColors.white,
-      title: Text(
-        name,
-        style: AppTheme.black500_14,
-      ),
-      trailing: SvgPicture.asset(
-        'assets/svg/chevron-right-grey.svg',
-        width: 24,
-      ),
-    );
-  }
-}
-
-class ButcheryTile extends StatelessWidget {
-  const ButcheryTile(
-      {super.key, required this.butchery, required this.isCharity});
-  final ButcherySmall butchery;
-  final bool isCharity;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: AppColors.white,
-      title: Text(
-        butchery.name,
-        style: AppTheme.black500_14,
-      ),
-      // subtitle: Text(
-      //   butchery.categories.join(', '),
-      //   style: AppTheme.darkGrey500_11,
-      // ),
-      trailing: SvgPicture.asset(
-        'assets/svg/chevron-right-grey.svg',
-        width: 24,
-      ),
-      onTap: () => {
-        // print(isCharity)
-        pushWithoutNavBar(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ButcheryPage(
-                    id: butchery.id.toString(), charity: isCharity)))
-      },
     );
   }
 }

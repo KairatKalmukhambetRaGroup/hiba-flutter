@@ -11,3 +11,4 @@ part 'common_widgets/gradient_background.dart';
 part 'helpers/navigation_helper.dart';
 part 'helpers/snackbar_helper.dart';
 part 'date_utils.dart';
+part 'transitions/bottom_to_top_page_transition.dart';

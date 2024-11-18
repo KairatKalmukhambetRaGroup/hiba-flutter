@@ -1,10 +1,51 @@
 part of 'butchery_library.dart';
 
+/// A page displaying details of a specific menu item.
+///
+/// The [MenuItemPage] provides detailed information about a menu item,
+/// including its name, image, price, description, and category.
+/// It also allows users to add or remove the item from their shopping basket.
+///
+/// ### Example Usage
+/// ```dart
+/// MenuItemPage(
+///   menuItem: MenuItem(
+///     id: 1,
+///     name: 'Lamb Meat',
+///     price: 5000,
+///     isWholeAnimal: false,
+///     description: 'Fresh lamb meat from local farms.',
+///   ),
+///   butchery: Butchery(
+///     id: 101,
+///     name: 'Halal Butchery',
+///   ),
+///   charity: false,
+///   category: Category(
+///     id: 10,
+///     name: 'Sheep',
+///   ),
+/// );
+/// ```
 class MenuItemPage extends StatelessWidget {
+  /// The menu item to display.
   final MenuItem menuItem;
+
+  /// The butchery associated with the menu item.
   final Butchery butchery;
+
+  /// Whether the purchase is for charity.
   final bool charity;
+
+  /// The category of the menu item (optional).
   final Category? category;
+
+  /// Creates a [MenuItemPage].
+  ///
+  /// - [menuItem]: The menu item details to display.
+  /// - [butchery]: The butchery offering the menu item.
+  /// - [charity]: Indicates if the purchase is for charity.
+  /// - [category]: The category of the menu item (optional).
   const MenuItemPage(
       {super.key,
       required this.menuItem,

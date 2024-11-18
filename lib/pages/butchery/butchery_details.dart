@@ -1,16 +1,40 @@
 part of 'butchery_library.dart';
 
+/// A detailed view of a butchery.
+///
+/// The [ButcheryDetails] widget displays detailed information about a butchery,
+/// including its name, contact details, address, working hours, certifications, and delivery information.
+///
+/// ### Example
+/// ```dart
+/// ButcheryDetails(
+///   butchery: Butchery(
+///     id: 1,
+///     name: 'Halal Butchery',
+///     address: '123 Butchery Lane',
+///     workingHours: [
+///       WorkingHour(dayOfWeek: 'Monday', openTime: '09:00', closeTime: '17:00', isClosed: false),
+///       WorkingHour(dayOfWeek: 'Sunday', openTime: '', closeTime: '', isClosed: true),
+///     ],
+///   ),
+/// );
+/// ```
 class ButcheryDetails extends StatefulWidget {
-  const ButcheryDetails({super.key, required this.butchery});
+  /// The [Butchery] instance containing details to display.
   final Butchery butchery;
+
+  /// Creates a [ButcheryDetails] widget.
+  const ButcheryDetails({super.key, required this.butchery});
 
   @override
   State<StatefulWidget> createState() => _ButcheryDetailsState();
 }
 
 class _ButcheryDetailsState extends State<ButcheryDetails> {
+  /// The current day of the week.
   final weekday = DateFormat('EEEE').format(DateTime.now());
 
+  /// The working hours for the current day.
   String todayTime = '';
 
   @override

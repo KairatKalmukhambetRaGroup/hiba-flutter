@@ -1,8 +1,17 @@
 part of '../butchery_library.dart';
 
+/// A card widget representing a butchery.
+///
+/// The [ButcheryCard] displays a butchery's image and name, and navigates to
+/// the detailed [ButcheryPage] when tapped.
 class ButcheryCard extends StatelessWidget {
-  const ButcheryCard({super.key, required this.butchery});
+  /// The [Butchery] object containing the details to display on the card.
   final Butchery butchery;
+
+  /// Creates a [ButcheryCard].
+  ///
+  /// - [butchery]: The butchery details to display.
+  const ButcheryCard({super.key, required this.butchery});
 
   @override
   Widget build(BuildContext context) {

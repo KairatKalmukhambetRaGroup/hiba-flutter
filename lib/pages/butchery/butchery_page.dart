@@ -1,23 +1,48 @@
 part of 'butchery_library.dart';
 
+/// A page displaying details of a specific butchery and its products.
+///
+/// The [ButcheryPage] retrieves and displays information about a selected butchery,
+/// including categories, products, and order details.
+///
+/// ### Example Usage
+/// ```dart
+/// ButcheryPage(
+///   id: '123',
+///   charity: true,
+/// );
+/// ```
 class ButcheryPage extends StatefulWidget {
-  static const routeName = '/butchery';
-
-  const ButcheryPage({super.key, required this.id, required this.charity});
+  /// The ID of the butchery to display.
   final String id;
+
+  /// Whether the order includes a charity option.
   final bool charity;
+
+  /// Creates a [ButcheryPage].
+  const ButcheryPage({super.key, required this.id, required this.charity});
 
   @override
   State<StatefulWidget> createState() => _ButcherPageState();
 }
 
 class _ButcherPageState extends State<ButcheryPage> {
+  /// Tracks whether the data is still loading.
   bool isLoading = true;
+
+  /// Tracks if an error occurred during data fetching.
   bool hasError = false;
+
+  /// The title of the page, representing the butchery name.
   String title = '';
+
+  /// Error message to display if fetching fails.
   late String errorMessage = '';
 
+  /// The butchery details fetched from the server.
   late Butchery butchery;
+
+  /// Whether the order includes charity.
   bool charity = false;
 
   @override
@@ -29,8 +54,13 @@ class _ButcherPageState extends State<ButcheryPage> {
     });
   }
 
+  /// Categories of products in the butchery.
   Map categories = {};
 
+  /// Translates category keys into readable names.
+  ///
+  /// - [key]: The category key.
+  /// Returns a string representation of the category name.
   getCategoryTranslations(String key) {
     switch (key) {
       case 'sheep':
@@ -46,6 +76,9 @@ class _ButcherPageState extends State<ButcheryPage> {
     }
   }
 
+  /// Fetches the butchery details by its ID.
+  ///
+  /// Sets the title, populates the [butchery] instance, and handles errors.
   getData() async {
     setState(() {
       isLoading = true;
@@ -209,7 +242,7 @@ class _ButcherPageState extends State<ButcheryPage> {
                             onPressed: () {
                               pushWithoutNavBar(
                                 context,
-                                CustomPageTransition(
+                                BottomToTopPageTransition(
                                   child: OrderConfirmPage(order: order!),
                                 ),
                               );
@@ -234,30 +267,5 @@ class _ButcherPageState extends State<ButcheryPage> {
               ),
       );
     }
-  }
-}
-
-class CustomPageTransition extends MaterialPageRoute {
-  CustomPageTransition({required Widget child})
-      : super(builder: (BuildContext context) => child);
-
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 200);
-
-  @override
-  Widget buildTransitions(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child,
-  ) {
-    var begin = const Offset(0.0, 1.0);
-    var end = Offset.zero;
-    var tween = Tween(begin: begin, end: end);
-    var offsetAnimation = animation.drive(tween);
-    return SlideTransition(
-      position: offsetAnimation,
-      child: child,
-    );
   }
 }
