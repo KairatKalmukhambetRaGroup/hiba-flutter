@@ -1,12 +1,30 @@
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:hiba/core_library.dart' show AppColors;
+part of '../core_library.dart';
 
+/// A custom refresher widget that provides pull-to-refresh functionality.
+///
+/// The [CustomRefresher] wraps around a child widget and adds a customizable
+/// refresh indicator. It uses the [CustomMaterialIndicator] for consistent
+/// styling across the app.
+///
+/// ### Example Usage
+/// ```dart
+/// CustomRefresher(
+///   onRefresh: () async {
+///     // Refresh logic here.
+///   },
+///   child: ListView(
+///     children: [/* ... */],
+///   ),
+/// );
+/// ```
 class CustomRefresher extends StatefulWidget {
+  /// The child widget to be wrapped with the refresh indicator.
   final Widget child;
+
+  /// The callback function to execute when a refresh is triggered.
   final Function onRefresh;
 
+  /// Creates a [CustomRefresher] widget.
   const CustomRefresher({
     super.key,
     required this.child,
@@ -16,6 +34,9 @@ class CustomRefresher extends StatefulWidget {
   State<StatefulWidget> createState() => _CustomRefresherState();
 }
 
+/// The state class for [CustomRefresher].
+///
+/// Manages the state of the refresh indicator and handles the refresh logic.
 class _CustomRefresherState extends State<CustomRefresher>
     with SingleTickerProviderStateMixin {
   bool _renderCompleteState = false;

@@ -1,21 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/pages/orders/order_library.dart' show ActiveOrders;
-import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/components/promotion_carousel.dart';
-import 'package:hiba/pages/addresses/addresses_library.dart' show ShowAddresses;
-import 'package:hiba/providers/providers_library.dart';
-import 'package:hiba/pages/butchery/butchery_library.dart'
-    show ButcherySearchPage;
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+part of '../core_library.dart';
 
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:provider/provider.dart';
-
+/// The home page of the app, displaying key components like promotions,
+/// active orders, and navigation to different sections.
+///
+/// The [HomePage] widget serves as the main entry point for users after logging in.
+/// It includes:
+/// - The current address or a prompt to select one.
+/// - A carousel of promotions.
+/// - A list of active orders if any.
+/// - Options to order for charity or for oneself.
+///
+/// ### Example Usage
+/// ```dart
+/// MaterialApp(
+///   home: HomePage(),
+/// );
+/// ```
 class HomePage extends StatelessWidget {
-  static const routeName = '/';
   const HomePage({super.key});
 
+  /// Creates a [HomePage].
   @override
   Widget build(BuildContext context) {
     // AuthState authState = Provider.of<AuthState>(context);

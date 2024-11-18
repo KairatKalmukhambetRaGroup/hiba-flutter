@@ -1,20 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:hiba/components/navbar/client_navbar.dart';
-import 'package:hiba/pages/courier/courier_library.dart' show CourierNavbar;
-import 'package:hiba/pages/auth/auth_library.dart' show LoginPage;
-import 'package:hiba/providers/providers_library.dart';
+part of '../core_library.dart';
 
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:provider/provider.dart';
-
-/// Initial screen of app, indicates that app is loading.
+/// The initial screen of the app, handling user authentication and navigation.
+///
+/// The [SplashPage] determines the user's authentication status and navigates
+/// to the appropriate screen:
+/// - If the user is connected and logged in:
+///   - Navigates to the client UI ([ClientNavbar]) if the user is in client mode.
+///   - Navigates to the courier UI ([CourierNavbar]) if the user is in courier mode.
+/// - If the user is connected but not logged in:
+///   - Navigates to the [LoginPage].
+/// - If the user is not connected:
+///   - Displays a splash screen image.
+///
+/// This page is typically displayed when the app is first launched to handle
+/// initial setup and redirection.
 class SplashPage extends StatefulWidget {
+  /// Creates a [SplashPage].
   const SplashPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _SplashPageState();
 }
 
+/// The state class for [SplashPage].
+///
+/// Manages the initialization and navigation logic based on the user's
+/// authentication and connection status.
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {

@@ -1,5 +1,17 @@
 part of '../core_library.dart';
 
+/// A utility class that centralizes string constants used throughout the application.
+///
+/// The [AppStrings] class provides a single source of truth for all user-facing strings,
+/// making it easier to manage translations, consistent wording, and updates to text.
+///
+/// ### Example Usage
+/// ```dart
+/// Text(AppStrings.authWelcome);
+/// ```
+///
+/// {@category Core}
+@Deprecated("use l10n instead")
 class AppStrings {
   const AppStrings._();
 

@@ -1,17 +1,22 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/components/custom_scaffold.dart';
-import 'package:hiba/components/menu_item_tile.dart';
-import 'package:hiba/pages/orders/order_library.dart' show OrderConfirmPage;
-import 'package:hiba/providers/providers_library.dart';
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+part of 'order_library.dart';
 
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:provider/provider.dart';
-
+/// A page that displays the user's shopping basket.
+///
+/// The [BasketPage] shows all the items the user has added to their shopping basket.
+/// If the basket is empty, it displays a message indicating that the basket is empty.
+/// Users can proceed to confirm their orders or remove items from the basket.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const BasketPage(),
+///   ),
+/// );
+/// ```
 class BasketPage extends StatefulWidget {
-  static const routeName = '/basket';
+  /// Creates a [BasketPage].
   const BasketPage({super.key});
 
   @override

@@ -1,15 +1,33 @@
 // lib/pages/profile/profile_library.dart
 part of 'profile_library.dart';
 
+/// A page displaying the user's profile information.
+///
+/// The [ProfilePage] presents the user's avatar, name, and various profile options
+/// such as viewing orders, addresses, switching between client and courier modes,
+/// and logging out. It adapts its content based on the user's role (client or courier).
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const ProfilePage(),
+///   ),
+/// );
+/// ```
 class ProfilePage extends StatefulWidget {
-  static const routeName = '/profile';
   const ProfilePage({super.key});
 
   @override
   State<StatefulWidget> createState() => _ProfilePageState();
 }
 
+/// The state class for [ProfilePage].
+///
+/// Manages user data retrieval and navigation to profile-related pages.
 class _ProfilePageState extends State<ProfilePage> {
+  /// The current user.
   User? user;
 
   @override

@@ -1,15 +1,17 @@
-part of '../courier_library.dart';
+part of '../notifications_library.dart';
 
 /// A widget representing an individual notification message.
 ///
-/// The [NotificationMessage] displays the order ID, a title, and a description
-/// of the notification.
+/// The [NotificationMessage] displays details about a notification, including:
+/// - The title.
+/// - The text body.
+/// - The associated order ID.
 ///
 /// ### Example Usage
 /// ```dart
 /// NotificationMessage(
-///   title: 'Order Delivered',
-///   text: 'Your order has been delivered successfully!',
+///   title: 'Order Status Changed',
+///   text: 'Your order has been shipped.',
 ///   orderId: '123456',
 /// );
 /// ```

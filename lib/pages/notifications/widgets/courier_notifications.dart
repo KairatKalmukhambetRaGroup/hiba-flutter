@@ -1,4 +1,4 @@
-part of '../courier_library.dart';
+part of '../notifications_library.dart';
 
 /// A screen displaying notifications for couriers.
 ///

@@ -1,13 +1,27 @@
-import 'dart:convert';
+part of '../core_library.dart';
 
-import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
-
+/// A page that displays detailed information about a promotion.
+///
+/// The [PromotionPage] presents the promotion's image, title, and description.
+/// It allows users to view the full details of a specific promotion.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => PromotionPage(promotion: myPromotion),
+///   ),
+/// );
+/// ```
 class PromotionPage extends StatelessWidget {
-  const PromotionPage({super.key, required this.promotion});
+  /// The promotion to display.
   final Promotion promotion;
+
+  /// Creates a [PromotionPage].
+  ///
+  /// - [promotion]: The [Promotion] object containing the details to display.
+  const PromotionPage({super.key, required this.promotion});
 
   @override
   Widget build(BuildContext context) {

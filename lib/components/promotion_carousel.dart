@@ -1,14 +1,15 @@
-import 'dart:convert';
+part of '../core_library.dart';
 
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
-import 'package:flutter/material.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/promotion_page.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/core_library.dart' show AppColors;
-
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
+/// A widget that displays a carousel slider with promotional items.
+///
+/// The [PromotionCarousel] widget fetches promotional data asynchronously and displays them in a [CarouselSlider].
+/// Users can tap on a promotion to view more details about it.
+///
+/// {@category Core}
+/// ## Example Usage
+/// ```dart
+/// PromotionCarousel();
+/// ```
 class PromotionCarousel extends StatefulWidget {
   const PromotionCarousel({super.key});
 
@@ -16,10 +17,17 @@ class PromotionCarousel extends StatefulWidget {
   State<StatefulWidget> createState() => _PromotionCarouselState();
 }
 
+/// State class for [PromotionCarousel].
+///
+/// This class manages the fetching of promotions and maintains the loading state of the widget.
 class _PromotionCarouselState extends State<PromotionCarousel> {
+  /// List of promotions to display in the carousel.
   List<Promotion> _promotions = [];
+
+  /// Indicates if promotions are currently being loaded.
   bool _loading = true;
 
+  /// The current index of the promotion being displayed.
   int _current = 0;
 
   @override
@@ -33,6 +41,7 @@ class _PromotionCarouselState extends State<PromotionCarousel> {
     super.dispose();
   }
 
+  /// Loads promotional data asynchronously and updates the state accordingly.
   Future<void> loadPromotions() async {
     if (!mounted) return;
     setState(() {

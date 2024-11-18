@@ -1,11 +1,22 @@
 part of '../core_library.dart';
 
+/// Provides centralized theme configurations for the application.
+///
+/// The [AppTheme] class contains predefined styles for text, buttons, and
+/// other UI components, ensuring consistent design across the app.
+///
+/// ### Example Usage
+/// ```dart
+/// ThemeData theme = AppTheme.themeData;
+/// ```
 class AppTheme {
+  /// Defines the border style for text form fields.
   static const textFormFieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(12)),
     borderSide: BorderSide(color: Colors.grey, width: 1.6),
   );
 
+  /// Main application theme.
   static final ThemeData themeData = ThemeData(
     useMaterial3: true,
     colorSchemeSeed: AppColors.primaryColor,

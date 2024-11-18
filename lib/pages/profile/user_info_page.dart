@@ -1,28 +1,57 @@
 // ignore_for_file: use_build_context_synchronously
 part of 'profile_library.dart';
 
+/// A page allowing users to view and edit their personal information.
+///
+/// The [UserInfoPage] enables users to:
+/// - Update their name.
+/// - Update their phone number.
+/// - Change their profile picture by taking a new photo or selecting one from the gallery.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const UserInfoPage(),
+///   ),
+/// );
+/// ```
 class UserInfoPage extends StatefulWidget {
-  static const routeName = '/user-info';
+  /// Creates a [UserInfoPage].
   const UserInfoPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _UserInfoPageState();
 }
 
+/// The state class for [UserInfoPage].
+///
+/// Manages user input, image selection, permission handling, and updating user data.
 class _UserInfoPageState extends State<UserInfoPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
+
+  /// The initial country code for the phone number input.
   String initialCountry = 'KZ';
+
+  /// The phone number object representing the user's phone number.
   PhoneNumber phoneNumber = PhoneNumber(isoCode: 'KZ');
 
+  /// Permission status for accessing the camera.
   // ignore: unused_field
   late PermissionStatus _cameraPermissionStatus;
+
+  /// Permission status for accessing the photo gallery.
   // ignore: unused_field
   late PermissionStatus _galleryPermissionStatus;
 
+  /// The selected image file for the user's profile picture.
   File? _imageFile;
+
+  /// The image picker instance used to select images.
   final picker = ImagePicker();
 
   void initControllers() {

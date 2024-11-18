@@ -1,12 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/pages/basket_page.dart';
-import 'package:hiba/pages/home_page.dart';
-import 'package:hiba/pages/profile/profile_library.dart' show ProfilePage;
-import 'package:hiba/core_library.dart' show AppColors;
+part of '../core_library.dart';
 
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
+/// A navigation bar for the client side of the application.
+///
+/// The [ClientNavbar] widget uses [PersistentTabView] to create a bottom navigation bar with three tabs: Home, Basket, and Profile.
+/// Each tab displays a different screen corresponding to the user's selection.
+///
+/// {@category Core}
+/// ## Example Usage
+/// ```dart
+/// ClientNavbar();
+/// ```
 class ClientNavbar extends StatelessWidget {
   const ClientNavbar({super.key});
 

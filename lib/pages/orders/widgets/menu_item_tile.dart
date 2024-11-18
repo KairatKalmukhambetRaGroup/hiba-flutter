@@ -1,21 +1,29 @@
-import 'dart:convert';
+part of '../order_library.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/butchery/butchery_library.dart' show MenuItemPage;
-import 'package:hiba/providers/providers_library.dart';
-
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
-import 'package:hiba/utils/api/api_library.dart';
-
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:provider/provider.dart';
-
+/// A tile widget that displays a menu item with options to add or remove it from the shopping basket.
+///
+/// The [MenuItemTile] shows details about a [MenuItem], including its image, name, price, and category.
+/// It allows users to add the item to their basket, remove it, or navigate to a detailed [MenuItemPage].
+///
+/// ### Example Usage
+/// ```dart
+/// MenuItemTile(
+///   menuItem: myMenuItem,
+///   butchery: myButchery,
+///   charity: false,
+/// );
+/// ```
 class MenuItemTile extends StatefulWidget {
+  /// The menu item to display.
   final MenuItem menuItem;
+
+  /// The butchery associated with the menu item.
   final Butchery butchery;
+
+  /// Indicates whether the item is for charity.
   final bool charity;
+
+  /// Creates a [MenuItemTile].
   const MenuItemTile(
       {super.key,
       required this.menuItem,
@@ -26,16 +34,23 @@ class MenuItemTile extends StatefulWidget {
   State<MenuItemTile> createState() => _MenuItemTileState();
 }
 
+/// The state class for [MenuItemTile].
+///
+/// Manages fetching the category of the menu item and handles user interactions such as adding or removing the item from the basket.
+
 class _MenuItemTileState extends State<MenuItemTile> {
+  /// The category of the menu item.
   Category? category;
 
   @override
   void initState() {
     super.initState();
-    print(widget.menuItem.categoryId);
     fetchCategory(widget.menuItem.categoryId);
   }
 
+  /// Fetches the category of the menu item by its ID.
+  ///
+  /// - [id]: The ID of the category to fetch.
   fetchCategory(int id) async {
     try {
       Category? data = await getCategoryById(id);
@@ -43,7 +58,9 @@ class _MenuItemTileState extends State<MenuItemTile> {
       setState(() {
         category = data;
       });
-    } catch (e) {}
+    } catch (e) {
+      // TODO: handle exception
+    }
   }
 
   @override

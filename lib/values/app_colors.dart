@@ -1,5 +1,23 @@
 part of '../core_library.dart';
 
+/// A utility class that defines the color palette used throughout the app.
+///
+/// The [AppColors] class provides a centralized place to access the standard colors
+/// used in the application's theme, ensuring consistency across different widgets
+/// and screens.
+///
+/// ### Example Usage
+/// ```dart
+/// Container(
+///   color: AppColors.primaryColor,
+///   child: Text(
+///     'Hello, World!',
+///     style: TextStyle(color: AppColors.white),
+///   ),
+/// )
+/// ```
+///
+/// {@category Core}
 class AppColors {
   const AppColors._();
 

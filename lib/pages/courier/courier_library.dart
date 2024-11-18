@@ -7,14 +7,12 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_refresher.dart';
-import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/entities_library.dart';
+import 'package:hiba/pages/notifications/notifications_library.dart';
 import 'package:hiba/utils/api/api_library.dart';
 
 import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+import 'package:hiba/core_library.dart';
 import 'package:pinput/pinput.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:skeletonizer/skeletonizer.dart';
@@ -30,10 +28,8 @@ part 'butchery_deliveries.dart';
 part 'active_deliveries.dart';
 
 /// # Widgets
-part 'widgets/courier_notifications.dart';
 part 'widgets/courier_navbar.dart';
 part 'widgets/delivery_butchery_tile.dart';
 part 'widgets/delivery_popup.dart';
 part 'widgets/delivery_tile.dart';
-part 'widgets/notification_message.dart';
 part 'widgets/delivery_item.dart';

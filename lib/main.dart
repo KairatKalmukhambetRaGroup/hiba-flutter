@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hiba/core_library.dart';
-import 'package:hiba/pages/splash_page.dart';
 import 'package:hiba/pages/chat/chat_library.dart';
 import 'package:hiba/providers/providers_library.dart';
 import 'package:hiba/utils/api/api_library.dart';
