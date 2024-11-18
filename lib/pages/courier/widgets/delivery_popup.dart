@@ -1,15 +1,46 @@
 part of '../courier_library.dart';
 
+/// A popup dialog for updating the status of a delivery.
+///
+/// The [DeliveryPopup] provides a confirmation dialog for couriers to update the
+/// status of a delivery. It includes status-specific titles, content descriptions,
+/// and actions.
+///
+/// ### Example Usage
+/// ```dart
+/// showDialog(
+///   context: context,
+///   builder: (context) => DeliveryPopup(
+///     id: 123,
+///     status: "PREPARING_FOR_DELIVERY",
+///     onUpdated: () {
+///       // Refresh delivery list or update UI.
+///     },
+///   ),
+/// );
+/// ```
 class DeliveryPopup extends StatelessWidget {
+  /// The current status of the delivery.
   final String status;
+
+  /// The ID of the delivery order.
   final int id;
+
+  /// Callback function to execute when the status is successfully updated.
   final Function onUpdated;
+
+  /// Creates a [DeliveryPopup].
+  ///
+  /// - [id]: The ID of the delivery order.
+  /// - [status]: The current status of the delivery.
+  /// - [onUpdated]: A callback triggered after a successful status update.
   DeliveryPopup(
       {super.key,
       required this.id,
       required this.status,
       required this.onUpdated});
 
+  /// Title text corresponding to each status.
   final Map<String, String> titleTexts = Map.from(<String, String>{
     "PREPARING_FOR_DELIVERY":
         "Вы уверены что хотите принять заявку на доставку?",
@@ -17,6 +48,7 @@ class DeliveryPopup extends StatelessWidget {
     "ON_THE_WAY": "Вы доставили заказ клиенту?",
   });
 
+  /// Content description corresponding to each status.
   final Map<String, String> contentTexts = Map.from(<String, String>{
     "PREPARING_FOR_DELIVERY":
         "Ознакомитесь с деталями заявки перед нажатием кнопки “Принять”",
@@ -25,12 +57,15 @@ class DeliveryPopup extends StatelessWidget {
     "ON_THE_WAY":
         "После нажатия кнопки “Доставлено” клиенту будет отправлен код для получения заказа",
   });
+
+  /// Button text corresponding to each status.
   final Map<String, String> buttonTexts = Map.from(<String, String>{
     "PREPARING_FOR_DELIVERY": "Принять",
     "RECEIVED": "Подтверждаю",
     "ON_THE_WAY": "Доставлено",
   });
 
+  /// Updates the delivery status and returns the result status code.
   Future<int> updateStatus(String newStatus) async {
     int status = await updateOrderStatus(id, newStatus);
     return status;

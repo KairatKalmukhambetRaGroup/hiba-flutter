@@ -1,5 +1,20 @@
 part of 'courier_library.dart';
 
+/// A page for viewing active delivery orders for couriers.
+///
+/// The [ActiveDeliveries] screen allows couriers to view their active orders
+/// either grouped by butcheries or as a flat list of all orders.
+/// It includes options to toggle between the views and refresh the data.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const ActiveDeliveries(),
+///   ),
+/// );
+/// ```
 class ActiveDeliveries extends StatefulWidget {
   const ActiveDeliveries({super.key});
 

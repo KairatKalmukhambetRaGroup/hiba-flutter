@@ -1,9 +1,35 @@
 part of '../courier_library.dart';
 
+/// A widget representing a butchery with delivery information.
+///
+/// The [DeliveryButcheryTile] displays details about a specific butchery,
+/// including its name, location, contact details, and the number of orders.
+/// It provides a button to navigate to the butchery's delivery requests.
+///
+/// ### Example Usage
+/// ```dart
+/// DeliveryButcheryTile(
+///   butchery: Butchery(
+///     name: 'Halal Butchery',
+///     city: City(name: 'Almaty'),
+///     address: '123 Main St',
+///     phone: '+7 777 123 4567',
+///     ordersCount: 5,
+///   ),
+///   isActive: true,
+/// );
+/// ```
 class DeliveryButcheryTile extends StatelessWidget {
+  /// The butchery to display.
   final Butchery butchery;
+
+  /// Indicates whether the butchery has active delivery requests.
   final bool isActive;
 
+  /// Creates a [DeliveryButcheryTile].
+  ///
+  /// - [butchery]: The butchery details to display.
+  /// - [isActive]: Whether the butchery has active delivery requests.
   const DeliveryButcheryTile({
     super.key,
     required this.butchery,
@@ -84,6 +110,9 @@ class DeliveryButcheryTile extends StatelessWidget {
     );
   }
 
+  /// A skeleton placeholder for loading states.
+  ///
+  /// Displays a basic structure mimicking the tile while data is loading.
   static Widget skeleton() {
     return Skeletonizer(
       enabled: true,

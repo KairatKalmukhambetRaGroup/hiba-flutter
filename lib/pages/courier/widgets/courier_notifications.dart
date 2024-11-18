@@ -1,5 +1,19 @@
 part of '../courier_library.dart';
 
+/// A screen displaying notifications for couriers.
+///
+/// The [CourierNotifications] screen lists recent notifications related to
+/// deliveries, such as order status updates or important messages.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const CourierNotifications(),
+///   ),
+/// );
+/// ```
 class CourierNotifications extends StatefulWidget {
   const CourierNotifications({super.key});
 
@@ -37,49 +51,6 @@ class _CourierNotificationsState extends State<CourierNotifications> {
               orderId: '000001',
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class NotificationMessage extends StatelessWidget {
-  const NotificationMessage(
-      {super.key,
-      required this.title,
-      required this.text,
-      required this.orderId});
-  final String title;
-  final String text;
-  final String orderId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 44),
-      child: Container(
-        color: AppColors.bgLight,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Статус заказа №$orderId изменен',
-                style: AppTheme.darkGrey500_11,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                title,
-                style: AppTheme.orange500_16,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                text,
-                style: AppTheme.black500_14,
-              ),
-            ],
-          ),
         ),
       ),
     );

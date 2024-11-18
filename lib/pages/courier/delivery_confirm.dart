@@ -1,7 +1,26 @@
 part of 'courier_library.dart';
 
+/// A page for confirming the delivery of an order.
+///
+/// The [DeliveryConfirm] page prompts the courier to enter a confirmation code
+/// received by the client to verify the delivery. It includes a countdown timer
+/// for resending the confirmation code if needed.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => DeliveryConfirm(orderId: 123),
+///   ),
+/// );
+/// ```
+
 class DeliveryConfirm extends StatefulWidget {
+  /// The ID of the order being confirmed.
   final int orderId;
+
+  /// Creates a [DeliveryConfirm] page.
   const DeliveryConfirm({super.key, required this.orderId});
 
   @override

@@ -1,11 +1,53 @@
 part of '../courier_library.dart';
 
+/// A tile widget for displaying delivery order information.
+///
+/// The [DeliveryTile] displays details about a specific delivery order, including:
+/// - The order ID.
+/// - The delivery date.
+/// - The butchery (if applicable).
+/// - The client's address.
+/// It also provides buttons for viewing more details or updating the delivery status.
+///
+/// ### Example Usage
+/// ```dart
+/// DeliveryTile(
+///   order: Order(
+///     id: 123,
+///     deliveryDate: DateTime.now(),
+///     butchery: Butchery(name: 'Halal Butchery', city: City(name: 'Almaty')),
+///     user: User(name: 'John Doe'),
+///     address: Address(
+///       city: City(name: 'Almaty'),
+///       street: 'Main St',
+///       building: '12',
+///       apartment: '34',
+///     ),
+///     orderStatus: 'PREPARING_FOR_DELIVERY',
+///   ),
+///   isActive: true,
+/// );
+/// ```
 // ignore: must_be_immutable
 class DeliveryTile extends StatelessWidget {
+  /// The delivery order to display.
   final Order order;
+
+  /// Whether the delivery is related to a specific butchery.
   bool? fromButchery = false;
+
+  /// Indicates whether the delivery is active.
   final bool isActive;
+
+  /// Indicates whether the delivery is completed.
   bool? isDone = false;
+
+  /// Creates a [DeliveryTile].
+  ///
+  /// - [order]: The delivery order details.
+  /// - [fromButchery]: If true, hides the butchery details.
+  /// - [isActive]: Indicates if the delivery is active.
+  /// - [isDone]: Indicates if the delivery is completed.
   DeliveryTile({
     super.key,
     required this.order,
@@ -150,6 +192,9 @@ class DeliveryTile extends StatelessWidget {
     );
   }
 
+  /// A skeleton placeholder for loading states.
+  ///
+  /// Displays a basic structure mimicking the tile while data is loading.
   static Widget skeleton() {
     return Skeletonizer(
       enabled: true,

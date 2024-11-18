@@ -2,7 +2,22 @@ part of 'courier_library.dart';
 
 enum DateFilter { month, quarter, half, year }
 
+/// Displays a history of deliveries filtered by date ranges.
+///
+/// The [DeliveryHistory] page allows users to view delivery records filtered by
+/// time intervals such as the last month, quarter, half-year, or year.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const DeliveryHistory(),
+///   ),
+/// );
+/// ```
 class DeliveryHistory extends StatefulWidget {
+  /// Creates a [DeliveryHistory] page.
   const DeliveryHistory({super.key});
 
   @override

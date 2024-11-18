@@ -1,5 +1,16 @@
 part of '../courier_library.dart';
 
+/// A bottom navigation bar for the courier application.
+///
+/// The [CourierNavbar] provides navigation between the main screens of the courier
+/// interface: Active Deliveries, Delivery Requests, Notifications, and Profile.
+///
+/// ### Example Usage
+/// ```dart
+/// Scaffold(
+///   body: const CourierNavbar(),
+/// );
+/// ```
 class CourierNavbar extends StatelessWidget {
   const CourierNavbar({super.key});
 

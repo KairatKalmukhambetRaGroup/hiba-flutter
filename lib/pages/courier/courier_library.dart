@@ -1,5 +1,6 @@
 // lib/pages/courier/courier_library.dart
 ///{@category Courier}
+/// The `courier` library provides functionalities and UI components for courier operations within the app.
 library courier;
 
 import 'dart:convert';
@@ -34,3 +35,5 @@ part 'widgets/courier_navbar.dart';
 part 'widgets/delivery_butchery_tile.dart';
 part 'widgets/delivery_popup.dart';
 part 'widgets/delivery_tile.dart';
+part 'widgets/notification_message.dart';
+part 'widgets/delivery_item.dart';

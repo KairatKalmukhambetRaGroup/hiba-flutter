@@ -1,5 +1,20 @@
 part of 'courier_library.dart';
 
+/// A page for viewing all delivery requests for couriers.
+///
+/// The [Deliveries] screen allows couriers to view all delivery orders,
+/// either grouped by butcheries or as a flat list of orders. It supports refreshing
+/// the data and toggling between views.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const Deliveries(),
+///   ),
+/// );
+/// ```
 class Deliveries extends StatefulWidget {
   const Deliveries({super.key});
 
