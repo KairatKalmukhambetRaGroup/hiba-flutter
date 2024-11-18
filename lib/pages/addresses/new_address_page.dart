@@ -101,7 +101,7 @@ class _NewAddressPage extends State<NewAddressPage> {
     if (_selectedCityId != null) {
       try {
         Address address = Address(
-          id: 0,
+          id: widget.editAddress == null ? 0 : widget.editAddress!.id,
           name: addressNameController.text,
           street: addressController.text,
           building: houseController.text,
@@ -118,11 +118,22 @@ class _NewAddressPage extends State<NewAddressPage> {
           }
         } else {
           int status = await addAddress(address);
-          if (status == 200) {
+          if (status == 201) {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pop(true);
           }
         }
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  void delete() async {
+    if (widget.editAddress != null) {
+      try {
+        await deleteAddress(widget.editAddress!.id);
+        Navigator.of(context).pop(true);
       } catch (e) {
         print(e);
       }
@@ -381,15 +392,39 @@ class _NewAddressPage extends State<NewAddressPage> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      _addressType == AddressType.other
-                          ? Expanded(
-                              child: AppTextFormField(
-                                keyboardType: TextInputType.text,
-                                controller: addressNameController,
-                                placeholder: 'Название адреса',
+                      if (_addressType == AddressType.other)
+                        AppTextFormField(
+                          keyboardType: TextInputType.text,
+                          controller: addressNameController,
+                          placeholder: 'Название адреса',
+                        ),
+                      if (widget.editAddress != null)
+                        Column(
+                          children: [
+                            const SizedBox(height: 16),
+                            TextButton(
+                              onPressed: () {
+                                delete();
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    const WidgetStatePropertyAll<Color>(
+                                        AppColors.red),
+                                shape: WidgetStatePropertyAll<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8))),
+                                minimumSize: const WidgetStatePropertyAll(
+                                    Size.fromHeight(48)),
                               ),
-                            )
-                          : const SizedBox(),
+                              child: const Text(
+                                'Удалить',
+                                style: AppTheme.white500_16,
+                              ),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                 ),

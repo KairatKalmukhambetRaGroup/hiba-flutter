@@ -12,16 +12,13 @@ class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => SplashPageState();
+  State<StatefulWidget> createState() => _SplashPageState();
 }
 
-/// [SplashPage] state class
-class SplashPageState extends State<SplashPage> {
-  AuthState? authState;
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    authState = Provider.of<AuthState>(context);
   }
 
   @override

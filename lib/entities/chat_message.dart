@@ -28,14 +28,17 @@ class ChatMessage {
       {required this.chat,
       required this.content,
       required this.senderType,
-      this.messageStatus});
+      this.messageStatus,
+      this.timestamp});
 
   /// Create new `ChatMessage` instance from JSON object.
   factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
-      chat: json['chat'].toString(),
-      content: json['content'],
-      senderType: json['senderType'],
-      messageStatus: json['messageStatus']);
+        chat: json['chat'].toString(),
+        content: json['content'],
+        senderType: json['senderType'],
+        messageStatus: json['messageStatus'],
+        timestamp: json['timestamp'].toString(),
+      );
 
   @override
   String toString() {

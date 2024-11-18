@@ -100,7 +100,8 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
       if (status == 200) {
         shoppingBasket.deleteOrder(_order.butchery, _order.charity);
         // ignore: use_build_context_synchronously
-        Navigator.pop(context);
+        pushReplacementWithNavBar(context,
+            MaterialPageRoute(builder: (context) => const SplashPage()));
       }
       // ignore: empty_catches
     } catch (e) {}
@@ -115,10 +116,21 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
     return futureDates;
   }
 
+  setUserDataOnInputs(AuthState authState) async {
+    User? user = await authState.getUserData();
+
+    if (user != null) {
+      recipientNameController.text = user.name;
+      recipientPhoneController.text = user.phone;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     shoppingBasket = Provider.of<ShoppingBasket>(context);
 
+    AuthState authState = Provider.of(context);
+    setUserDataOnInputs(authState);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.bgLight,

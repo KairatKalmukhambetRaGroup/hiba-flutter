@@ -233,6 +233,11 @@ class AppTheme {
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
+  static const TextStyle red600_16 = TextStyle(
+    color: AppColors.red,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
   static const TextStyle red700_16 = TextStyle(
     color: AppColors.red,
     fontWeight: FontWeight.w700,

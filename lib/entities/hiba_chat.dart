@@ -15,8 +15,12 @@ class HibaChat {
   /// Creation date of this chat as String.
   String? createdAt;
 
+  DateTime? createdAtDate;
+
   /// Support user of this chat.
   User? support;
+
+  ChatMessage? lastMessage;
 
   /// Creates new `HibaChat` instance.
   HibaChat({required this.chatStatus});
@@ -31,6 +35,7 @@ class HibaChat {
       }
       if (c.containsKey('createdAt') && c['createdAt'] != null) {
         chat.createdAt = c["createdAt"];
+        chat.createdAtDate = DateTime.parse(c['createdAt']);
       }
       if (c.containsKey('id') && c['id'] != null) {
         chat.id = c["id"];
@@ -38,6 +43,10 @@ class HibaChat {
 
       if (json.containsKey('support') && json['support'] != null) {
         chat.support = User.fromJson(json['support']);
+      }
+
+      if (json.containsKey('lastMessage') && json['lastMessage'] != null) {
+        chat.lastMessage = ChatMessage.fromJson(json['lastMessage']);
       }
 
       return chat;
@@ -49,6 +58,7 @@ class HibaChat {
       }
       if (c.containsKey('createdAt') && c['createdAt'] != null) {
         chat.createdAt = c["createdAt"];
+        chat.createdAtDate = DateTime.parse(c['createdAt']);
       }
       if (c.containsKey('id') && c['id'] != null) {
         chat.id = c["id"];

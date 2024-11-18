@@ -67,19 +67,34 @@ class _ButcherPageState extends State<ButcheryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bgLight,
-      appBar: CustomAppBar(
-        titleText: title,
-        context: context,
-      ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : hasError
-              ? Center(
-                  child: Text(errorMessage),
-                )
-              : ListView(
+    if (isLoading) {
+      return Scaffold(
+        backgroundColor: AppColors.bgLight,
+        appBar: CustomAppBar(
+          titleText: title,
+          context: context,
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else {
+      ShoppingBasket shoppingBasket = Provider.of<ShoppingBasket>(context);
+      Order? order;
+      int index = shoppingBasket.getOrderIndex(butchery, charity);
+      if (index >= 0) order = shoppingBasket.orders[index];
+      return Scaffold(
+        backgroundColor: AppColors.bgLight,
+        appBar: CustomAppBar(
+          titleText: title,
+          context: context,
+        ),
+        body: hasError
+            ? Center(
+                child: Text(errorMessage),
+              )
+            : SingleChildScrollView(
+                child: Column(
                   children: [
                     if (butchery.image != null) ...[
                       Image(
@@ -104,9 +119,19 @@ class _ButcherPageState extends State<ButcheryPage> {
                         );
                       },
                       tileColor: AppColors.white,
-                      title: Text(
-                        butchery.name,
-                        style: AppTheme.blue600_16,
+                      trailing: SvgPicture.asset(
+                        'assets/svg/chevron-right-grey.svg',
+                        width: 24,
+                      ),
+                      title: Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              butchery.name,
+                              style: AppTheme.blue600_16,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
 
@@ -125,12 +150,13 @@ class _ButcherPageState extends State<ButcheryPage> {
                               style: AppTheme.blue600_16,
                             ),
                             children: List.generate(
-                                category.menuItems.length,
-                                (j) => MenuItemTile(
-                                      menuItem: category.menuItems[j],
-                                      butchery: butchery,
-                                      charity: charity,
-                                    )),
+                              category.menuItems.length,
+                              (j) => MenuItemTile(
+                                menuItem: category.menuItems[j],
+                                butchery: butchery,
+                                charity: charity,
+                              ),
+                            ),
                           );
                         },
                       ),
@@ -138,6 +164,100 @@ class _ButcherPageState extends State<ButcheryPage> {
                     const SizedBox(height: 16),
                   ],
                 ),
+              ),
+        bottomNavigationBar: order == null
+            ? null
+            : Container(
+                height: 180,
+                color: AppColors.white,
+                padding: const EdgeInsets.symmetric(
+                    vertical: 24.0, horizontal: 16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Общий вес заказа:",
+                          style: AppTheme.black500_14,
+                        ),
+                        Text(
+                          "${order.calculateWeight()} кг",
+                          style: AppTheme.black500_14,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Общая сумма:",
+                          style: AppTheme.blue500_16,
+                        ),
+                        Text(
+                          "${order.calculatePrice()} ₸",
+                          style: AppTheme.red600_16,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16.0),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              pushWithoutNavBar(
+                                context,
+                                CustomPageTransition(
+                                  child: OrderConfirmPage(order: order!),
+                                ),
+                              );
+                            },
+                            style: const ButtonStyle(
+                              padding:
+                                  WidgetStatePropertyAll(EdgeInsets.all(12)),
+                              alignment: Alignment.center,
+                              backgroundColor:
+                                  WidgetStatePropertyAll(AppColors.mainBlue),
+                            ),
+                            child: const Text(
+                              'Купить',
+                              style: AppTheme.white600_16,
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+      );
+    }
+  }
+}
+
+class CustomPageTransition extends MaterialPageRoute {
+  CustomPageTransition({required Widget child})
+      : super(builder: (BuildContext context) => child);
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 200);
+
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    var begin = const Offset(0.0, 1.0);
+    var end = Offset.zero;
+    var tween = Tween(begin: begin, end: end);
+    var offsetAnimation = animation.drive(tween);
+    return SlideTransition(
+      position: offsetAnimation,
+      child: child,
     );
   }
 }

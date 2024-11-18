@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
-
-import 'package:hiba/core_library.dart' show WebSocketService;
+part of 'chat_library.dart';
 
 class SupportChatPage extends StatefulWidget {
   static const routeName = '/support-chat';
@@ -100,6 +93,8 @@ class _SupportChatPageState extends State<SupportChatPage> {
       } else {
         ChatMessage cm =
             ChatMessage(content: message, senderType: 'CLIENT', chat: _chatId!);
+        _webSocketService.activate();
+
         _webSocketService.sendMessage(cm.toString());
       }
     }
@@ -118,13 +113,12 @@ class _SupportChatPageState extends State<SupportChatPage> {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: ListView.separated(
                   reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
-                    var message = messages[index];
-                    return ChatMessageBubble(message: message);
+                    return ChatMessageBubble(message: messages[index]);
                   },
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 12),
@@ -192,58 +186,57 @@ class _SupportChatPageState extends State<SupportChatPage> {
 
 class ChatMessageBubble extends StatelessWidget {
   final ChatMessage message;
-  const ChatMessageBubble({super.key, required this.message});
+  bool isSentMessage = false;
+  ChatMessageBubble({super.key, required this.message}) {
+    isSentMessage = message.senderType == 'CLIENT';
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool isSentMessage = message.senderType == 'CLIENT';
-
-    return Row(
-      mainAxisAlignment:
-          isSentMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.fromLTRB(
-                isSentMessage ? 64 : 0, 0, isSentMessage ? 0 : 64, 0),
-            decoration: BoxDecoration(
-              color: isSentMessage ? AppColors.bgLight : AppColors.mainBlue,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(8),
-                topRight: const Radius.circular(8),
-                bottomLeft:
-                    isSentMessage ? const Radius.circular(8) : Radius.zero,
-                bottomRight:
-                    isSentMessage ? Radius.zero : const Radius.circular(8),
-              ),
-            ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 4,
-              horizontal: 8,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  message.content,
-                  style: isSentMessage
-                      ? AppTheme.black500_14
-                      : AppTheme.white500_14,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      message.timestamp ?? '',
-                      style: AppTheme.darkGrey500_11,
-                    ),
-                  ],
-                )
-              ],
-            ),
+    return Align(
+      alignment: isSentMessage ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: EdgeInsets.fromLTRB(
+            isSentMessage ? 64 : 0, 0, isSentMessage ? 0 : 64, 0),
+        decoration: BoxDecoration(
+          color: isSentMessage ? AppColors.bgLight : AppColors.mainBlue,
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(8),
+            topRight: const Radius.circular(8),
+            bottomLeft: isSentMessage ? const Radius.circular(8) : Radius.zero,
+            bottomRight: isSentMessage ? Radius.zero : const Radius.circular(8),
           ),
         ),
-      ],
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        padding: const EdgeInsets.symmetric(
+          vertical: 4,
+          horizontal: 8,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              message.content,
+              textAlign: isSentMessage ? TextAlign.end : TextAlign.start,
+              style:
+                  isSentMessage ? AppTheme.black500_14 : AppTheme.white500_14,
+            ),
+            const SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  dateToTimeString(message.timestamp),
+                  style: AppTheme.darkGrey500_11,
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

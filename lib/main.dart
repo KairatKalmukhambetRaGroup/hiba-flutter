@@ -1,4 +1,19 @@
-part of 'core_library.dart';
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hiba/core_library.dart';
+import 'package:hiba/pages/splash_page.dart';
+import 'package:hiba/pages/chat/chat_library.dart';
+import 'package:hiba/providers/providers_library.dart';
+import 'package:hiba/utils/api/api_library.dart';
+import 'package:hiba/utils/utils_library.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -87,7 +87,11 @@ class _AddressesPageState extends State<AddressesPage> {
                   )
                 : ListView.separated(
                     itemBuilder: (context, index) {
-                      return AddressTile(address: _addresses[index]);
+                      return AddressTile(
+                          address: _addresses[index],
+                          onNavigate: () {
+                            refresh();
+                          });
                     },
                     itemCount: _addresses.length,
                     separatorBuilder: (context, index) =>

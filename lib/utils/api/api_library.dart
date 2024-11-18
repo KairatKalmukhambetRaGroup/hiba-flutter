@@ -13,7 +13,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import 'package:hiba/pages/support_chat_page.dart';
+import 'package:hiba/pages/chat/chat_library.dart';
 
 import 'package:hiba/entities/entities_library.dart';
 
@@ -25,3 +25,4 @@ part 'firebase_api.dart';
 part 'location.dart';
 part 'orders.dart';
 part 'promotion.dart';
+part 'category.dart';

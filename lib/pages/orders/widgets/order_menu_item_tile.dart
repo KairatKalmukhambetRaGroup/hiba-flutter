@@ -31,9 +31,11 @@ class OrderMenuItemTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      menuItem.name,
-                      style: AppTheme.black500_14,
+                    Flexible(
+                      child: Text(
+                        menuItem.name,
+                        style: AppTheme.black500_14,
+                      ),
                     ),
                     Text(
                       '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',

@@ -7,11 +7,12 @@ import 'package:hiba/pages/butchery/butchery_library.dart' show MenuItemPage;
 import 'package:hiba/providers/providers_library.dart';
 
 import 'package:hiba/core_library.dart' show AppColors, AppTheme;
+import 'package:hiba/utils/api/api_library.dart';
 
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
-class MenuItemTile extends StatelessWidget {
+class MenuItemTile extends StatefulWidget {
   final MenuItem menuItem;
   final Butchery butchery;
   final bool charity;
@@ -22,14 +23,39 @@ class MenuItemTile extends StatelessWidget {
       required this.charity});
 
   @override
+  State<MenuItemTile> createState() => _MenuItemTileState();
+}
+
+class _MenuItemTileState extends State<MenuItemTile> {
+  Category? category;
+
+  @override
+  void initState() {
+    super.initState();
+    print(widget.menuItem.categoryId);
+    fetchCategory(widget.menuItem.categoryId);
+  }
+
+  fetchCategory(int id) async {
+    try {
+      Category? data = await getCategoryById(id);
+      print(data);
+      setState(() {
+        category = data;
+      });
+    } catch (e) {}
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<ShoppingBasket>(builder: (context, shoppingBasket, child) {
-      MenuItem basketItem = menuItem;
-      final orderIndex = shoppingBasket.getOrderIndex(butchery, charity);
+      MenuItem basketItem = widget.menuItem;
+      final orderIndex =
+          shoppingBasket.getOrderIndex(widget.butchery, widget.charity);
       if (orderIndex != -1) {
         basketItem = shoppingBasket.orders[orderIndex].items.firstWhere(
-            (item) => item.id == menuItem.id,
-            orElse: () => menuItem);
+            (item) => item.id == widget.menuItem.id,
+            orElse: () => widget.menuItem);
       }
       return Dismissible(
         key: UniqueKey(),
@@ -38,7 +64,8 @@ class MenuItemTile extends StatelessWidget {
             : DismissDirection.none,
         onDismissed: (direction) {
           if (direction == DismissDirection.endToStart) {
-            shoppingBasket.deleteFromBasket(basketItem.id, butchery, charity);
+            shoppingBasket.deleteFromBasket(
+                basketItem.id, widget.butchery, widget.charity);
           } else {
             return;
           }
@@ -63,9 +90,10 @@ class MenuItemTile extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => MenuItemPage(
-                  menuItem: menuItem,
-                  butchery: butchery,
-                  charity: charity,
+                  menuItem: widget.menuItem,
+                  butchery: widget.butchery,
+                  charity: widget.charity,
+                  category: category,
                 ),
               ),
             );
@@ -75,9 +103,9 @@ class MenuItemTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if (menuItem.image != null) ...[
+              if (widget.menuItem.image != null) ...[
                 Image(
-                  image: MemoryImage(base64Decode(menuItem.image!)),
+                  image: MemoryImage(base64Decode(widget.menuItem.image!)),
                   height: 56,
                   width: 80,
                   fit: BoxFit.contain,
@@ -99,21 +127,24 @@ class MenuItemTile extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          menuItem.name,
-                          style: AppTheme.black500_14,
+                        Flexible(
+                          child: Text(
+                            widget.menuItem.name,
+                            style: AppTheme.black500_14,
+                          ),
                         ),
                         Text(
-                          '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
+                          '${widget.menuItem.price} ₸/${widget.menuItem.isWholeAnimal ? 'гл' : 'кг'}',
                           style: AppTheme.blue700_14,
                         ),
                       ],
                     ),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Реберная часть',
-                      style: AppTheme.darkGrey500_11,
-                    ),
+                    if (category != null)
+                      Text(
+                        category!.name,
+                        style: AppTheme.darkGrey500_11,
+                      ),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -123,10 +154,10 @@ class MenuItemTile extends StatelessWidget {
                                 onPressed: () {
                                   if (orderIndex != -1) {
                                     shoppingBasket.addItemByOrderIndex(
-                                        menuItem, orderIndex);
+                                        widget.menuItem, orderIndex);
                                   } else {
-                                    shoppingBasket.addItem(
-                                        menuItem, butchery, charity);
+                                    shoppingBasket.addItem(widget.menuItem,
+                                        widget.butchery, widget.charity);
                                   }
                                 },
                                 style: const ButtonStyle(
@@ -146,7 +177,9 @@ class MenuItemTile extends StatelessWidget {
                                   IconButton(
                                     onPressed: () {
                                       shoppingBasket.removeItem(
-                                          menuItem.id, butchery, charity);
+                                          widget.menuItem.id,
+                                          widget.butchery,
+                                          widget.charity);
                                     },
                                     icon: basketItem.quantity == 1
                                         ? SvgPicture.asset(
@@ -162,7 +195,7 @@ class MenuItemTile extends StatelessWidget {
                                   SizedBox(
                                     width: 76,
                                     child: Text(
-                                      menuItem.isWholeAnimal
+                                      widget.menuItem.isWholeAnimal
                                           ? '${basketItem.quantity} гл'
                                           : '${basketItem.quantity} кг',
                                       style: AppTheme.black500_14,
@@ -173,10 +206,10 @@ class MenuItemTile extends StatelessWidget {
                                     onPressed: () {
                                       if (orderIndex != -1) {
                                         shoppingBasket.addItemByOrderIndex(
-                                            menuItem, orderIndex);
+                                            widget.menuItem, orderIndex);
                                       } else {
-                                        shoppingBasket.addItem(
-                                            menuItem, butchery, charity);
+                                        shoppingBasket.addItem(widget.menuItem,
+                                            widget.butchery, widget.charity);
                                       }
                                     },
                                     icon: SvgPicture.asset(

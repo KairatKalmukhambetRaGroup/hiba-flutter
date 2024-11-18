@@ -27,13 +27,14 @@ class ClientNavbar extends StatelessWidget {
             title: "Главная",
           ),
         ),
-        PersistentTabConfig(
-          screen: const HomePage(),
-          item: ItemConfig(
-            icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
-            title: "Блог",
-          ),
-        ),
+        // TODO: Block page
+        // PersistentTabConfig(
+        //   screen: const HomePage(),
+        //   item: ItemConfig(
+        //     icon: SvgPicture.asset('assets/svg/charity.svg', width: 24),
+        //     title: "Блог",
+        //   ),
+        // ),
         PersistentTabConfig(
           screen: const BasketPage(),
           item: ItemConfig(

@@ -16,7 +16,8 @@ part of '../addresses_library.dart';
 class AddressTile extends StatelessWidget {
   ///  The [Address] object to be displayed within the tile.
   final Address address;
-  const AddressTile({super.key, required this.address});
+  final Function() onNavigate;
+  AddressTile({super.key, required this.address, required this.onNavigate});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class AddressTile extends StatelessWidget {
           width: 24,
         ),
         onPressed: () {
-          Navigator.push(
+          pushWithoutNavBar(
             context,
             MaterialPageRoute(
               fullscreenDialog: true,
@@ -57,7 +58,11 @@ class AddressTile extends StatelessWidget {
                 editAddress: address,
               ),
             ),
-          );
+          ).then((value) {
+            if (value == true) {
+              onNavigate();
+            }
+          });
         },
       ),
     );

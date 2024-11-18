@@ -24,7 +24,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   int _countdown = 60;
   String _phone = '';
 
-  late Timer countdownTimer;
+  Timer countdownTimer = Timer.periodic(Duration.zero, (timer) {});
 
   void controllerListener() {
     final code = codeController.text;

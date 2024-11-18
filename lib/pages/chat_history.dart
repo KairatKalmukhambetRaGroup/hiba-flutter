@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_app_bar.dart';
 import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/support_chat_page.dart';
+import 'package:hiba/pages/chat/chat_library.dart';
 import 'package:hiba/utils/api/api_library.dart';
 import 'package:hiba/core_library.dart' show AppColors;
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class ChatHistory extends StatefulWidget {
   static const routeName = '/chat-history';
@@ -53,24 +51,8 @@ class _ChatHistoryState extends State<ChatHistory> {
             : _chats.isEmpty
                 ? const Center(child: Text(''))
                 : ListView.separated(
-                    itemBuilder: (context, index) => ListTile(
-                      tileColor: AppColors.white,
-                      title: Text(_chats[index].chatStatus),
-                      subtitle: Text(
-                          '${_chats[index].support == null ? 'Hiba' : _chats[index].support!.name} - ${_chats[index].createdAt ?? ''}'),
-                      trailing: SvgPicture.asset(
-                        'assets/svg/chevron-right-grey.svg',
-                        width: 24,
-                      ),
-                      onTap: () {
-                        pushWithoutNavBar(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SupportChatPage(
-                                      chatId: _chats[index].id.toString(),
-                                    )));
-                      },
-                    ),
+                    itemBuilder: (context, index) =>
+                        ChatTile(chat: _chats[index]),
                     itemCount: _chats.length,
                     separatorBuilder: (context, index) =>
                         const Divider(height: 1, color: AppColors.grey),

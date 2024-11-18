@@ -22,7 +22,7 @@ class OrderPage extends StatelessWidget {
             ),
             // ignore: prefer_const_constructors
             subtitle: Text(
-              'data',
+              dateToDayAndMonth(order.deliveryDate),
               style: AppTheme.darkGrey500_14,
             ),
           ),

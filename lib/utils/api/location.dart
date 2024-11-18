@@ -28,6 +28,19 @@ Future<int> addAddress(Address address) async {
   }
 }
 
+Future<void> deleteAddress(int addressId) async {
+  String apiUrl = '${dotenv.get('API_URL')}/address/$addressId';
+
+  final String? authToken = await AuthState.getAuthToken();
+  await http.delete(
+    Uri.parse(apiUrl),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $authToken',
+    },
+  );
+}
+
 /// Call API to edit [Address].
 Future<int> editAddress(Address address) async {
   String apiUrl = '${dotenv.get('API_URL')}/address';

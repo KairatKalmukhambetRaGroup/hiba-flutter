@@ -68,6 +68,42 @@ Future<List<HibaChat>?> getChatHistory() async {
   }
 }
 
+/// Fetch list of active [HibaChat] entities from API.
+Future<List<HibaChat>?> getActiveChats() async {
+  String apiUrl = '${dotenv.get('API_URL')}/chats/active';
+
+  try {
+    final String? authToken = await AuthState.getAuthToken();
+    if (authToken == null) {
+      // Token is not available, handle accordingly
+      return null;
+    }
+
+    final http.Response response = await http.get(
+      Uri.parse(apiUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $authToken',
+      },
+    );
+    if (response.statusCode == 200) {
+      final decodedBody = utf8.decode(response.bodyBytes);
+      final responseData =
+          List<Map<String, dynamic>>.from(json.decode(decodedBody));
+
+      List<HibaChat> list = [];
+      for (var el in responseData) {
+        HibaChat chat = HibaChat.fromJson(el);
+        list.add(chat);
+      }
+      return list;
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
 /// Fetch list of [Order] entities from API for using in [SupportChatPage] screen.
 Future<List<Order>?> getOrdersForChat() async {
   String apiUrl = '${dotenv.get('API_URL')}/chats/orders';

@@ -99,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 onTap: () {
-                  pushWithoutNavBar(
+                  pushWithNavBar(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const OrdersPage()));

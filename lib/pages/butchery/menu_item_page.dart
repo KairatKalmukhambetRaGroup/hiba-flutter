@@ -4,12 +4,13 @@ class MenuItemPage extends StatelessWidget {
   final MenuItem menuItem;
   final Butchery butchery;
   final bool charity;
-  const MenuItemPage({
-    super.key,
-    required this.menuItem,
-    required this.butchery,
-    required this.charity,
-  });
+  final Category? category;
+  const MenuItemPage(
+      {super.key,
+      required this.menuItem,
+      required this.butchery,
+      required this.charity,
+      this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +57,11 @@ class MenuItemPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              menuItem.name,
-                              style: AppTheme.blue700_16,
+                            Flexible(
+                              child: Text(
+                                menuItem.name,
+                                style: AppTheme.blue700_16,
+                              ),
                             ),
                             Text(
                               '${menuItem.price} ₸/${menuItem.isWholeAnimal ? 'гл' : 'кг'}',
@@ -66,12 +69,22 @@ class MenuItemPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
-                        // ignore: prefer_const_constructors
-                        Text(
-                          '',
-                          style: AppTheme.darkGrey500_11,
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Вид',
+                              style: AppTheme.darkGrey500_11,
+                            ),
+                            if (category != null)
+                              Text(
+                                category!.name,
+                                style: AppTheme.darkGrey500_11,
+                              ),
+                          ],
                         ),
+                        const SizedBox(height: 16),
                         if (menuItem.description.isNotEmpty)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,20 +102,6 @@ class MenuItemPage extends StatelessWidget {
                               )
                             ],
                           ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Вид',
-                              style: AppTheme.darkGrey500_11,
-                            ),
-                            Text(
-                              menuItem.categoryId.toString(),
-                              style: AppTheme.black500_11,
-                            )
-                          ],
-                        ),
                       ],
                     ),
                   ),
