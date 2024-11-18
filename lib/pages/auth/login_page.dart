@@ -1,15 +1,34 @@
 /// lib/pages/auth/auth_library.dart
 part of 'auth_library.dart';
 
+/// A page for logging in to the application.
+///
+/// The [LoginPage] allows users to log in using their phone number or external
+/// providers such as Google or Apple. It includes validation for input and options for account recovery.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const LoginPage(),
+///   ),
+/// );
+/// ```
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
+
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
+/// The state class for [LoginPage].
+///
+/// Manages user input, validation, and external login providers like Google and Apple.
 class _LoginPageState extends State<LoginPage> {
+  /// The provider for Google Sign-In functionality.
   final GoogleSignInProvider googleSignInProvider = GoogleSignInProvider();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -20,18 +39,25 @@ class _LoginPageState extends State<LoginPage> {
 
   late final TextEditingController phoneNumberController;
   late final TextEditingController passwordController;
+
+  /// The initial country code for the phone number input.
   String initialCountry = 'KZ';
+
+  /// The phone number entered by the user.
   PhoneNumber phoneNumber = PhoneNumber(isoCode: 'KZ');
 
+  /// Initializes the controllers for the input fields.
   Future<void> initializeControllers() async {
     phoneNumberController = TextEditingController()
       ..addListener(controllerListener);
   }
 
+  /// Disposes of the controllers to free resources.
   void disposeControllers() {
     phoneNumberController.dispose();
   }
 
+  /// Validates the phone number input and updates the notifier for the field's validity.
   void controllerListener() {
     final phoneNumber = phoneNumberController.text;
 

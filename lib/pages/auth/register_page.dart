@@ -1,26 +1,47 @@
-/// lib/pages/auth/auth_library.dart
 part of 'auth_library.dart';
 
+/// A page for registering a new user account.
+///
+/// The [RegisterPage] allows users to create a new account by providing their
+/// username, phone number, and password. It includes form validation and
+/// feedback for user input.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const RegisterPage(),
+///   ),
+/// );
+/// ```
 class RegisterPage extends StatefulWidget {
-  static const routeName = '/register';
+  /// Creates a [RegisterPage].
   const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
+/// The state class for [RegisterPage].
+///
+/// Manages user input validation, visibility toggles for password fields, and
+/// interaction with the authentication flow.
 class _RegisterPageState extends State<RegisterPage> {
+  /// A key for the form widget to manage its state.
   final _formKey = GlobalKey<FormState>();
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
+  /// Controllers for managing form input fields.
   late final TextEditingController usernameController;
   late final TextEditingController phoneNumberController;
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
 
+  /// Initializes controllers for form input fields.
   void initializeControllers() {
     usernameController = TextEditingController()
       ..addListener(controllerListener);
@@ -32,6 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ..addListener(controllerListener);
   }
 
+  /// Disposes controllers to release resources.
   void disposeControllers() {
     usernameController.dispose();
     phoneNumberController.dispose();
@@ -39,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
     confirmPasswordController.dispose();
   }
 
+  /// Listens for changes in form fields and validates them.
   void controllerListener() {
     final username = usernameController.text;
     final phoneNumber = phoneNumberController.text;
@@ -71,6 +94,9 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
+  /// Handles form submission by registering the user.
+  ///
+  /// - [authState]: The [AuthState] instance for managing authentication.
   Future<void> handleSubmit(AuthState authState) async {
     int status = await authState.registerUser(
       usernameController.text,

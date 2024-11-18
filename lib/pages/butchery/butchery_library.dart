@@ -1,3 +1,7 @@
+///{@category Butchery}
+/// The `butcheries` library provides functionality and UI components
+/// related to butcheries, including their details, categories, menu items,
+/// and shopping basket interactions.
 library butcheries;
 
 import 'dart:convert';

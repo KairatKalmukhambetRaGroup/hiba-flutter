@@ -2,15 +2,37 @@
 /// lib/pages/auth/auth_library.dart
 part of 'auth_library.dart';
 
+/// A page for verifying a user's phone number via a confirmation code.
+///
+/// The [CodeVerificationPage] is used during the login or registration process to
+/// verify the phone number provided by the user. Users receive a confirmation code via
+/// Telegram and enter it on this page for validation.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const CodeVerificationPage(phone: "+1234567890"),
+///   ),
+/// );
+/// ```
 class CodeVerificationPage extends StatefulWidget {
-  static const routeName = '/code-verification';
-  const CodeVerificationPage({super.key, this.phone});
+  /// The phone number for which the confirmation code is being verified.
   final String? phone;
+
+  /// Creates a [CodeVerificationPage].
+  ///
+  /// - [phone]: The phone number to verify.
+  const CodeVerificationPage({super.key, this.phone});
 
   @override
   State<StatefulWidget> createState() => _CodeVerificationPageState();
 }
 
+/// The state class for [CodeVerificationPage].
+///
+/// Manages code entry, countdown timers, and interaction with the authentication flow.
 class _CodeVerificationPageState extends State<CodeVerificationPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -18,14 +40,22 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
 
   late final TextEditingController codeController;
 
+  /// Tracks whether the confirmation code has been sent.
   bool _codeSend = false;
+
+  /// Tracks whether the user can request the code again.
   bool _sendCodeAgain = false;
 
+  /// Countdown for the resend timer.
   int _countdown = 60;
+
+  /// The phone number being verified.
   String _phone = '';
 
+  /// Timer for the countdown.
   Timer countdownTimer = Timer.periodic(Duration.zero, (timer) {});
 
+  /// Validates the code input and updates the notifier.
   void controllerListener() {
     final code = codeController.text;
 
@@ -38,6 +68,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
     }
   }
 
+  /// Disposes of controllers and other resources.
   void disposeControllers() {
     codeController.dispose();
   }
@@ -49,6 +80,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
     initPhone();
   }
 
+  /// Initializes the phone number from the widget's property.
   initPhone() async {
     if (widget.phone != null) {
       setState(() {
@@ -83,6 +115,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
     }
   }
 
+  /// Starts a countdown timer for requesting the code again.
   void _startCountdown() {
     const oneSecond = Duration(seconds: 1);
     Timer tm = Timer.periodic(oneSecond, (timer) {
@@ -102,6 +135,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
     });
   }
 
+  /// Formats the countdown timer to display as minutes and seconds.
   String formatTime(int seconds) {
     int minutes = seconds ~/ 60;
     int remainingSeconds = seconds % 60;

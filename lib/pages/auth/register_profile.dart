@@ -2,18 +2,38 @@
 /// lib/pages/auth/auth_library.dart
 part of 'auth_library.dart';
 
+/// A page for completing user registration by providing a profile picture and username.
+///
+/// The [RegisterProfile] allows users to set up their profile with a phone number,
+/// username, and an optional avatar image during registration.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => RegisterProfile(phone: '+123456789'),
+///   ),
+/// );
+/// ```
 class RegisterProfile extends StatefulWidget {
-  static const routeName = '/register-profile';
-  const RegisterProfile({super.key, required this.phone});
-
-  /// Phone number to register new [User]
+  /// The phone number used for registration.
   final String phone;
+
+  /// Creates a [RegisterProfile] page.
+  ///
+  /// - [phone]: The phone number to associate with the new user.
+  const RegisterProfile({super.key, required this.phone});
 
   @override
   State<StatefulWidget> createState() => _RegisterProfileState();
 }
 
+/// The state class for [RegisterProfile].
+///
+/// Manages user input, avatar selection, and interaction with the registration flow.
 class _RegisterProfileState extends State<RegisterProfile> {
+  /// A key for managing the scaffold state.
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // ignore: unused_field
@@ -21,11 +41,16 @@ class _RegisterProfileState extends State<RegisterProfile> {
   // ignore: unused_field
   late PermissionStatus _galleryPermissionStatus;
 
+  /// Controller for the username text field.
   final TextEditingController _usernameController = TextEditingController();
 
+  /// The selected image file for the user's avatar.
   File? _imageFile;
+
+  /// Image picker instance for selecting avatar images.
   final picker = ImagePicker();
 
+  /// The phone number associated with the user.
   String _phone = '';
 
   void _initPhone() async {
@@ -47,6 +72,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
     super.dispose();
   }
 
+  /// Checks for camera and gallery permissions.
   Future<void> _checkPermissions() async {
     final cameraPermissionStatus = await Permission.camera.status;
     final galleryPermissionStatus = await Permission.photos.status;
@@ -68,6 +94,8 @@ class _RegisterProfileState extends State<RegisterProfile> {
     });
   }
 
+  /// Fetches an image from the specified source (camera or gallery).
+
   Future getImage(ImageSource source) async {
     final pickedFile = await picker.pickImage(source: source);
 
@@ -78,6 +106,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
     }
   }
 
+  /// Shows the image picker options (camera or gallery) in a modal bottom sheet.
   void _showImagePicker() {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,

@@ -1,6 +1,22 @@
 /// lib/pages/auth/auth_library.dart
 part of 'auth_library.dart';
 
+/// A page for couriers to log in and switch between courier and client interfaces.
+///
+/// The [CourierLogin] page is accessible only to users registered as couriers
+/// through the admin panel. It allows couriers to:
+/// - Switch to the client UI for shopping.
+/// - Remain in the courier UI for deliveries.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const CourierLogin(),
+///   ),
+/// );
+/// ```
 class CourierLogin extends StatelessWidget {
   const CourierLogin({super.key});
 
