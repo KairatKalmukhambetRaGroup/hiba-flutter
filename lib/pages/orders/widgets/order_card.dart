@@ -1,8 +1,30 @@
 part of '../order_library.dart';
 
+/// A card widget that displays a summary of an order.
+///
+/// The [OrderCard] presents key information about an [Order], including:
+/// - Order status
+/// - Images of ordered items
+/// - Order number
+/// - Total price
+/// - Delivery address (if available)
+///
+/// It also provides a button to navigate to the detailed [OrderPage].
+///
+/// ### Example Usage
+/// ```dart
+/// OrderCard(
+///   order: myOrder,
+/// );
+/// ```
 class OrderCard extends StatelessWidget {
-  const OrderCard({super.key, required this.order});
+  /// The order to display.
   final Order order;
+
+  /// Creates an [OrderCard] widget.
+  ///
+  /// - [order]: The [Order] object containing the details to display.
+  const OrderCard({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,31 @@
 part of '../order_library.dart';
 
+/// A widget that displays the user's active orders in a carousel slider.
+///
+/// The [ActiveOrders] widget fetches the user's active orders and displays them
+/// in a carousel format. If there are no active orders, it shows an empty space.
+/// Users can tap on an order to navigate to its detailed [OrderPage].
+///
+/// ### Example Usage
+/// ```dart
+/// ActiveOrders();
+/// ```
 class ActiveOrders extends StatefulWidget {
+  /// Creates an [ActiveOrders] widget.
   const ActiveOrders({super.key});
 
   @override
   State<StatefulWidget> createState() => _ActiveOrdersState();
 }
 
+/// The state class for [ActiveOrders].
+///
+/// Manages fetching active orders, tracking the current carousel index, and handling state updates.
 class _ActiveOrdersState extends State<ActiveOrders> {
+  /// List of active orders fetched from the server
   List<Order> _orders = [];
 
+  /// The index of the currently displayed order in the carousel.
   int _current = 0;
 
   @override
@@ -23,6 +39,7 @@ class _ActiveOrdersState extends State<ActiveOrders> {
     super.dispose();
   }
 
+  /// Fetches the user's active orders and updates the state.
   Future<void> loadOrders() async {
     final data = await getMyActiveOrders();
     if (data != null) {

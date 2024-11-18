@@ -1,8 +1,27 @@
 part of 'order_library.dart';
 
+/// A page that displays detailed information about an order.
+///
+/// The [OrderPage] presents the order's status, delivery address (if available),
+/// items included in the order, and the pricing details such as product cost,
+/// delivery fee, donation amount, and total price.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => OrderPage(order: myOrder),
+///   ),
+/// );
+/// ```
+/// {@category Orders}
 class OrderPage extends StatelessWidget {
-  const OrderPage({super.key, required this.order});
+  /// The order to display.
   final Order order;
+
+  /// Creates an [OrderPage].
+  const OrderPage({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {

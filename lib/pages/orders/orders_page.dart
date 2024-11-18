@@ -1,14 +1,32 @@
 part of 'order_library.dart';
 
+/// A page that displays the user's past orders.
+///
+/// The [OrdersPage] fetches and displays a list of the user's previous orders.
+/// If there are no past orders, it shows a placeholder message indicating that no orders have been made.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => const OrdersPage(),
+///   ),
+/// );
+/// ```
+/// {@category Orders}
 class OrdersPage extends StatefulWidget {
-  static const routeName = '/orders';
   const OrdersPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _OrdersPageState();
 }
 
+/// The state class for [OrdersPage].
+///
+/// Manages fetching the user's orders and updating the UI accordingly.
 class _OrdersPageState extends State<OrdersPage> {
+  /// List of the user's orders.
   List<Order> _orders = [];
 
   @override
@@ -18,6 +36,7 @@ class _OrdersPageState extends State<OrdersPage> {
     loadOrders();
   }
 
+  /// Fetches the user's orders and updates the state.
   Future<void> loadOrders() async {
     final data = await getMyOrders();
     if (data != null) {

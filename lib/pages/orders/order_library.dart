@@ -1,4 +1,5 @@
-///{@category Order}
+///{@category Orders}
+/// The `order` library provides functionalities and UI components related to order management within the app.
 library order;
 
 import 'package:flutter/material.dart';

@@ -1,7 +1,32 @@
 part of '../order_library.dart';
 
+/// A widget that displays an individual menu item in an order.
+///
+/// The [OrderMenuItemTile] shows details about a menu item within an order,
+/// including:
+/// - Item image
+/// - Name
+/// - Price per unit
+/// - Quantity
+/// - Total price
+///
+/// ### Example Usage
+/// ```dart
+/// OrderMenuItemTile(
+///   menuItem: MenuItem(
+///     name: 'Lamb Meat',
+///     price: 5000,
+///     isWholeAnimal: false,
+///     quantity: 2,
+///     image: 'path/to/image.png',
+///   ),
+/// );
+/// ```
 class OrderMenuItemTile extends StatelessWidget {
+  /// The menu item to display.
   final MenuItem menuItem;
+
+  /// Creates an [OrderMenuItemTile] widget.
   const OrderMenuItemTile({
     super.key,
     required this.menuItem,

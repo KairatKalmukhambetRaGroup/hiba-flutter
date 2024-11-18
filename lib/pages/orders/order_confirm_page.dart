@@ -1,8 +1,33 @@
 part of 'order_library.dart';
 
+/// A page for confirming and submitting an order.
+///
+/// The [OrderConfirmPage] allows users to:
+/// - Review their order details.
+/// - Select delivery dates.
+/// - Choose delivery options like splitting the order into packages.
+/// - Add a donation amount to their order.
+/// - Provide recipient information.
+/// - Submit the order for processing.
+///
+/// It handles both charity and regular orders, adapting the available options accordingly.
+///
+/// ### Example Usage
+/// ```dart
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => OrderConfirmPage(order: myOrder),
+///   ),
+/// );
+/// ```
+/// {@category Orders}
 class OrderConfirmPage extends StatefulWidget {
-  const OrderConfirmPage({super.key, required this.order});
+  /// The order to be confirmed and submitted.
   final Order order;
+
+  /// Creates an [OrderConfirmPage].
+  const OrderConfirmPage({super.key, required this.order});
 
   @override
   State<StatefulWidget> createState() => _OrderConfirmPageState();
