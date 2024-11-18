@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the signInWithGoogle method from the GoogleSignInProvider class, for the Dart programming language.">
+  <title>signInWithGoogle method - GoogleSignInProvider class - google_sign_in_provider library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">hiba</a></li>
+    <li><a href="../../providers_google_sign_in_provider/providers_google_sign_in_provider-library.html">providers\google_sign_in_provider.dart</a></li>
+    <li><a href="../../providers_google_sign_in_provider/GoogleSignInProvider-class.html">GoogleSignInProvider</a></li>
+    <li class="self-crumb">signInWithGoogle method</li>
+  </ol>
+  <div class="self-name">signInWithGoogle</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="providers_google_sign_in_provider&#47;GoogleSignInProvider-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">signInWithGoogle</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>&gt;</span></span>
+<span class="name ">signInWithGoogle</span>(<wbr>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Signs in the user with Google and returns an ID token if successful.</p>
+<p>This method initiates the Google Sign-In flow, allowing the user to log in
+using their Google account. If the sign-in is successful, it retrieves the
+authentication details and returns the <code>idToken</code>, which can be sent to a backend
+server for validation. If the user cancels the sign-in, it returns <code>null</code>.</p>
+<p>Note:</p>
+<ul>
+<li>Uncommented code blocks allow Firebase authentication with Google credentials.</li>
+<li>Currently, only the <code>idToken</code> is returned, not a signed-in Firebase user.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li><code>String?</code>: The Google ID token, or <code>null</code> if sign-in was unsuccessful or canceled.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;String?&gt; signInWithGoogle() async {
+  try {
+    &#47;&#47; Trigger the Google authentication flow
+    final GoogleSignInAccount? googleSignInAccount =
+        await _googleSignIn.signIn();
+    if (googleSignInAccount == null) {
+      return null; &#47;&#47; User canceled the sign-in
+    }
+
+    &#47;&#47; Obtain the auth details from the request
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    &#47;&#47; Create new Cretedtial
+    &#47;&#47; final AuthCredential authCredential = GoogleAuthProvider.credential(
+    &#47;&#47;   accessToken: googleSignInAuthentication.accessToken,
+    &#47;&#47;   idToken: googleSignInAuthentication.idToken,
+    &#47;&#47; );
+
+    &#47;&#47; Sign in to Firebase with Google credential
+    &#47;&#47; final UserCredential userCredential =
+    &#47;&#47;     await _auth.signInWithCredential(authCredential);
+    &#47;&#47; return userCredential.user;
+
+    &#47;&#47; return token to be sent to backend
+    return googleSignInAuthentication.idToken;
+  } catch (e) {
+    print(&quot;Error signing in with Google: $e&quot;);
+    return null;
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">hiba</a></li>
+    <li><a href="../../providers_google_sign_in_provider/providers_google_sign_in_provider-library.html">google_sign_in_provider</a></li>
+    <li><a href="../../providers_google_sign_in_provider/GoogleSignInProvider-class.html">GoogleSignInProvider</a></li>
+    <li class="self-crumb">signInWithGoogle method</li>
+</ol>
+
+    <h5>GoogleSignInProvider class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    hiba
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
