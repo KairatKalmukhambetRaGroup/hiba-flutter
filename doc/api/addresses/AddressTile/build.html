@@ -141,7 +141,7 @@ Widget build(BuildContext context) {
         width: 24,
       ),
       onPressed: () {
-        Navigator.push(
+        pushWithoutNavBar(
           context,
           MaterialPageRoute(
             fullscreenDialog: true,
@@ -149,7 +149,11 @@ Widget build(BuildContext context) {
               editAddress: address,
             ),
           ),
-        );
+        ).then((value) {
+          if (value == true) {
+            onNavigate();
+          }
+        });
       },
     ),
   );

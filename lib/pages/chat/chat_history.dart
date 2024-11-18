@@ -1,14 +1,12 @@
-import 'dart:async';
+part of 'chat_library.dart';
 
-import 'package:flutter/material.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/chat/chat_library.dart';
-import 'package:hiba/utils/api/api_library.dart';
-import 'package:hiba/core_library.dart' show AppColors;
-
+/// A page that displays the chat history.
+///
+/// The [ChatHistory] widget fetches and displays a list of previous chats.
+/// If no chats are available, it shows an empty message. While the data is loading,
+/// a loading indicator is displayed.
 class ChatHistory extends StatefulWidget {
-  static const routeName = '/chat-history';
+  /// Constructor for [ChatHistory].
   const ChatHistory({super.key});
 
   @override
@@ -16,7 +14,10 @@ class ChatHistory extends StatefulWidget {
 }
 
 class _ChatHistoryState extends State<ChatHistory> {
+  /// List of chats fetched from the server.
   List<HibaChat> _chats = [];
+
+  /// Tracks whether the chat history is currently being loaded.
   bool isLoading = true;
 
   @override
@@ -25,6 +26,10 @@ class _ChatHistoryState extends State<ChatHistory> {
     fetchHistory();
   }
 
+  /// Fetches the chat history from the server.
+  ///
+  /// While fetching, the `isLoading` state is set to `true`.
+  /// Once the data is retrieved, it updates the `_chats` list and sets `isLoading` to `false`.
   Future<void> fetchHistory() async {
     setState(() {
       isLoading = true;
@@ -49,7 +54,8 @@ class _ChatHistoryState extends State<ChatHistory> {
         child: isLoading
             ? const Center(child: CircularProgressIndicator())
             : _chats.isEmpty
-                ? const Center(child: Text(''))
+                ? const Center(
+                    child: Text('')) // Displays nothing if no chats are found.
                 : ListView.separated(
                     itemBuilder: (context, index) =>
                         ChatTile(chat: _chats[index]),

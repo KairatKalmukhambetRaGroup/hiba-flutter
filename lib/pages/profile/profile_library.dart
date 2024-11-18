@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hiba/components/custom_scaffold.dart';
 import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/contact_us_page.dart';
+import 'package:hiba/pages/chat/chat_library.dart' show ContactUsPage;
 import 'package:hiba/pages/courier/courier_library.dart' show DeliveryHistory;
 import 'package:hiba/pages/addresses/addresses_library.dart' show AddressesPage;
 import 'package:hiba/pages/orders/order_library.dart' show OrdersPage;

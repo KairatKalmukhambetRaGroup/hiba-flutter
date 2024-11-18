@@ -1,16 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hiba/components/custom_app_bar.dart';
-import 'package:hiba/entities/entities_library.dart';
-import 'package:hiba/pages/chat/chat_library.dart';
-import 'package:hiba/pages/chat_history.dart';
-import 'package:hiba/core_library.dart' show AppColors, AppTheme;
-import 'package:hiba/utils/api/api_library.dart';
+part of 'chat_library.dart';
 
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
+/// A page allowing users to contact support or view recent chat history.
+///
+/// The [ContactUsPage] displays active chats, recent messages, and options to
+/// start a new support chat or view chat history.
 class ContactUsPage extends StatefulWidget {
-  static const routeName = '/contact-us';
+  /// Constructor for [ContactUsPage].
   const ContactUsPage({super.key});
 
   @override
@@ -18,6 +13,7 @@ class ContactUsPage extends StatefulWidget {
 }
 
 class _ContactUsPageState extends State<ContactUsPage> {
+  /// List of active chats fetched from the server.
   List<HibaChat> _chats = [];
 
   @override
@@ -26,6 +22,9 @@ class _ContactUsPageState extends State<ContactUsPage> {
     fetchActiveChats();
   }
 
+  /// Fetches the active chats from the server.
+  ///
+  /// Updates the `_chats` list with the data retrieved.
   Future<void> fetchActiveChats() async {
     try {
       final data = await getActiveChats();
@@ -53,6 +52,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 64),
+
+              /// Displays recent active chats or a placeholder image if none exist.
               _chats.isEmpty
                   ? Center(
                       child: SvgPicture.asset(
@@ -86,11 +87,15 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       ],
                     ),
               const SizedBox(height: 25),
+
+              /// Section to contact support.
               const Text(
                 'Связаться с поддержкой',
                 style: AppTheme.black600_16,
               ),
               const SizedBox(height: 16),
+
+              /// Button to start a new chat with support.
               TextButton(
                 onPressed: () {
                   pushWithoutNavBar(
@@ -109,6 +114,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
                 ),
               ),
               const SizedBox(height: 8),
+
+              /// Button to view chat history.
               TextButton(
                 onPressed: () {
                   pushWithNavBar(

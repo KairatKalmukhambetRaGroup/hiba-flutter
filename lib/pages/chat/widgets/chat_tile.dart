@@ -1,13 +1,29 @@
 part of '../chat_library.dart';
 
-/// Widget representing Tile with [HibaChat]'s data.
+/// Widget representing a tile with [HibaChat]'s data.
 ///
+/// Displays the chat's last message, sender information, and the time since the last message.
+/// Supports optional border styling and handles navigation to the chat page on tap.
 class ChatTile extends StatelessWidget {
+  /// The [HibaChat] instance containing chat data.
   final HibaChat chat;
+
+  /// Whether to display a border around the tile.
   final bool showBorder;
+
+  /// The last message in the chat.
   ChatMessage? lastMessage;
+
+  /// The sender of the last message.
   User? sender;
+
+  /// Indicates whether the sender of the last message is the client.
   bool senderIsClient = false;
+
+  /// Constructor for [ChatTile].
+  ///
+  /// - [chat]: The chat data to display.
+  /// - [showBorder]: Optional. Defaults to `false`.
   ChatTile({
     super.key,
     required this.chat,

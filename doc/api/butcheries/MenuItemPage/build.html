@@ -155,9 +155,11 @@ Widget build(BuildContext context) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            menuItem.name,
-                            style: AppTheme.blue700_16,
+                          Flexible(
+                            child: Text(
+                              menuItem.name,
+                              style: AppTheme.blue700_16,
+                            ),
                           ),
                           Text(
                             &#39;${menuItem.price} ₸&#47;${menuItem.isWholeAnimal ? &#39;гл&#39; : &#39;кг&#39;}&#39;,
@@ -165,12 +167,22 @@ Widget build(BuildContext context) {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      &#47;&#47; ignore: prefer_const_constructors
-                      Text(
-                        &#39;&#39;,
-                        style: AppTheme.darkGrey500_11,
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            &#39;Вид&#39;,
+                            style: AppTheme.darkGrey500_11,
+                          ),
+                          if (category != null)
+                            Text(
+                              category!.name,
+                              style: AppTheme.darkGrey500_11,
+                            ),
+                        ],
                       ),
+                      const SizedBox(height: 16),
                       if (menuItem.description.isNotEmpty)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,20 +200,6 @@ Widget build(BuildContext context) {
                             )
                           ],
                         ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            &#39;Вид&#39;,
-                            style: AppTheme.darkGrey500_11,
-                          ),
-                          Text(
-                            menuItem.categoryId.toString(),
-                            style: AppTheme.black500_11,
-                          )
-                        ],
-                      ),
                     ],
                   ),
                 ),

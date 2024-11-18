@@ -70,10 +70,12 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">factory ChatMessage.fromJson(Map&lt;String, dynamic&gt; json) =&gt; ChatMessage(
-    chat: json[&#39;chat&#39;].toString(),
-    content: json[&#39;content&#39;],
-    senderType: json[&#39;senderType&#39;],
-    messageStatus: json[&#39;messageStatus&#39;]);</code></pre>
+      chat: json[&#39;chat&#39;].toString(),
+      content: json[&#39;content&#39;],
+      senderType: json[&#39;senderType&#39;],
+      messageStatus: json[&#39;messageStatus&#39;],
+      timestamp: json[&#39;timestamp&#39;].toString(),
+    );</code></pre>
 </section>
 
 

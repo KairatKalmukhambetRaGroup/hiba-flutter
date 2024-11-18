@@ -61,6 +61,7 @@
 <li><span class="parameter" id="-param-menuItem"><span>required</span> <span class="type-annotation"><a href="../../entities/MenuItem-class.html">MenuItem</a></span> <span class="parameter-name">menuItem</span>, </span></li>
 <li><span class="parameter" id="-param-butchery"><span>required</span> <span class="type-annotation"><a href="../../entities/Butchery-class.html">Butchery</a></span> <span class="parameter-name">butchery</span>, </span></li>
 <li><span class="parameter" id="-param-charity"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">charity</span>, </span></li>
+<li><span class="parameter" id="-param-category"><span class="type-annotation"><a href="../../entities/Category-class.html">Category</a>?</span> <span class="parameter-name">category</span>, </span></li>
 </ol>})
     </section>
     
@@ -69,12 +70,12 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">const MenuItemPage({
-  super.key,
-  required this.menuItem,
-  required this.butchery,
-  required this.charity,
-});</code></pre>
+  <pre class="language-dart"><code class="language-dart">const MenuItemPage(
+    {super.key,
+    required this.menuItem,
+    required this.butchery,
+    required this.charity,
+    this.category});</code></pre>
 </section>
 
 

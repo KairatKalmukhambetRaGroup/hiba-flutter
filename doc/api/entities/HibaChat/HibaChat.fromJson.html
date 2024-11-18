@@ -78,6 +78,7 @@
     }
     if (c.containsKey(&#39;createdAt&#39;) &amp;&amp; c[&#39;createdAt&#39;] != null) {
       chat.createdAt = c[&quot;createdAt&quot;];
+      chat.createdAtDate = DateTime.parse(c[&#39;createdAt&#39;]);
     }
     if (c.containsKey(&#39;id&#39;) &amp;&amp; c[&#39;id&#39;] != null) {
       chat.id = c[&quot;id&quot;];
@@ -85,6 +86,10 @@
 
     if (json.containsKey(&#39;support&#39;) &amp;&amp; json[&#39;support&#39;] != null) {
       chat.support = User.fromJson(json[&#39;support&#39;]);
+    }
+
+    if (json.containsKey(&#39;lastMessage&#39;) &amp;&amp; json[&#39;lastMessage&#39;] != null) {
+      chat.lastMessage = ChatMessage.fromJson(json[&#39;lastMessage&#39;]);
     }
 
     return chat;
@@ -96,6 +101,7 @@
     }
     if (c.containsKey(&#39;createdAt&#39;) &amp;&amp; c[&#39;createdAt&#39;] != null) {
       chat.createdAt = c[&quot;createdAt&quot;];
+      chat.createdAtDate = DateTime.parse(c[&#39;createdAt&#39;]);
     }
     if (c.containsKey(&#39;id&#39;) &amp;&amp; c[&#39;id&#39;] != null) {
       chat.id = c[&quot;id&quot;];
